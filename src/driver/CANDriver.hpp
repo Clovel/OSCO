@@ -16,12 +16,6 @@
 #define CAN_MESSAGE_MAX_SIZE 8U
 
 /* Type definitions ------------------------------------ */
-typedef struct _canMessage {
-    uint32_t id;
-    uint8_t size;
-    uint8_t data[CAN_MESSAGE_MAX_SIZE];
-    uint8_t flags;
-} canMessage_t;
 
 namespace osco::driver {
 /* Driver class definition ----------------------------- */
@@ -34,10 +28,10 @@ namespace osco::driver {
             virtual ~CANDriver();
 
             /* Initialization */
-            oscoErrorCode_t init(const uint16_t pBitRate);
+            oscoErrorCode_t init(const uint16_t &pBitRate);
 
             /* Re-initialization */
-            oscoErrorCode_t reinit(const uint16_t pBitRate);
+            oscoErrorCode_t reinit(const uint16_t &pBitRate);
 
             /* Getters */
             uint8_t  id(void) const;
@@ -51,7 +45,10 @@ namespace osco::driver {
             oscoErrorCode_t disable(void);
 
             /* Send CAN message */
-            oscoErrorCode_t send(const uint32_t);
+            oscoErrorCode_t send(const uint32_t &pMsgID,
+                const uint8_t &pSize,
+                const uint8_t * const pData,
+                const uint32_t &pFlags = 0x00000000U);
 
         private:
             uint8_t mID;
@@ -59,7 +56,7 @@ namespace osco::driver {
             bool    mEnabled;
 
             uint16_t mBitRate;
-    }
+    };
 }
 
 #endif /* OSCO_DRIVER_CANDRIVER_HPP */
