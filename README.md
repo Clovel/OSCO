@@ -1,3 +1,3 @@
-# CANOpenStack
-Open source CANOpen stack by @Clovel
+# OSCO - Open Source CANOpen stack
+Open Source CANOpen stack by @Clovel
 
