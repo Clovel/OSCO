@@ -72,6 +72,10 @@ src_file_list*.txt
 # Prerequisites ---------------------------------
 *.d
 
-# Fortran module files
+# Fortran module files --------------------------
 *.mod
 *.smod
+
+# Local installation directory ------------------
+dest/
+image/
