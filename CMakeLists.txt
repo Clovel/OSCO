@@ -50,8 +50,6 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/dest CACHE PATH "" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-message(STATUS "Pkgconfig extra path are: $ENV{PKG_CONFIG_PATH} ")
-
 # Allow CTest
 enable_testing()
 
@@ -61,6 +59,17 @@ option(ENABLE_EXAMPLES "Enable Examples" 1)
 
 find_package(Doxygen)
 option(ENABLE_DOCS "Build API documentation" ${DOXYGEN_FOUND})
+
+#------------------------------------------------------------------------------
+# pkg-config dependencies
+#------------------------------------------------------------------------------
+
+set(ENV{PKG_CONFIG_PATH} "ENV{PKG_CONFIG_PATH}:${PKG_CONFIG_PATH}")
+message(STATUS "Pkgconfig extra path are: $ENV{PKG_CONFIG_PATH}")
+
+# TODO Set correct pkg-config setup
+include_directories(${CMAKE_SOURCE_DIR}/../can-ip/dest/include/)
+link_directories(${CMAKE_SOURCE_DIR}/../can-ip/dest/lib/)
 
 #------------------------------------------------------------------------------
 # Project version
