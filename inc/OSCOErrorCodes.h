@@ -21,7 +21,8 @@ typedef enum _oscoErrorCodes {
     OSCO_ERROR_ALREADY_INIT = 5,
     OSCO_ERROR_NOT_INIT     = 6,
     OSCO_ERROR_STOPPED      = 7,
-    OSCO_ERROR_DRIVER       = 8
+    OSCO_ERROR_DRIVER       = 8,
+    OSCO_ERROR_WARN         = 9
 } oscoErrorCode_t;
 
 #endif /* OSCO_ERRORCODES_H */
