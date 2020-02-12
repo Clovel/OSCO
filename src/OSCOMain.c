@@ -26,6 +26,6 @@
  */
 void placeHolder(void){
     /* Nothing to do, this is a placeholder */
-    oscoErrorCode_t lResult = OSCOCANDriverInit(0U, 1000000U);
+    oscoErrorCode_t lResult = OSCOCANDriverInit(0U);
     (void)lResult;
 }

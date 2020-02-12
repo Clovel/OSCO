@@ -32,13 +32,11 @@ oscoCANDriverInstance_t canDrivers[OSCO_MAX_CAN_DRIVERS];
 
 /* OSCO CAN Driver functions --------------------------- */
 /* Initialization */
-oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID, const uint16_t pBitRate) {
+oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> ID out of bounds !\n");
         return OSCO_ERROR_ARG;
     }
-
-    canDrivers[pID].bitRate = pBitRate;
 
     cipErrorCode_t lResult = CIP_createModule(pID);
     if(CAN_IP_ERROR_NONE != lResult) {
@@ -56,15 +54,13 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID, const uint16_t pBitRate) {
 }
 
 /* Re-initialization */
-oscoErrorCode_t OSCOCANDriverReinit(const uint8_t pID, const uint16_t pBitRate) {
+oscoErrorCode_t OSCOCANDriverReinit(const uint8_t pID) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverReinit> ID out of bounds !\n");
         return OSCO_ERROR_ARG;
     }
 
     /* TODO */
-
-    canDrivers[pID].bitRate = pBitRate;
 
     return OSCO_ERROR_NONE;
 }
@@ -87,7 +83,7 @@ uint8_t OSCOCANDriverID(const uint8_t pID, uint8_t * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
-uint16_t OSCOCANDriverBitRate(const uint8_t pID, uint16_t * const pOut) {
+uint16_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> ID out of bounds !\n");
         return OSCO_ERROR_ARG;
@@ -136,7 +132,7 @@ bool OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut) {
 }
 
 /* Setters */
-oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint16_t pBitRate) {
+oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint32_t pBitRate) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverSetBitRate> ID out of bounds !\n");
         return OSCO_ERROR_ARG;
