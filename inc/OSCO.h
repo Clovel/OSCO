@@ -15,6 +15,18 @@
 /* Type definitions ------------------------------------ */
 
 /* Initialization functions ---------------------------- */
+/**
+ * @brief Initialized the OSCO stack.
+ * 
+ * @details Initialized the following modules : 
+ *  - OSCOClock
+ *  - OSCOCANDriver
+ * 
+ * @param[in]   pID     ID of the CAN Driver uses (CAN Line)
+ *
+ * @return Error code
+ */
+oscoErrorCode_t OSCOInit(const uint8_t pID);
 
 /* Internal stack clock functions ---------------------- */
 /**
