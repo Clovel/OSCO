@@ -1,6 +1,9 @@
 /*
  * @brief Compile time configuration defines for OSCO
  * 
+ * @details These are compilation-time configuration parameters. 
+ * Change them to better fit your needs.
+ * 
  * @file osco_can_driver.h
  */
 
