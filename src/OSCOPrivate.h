@@ -15,7 +15,8 @@
 
 /* Type definitions ------------------------------------ */
 typedef struct _oscoPrivateVars {
-    uint8_t canDriverID;
+    bool initialized;       /**< Flag indicating if the stack is initialized */
+    uint8_t canDriverID;    /**< ID of the CAN driver used. Also the CAN line identifier */
 } oscoInstance_t;
 
 #endif /* OSCO_PRIVATE_H */
