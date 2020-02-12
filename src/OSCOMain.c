@@ -12,6 +12,7 @@
 #include "OSCOTypes.h"
 #include "OSCOPrint.h"
 #include "OSCOConfigDefines.h"
+#include "OSCO.h"
 
 /* Defines --------------------------------------------- */
 
