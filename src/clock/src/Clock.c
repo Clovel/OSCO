@@ -58,7 +58,7 @@ oscoErrorCode_t OSCOClockReinit(void) {
 /* Getters */
 oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut) {
     if(NULL == pOut) {
-        eprintf("[ERROR] OSCO <OSCOClockTick> Output ptr is NULL !\n");
+        eprintf("[ERROR] OSCO <OSCOClockGetTicks> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
