@@ -31,8 +31,11 @@ oscoCANDriverInstance_t clock;
 /* Initialization */
 oscoErrorCode_t OSCOClockInit(void) {
     clock.ticks = 0UL;
+    clock.resolution = 0U;
 
     /* TODO */
+
+    clock.initialized = true;
 
     return OSCO_ERROR_NONE;
 }
