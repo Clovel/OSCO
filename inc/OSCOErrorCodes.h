@@ -1,7 +1,7 @@
 /**
  * @brief OSCO error codes
  * 
- * @file OSCOErrorCodes.hpp
+ * @file OSCOErrorCodes.h
  */
 
 #ifndef OSCO_ERRORCODES_H
