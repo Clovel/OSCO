@@ -90,7 +90,7 @@ oscoErrorCode_t OSCOCANDriverIsInitialized(const uint8_t pID, bool * const pOut)
     }
 
     if(NULL == pOut) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
+        eprintf("[ERROR] OSCO <OSCOCANDriverIsInitialized> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
@@ -106,7 +106,7 @@ oscoErrorCode_t OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut) {
     }
 
     if(NULL == pOut) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
+        eprintf("[ERROR] OSCO <OSCOCANDriverIsEnabled> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
@@ -122,7 +122,7 @@ oscoErrorCode_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
     }
 
     if(NULL == pOut) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
+        eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
