@@ -1,7 +1,8 @@
 /*
- * @brief Interface between the CO stack and the CAN Driver
+ * @brief Private definition of the CANDriver module's
+ * internal variables. 
  * 
- * @file osco_can_driver.h
+ * @file CANDriverPrivate.h
  */
 
 #ifndef OSCO_CANDRIVERPRIVATE_H
