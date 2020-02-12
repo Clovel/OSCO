@@ -83,22 +83,6 @@ uint8_t OSCOCANDriverID(const uint8_t pID, uint8_t * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
-uint16_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
-    if(NULL == pOut) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
-        return OSCO_ERROR_ARG;
-    }
-
-    *pOut = canDrivers[pID].bitRate;
-
-    return OSCO_ERROR_NONE;
-}
-
 bool OSCOCANDriverIsInitialized(const uint8_t pID, bool * const pOut) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverIsInitialized> ID out of bounds !\n");
@@ -131,20 +115,23 @@ bool OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
-/* Setters */
-oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint32_t pBitRate) {
+uint16_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSetBitRate> ID out of bounds !\n");
+        eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> ID out of bounds !\n");
         return OSCO_ERROR_ARG;
     }
 
-    /* TODO */
+    if(NULL == pOut) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
+        return OSCO_ERROR_ARG;
+    }
 
-    canDrivers[pID].bitRate = pBitRate;
+    *pOut = canDrivers[pID].bitRate;
 
     return OSCO_ERROR_NONE;
 }
 
+/* Setters */
 oscoErrorCode_t OSCOCANDriverEnable(const uint8_t pID) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverEnable> ID out of bounds !\n");
@@ -167,6 +154,19 @@ oscoErrorCode_t OSCOCANDriverDisable(const uint8_t pID) {
     /* TODO */
 
     canDrivers[pID].enabled = false;
+
+    return OSCO_ERROR_NONE;
+}
+
+oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint32_t pBitRate) {
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverSetBitRate> ID out of bounds !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    /* TODO */
+
+    canDrivers[pID].bitRate = pBitRate;
 
     return OSCO_ERROR_NONE;
 }
