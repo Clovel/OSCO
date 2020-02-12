@@ -11,12 +11,13 @@
 #include <stdio.h>
 
 /* Defines --------------------------------------------- */
-#ifndef _WIN32
-#define eprintf(...) fprintf (stderr, ##__VA_ARGS__)
+#ifdef __APPLE__
+#define eprintf(...) fprintf (stderr, __VA_ARGS__)
 //under GCC
-#else /* _WIN32 */
+#endif /* _WIN32 */
+#if (_WIN32 || __linux__)
 #define eprintf(...) fprintf (stderr, ##__VA_ARGS__)
 //under MSVC
-#endif /* _WIN32 */
+#endif /* (_WIN32 || __linux__) */
 
 #endif /* OSCO_PRINT_H */
