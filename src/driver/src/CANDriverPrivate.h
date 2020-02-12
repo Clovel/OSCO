@@ -20,6 +20,8 @@ typedef struct _canDriverPrivateVars {
     bool enabled;
 
     uint32_t bitRate;
+
+    uint8_t line;
 } oscoCANDriverInstance_t;
 
 #endif /* OSCO_CANDRIVERPRIVATE_H */
