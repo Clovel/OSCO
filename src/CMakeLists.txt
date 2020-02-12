@@ -3,37 +3,53 @@
 # 
 # -----------------------------------------------------------------------------
 
+# Subdirectories (OSCO modules) ---------------------------
+add_subdirectory(driver)
+
 # Header files --------------------------------------------
-file(GLOB_RECURSE PUBLIC_HEADERS
+file(GLOB PUBLIC_HEADERS
     ${CMAKE_SOURCE_DIR}/inc/*.h
     ${CMAKE_SOURCE_DIR}/inc/*.hpp
 )
 
+file(GLOB_RECURSE MODULE_HEADERS
+    ${CMAKE_SOURCE_DIR}/src/*.h
+    ${CMAKE_SOURCE_DIR}/src/*.hpp
+)
+
 set(HEADERS
     ${PUBLIC_HEADERS}
+    ${MODULE_HEADERS}
 )
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/inc
+    ${CMAKE_SOURCE_DIR}/src/driver/inc
 )
 
 # Source files --------------------------------------------
-file(GLOB_RECURSE SOURCES
-    ${CMAKE_SOURCE_DIR}/driver/*.c
-    ${CMAKE_SOURCE_DIR}/driver/*.cpp
-
+file(GLOB SOURCES
     ${CMAKE_SOURCE_DIR}/src/*.c
     ${CMAKE_SOURCE_DIR}/src/*.cpp
 )
 
+message("MAIN SOURCES : ${SOURCES}")
+
+# Link directories ----------------------------------------
+
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}
+add_library(${CMAKE_PROJECT_NAME} SHARED
     ${SOURCES}
 )
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${PUBLIC_HEADERS}")
-
-# TODO : Link CAN Driver with pkg-config path
-target_link_libraries(${CMAKE_PROJECT_NAME} can-ip)
+add_dependencies(${CMAKE_PROJECT_NAME}
+    ${CMAKE_PROJECT_NAME}Driver
+)
+target_link_libraries(${CMAKE_PROJECT_NAME}
+    ${CMAKE_PROJECT_NAME}Driver
+)
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
+    PUBLIC_HEADER "${PUBLIC_HEADERS}"
+)
 
 #----------------------------------------------------------------------------
 # The installation is prepended by the CMAKE_INSTALL_PREFIX variable
