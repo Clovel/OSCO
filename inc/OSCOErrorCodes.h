@@ -4,8 +4,8 @@
  * @file OSCOErrorCodes.hpp
  */
 
-#ifndef OSCO_ERRORCODES_HPP
-#define OSCO_ERRORCODES_HPP
+#ifndef OSCO_ERRORCODES_H
+#define OSCO_ERRORCODES_H
 
 /* Includes -------------------------------------------- */
 
@@ -24,4 +24,4 @@ typedef enum _oscoErrorCodes {
     OSCO_ERROR_DRIVER       = 8
 } oscoErrorCode_t;
 
-#endif /* OSCO_ERRORCODES_HPP */
+#endif /* OSCO_ERRORCODES_H */
