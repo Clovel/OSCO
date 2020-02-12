@@ -23,10 +23,10 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID);
 oscoErrorCode_t OSCOCANDriverReinit(const uint8_t pID);
 
 /* Getters */
-uint8_t OSCOCANDriverID(const uint8_t pID, uint8_t * const pOut);
-bool OSCOCANDriverIsInitialized(const uint8_t pID, bool * const pOut);
-bool OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut);
-uint16_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut);
+oscoErrorCode_t OSCOCANDriverID(const uint8_t pID, uint8_t * const pOut);
+oscoErrorCode_t OSCOCANDriverIsInitialized(const uint8_t pID, bool * const pOut);
+oscoErrorCode_t OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut);
+oscoErrorCode_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut);
 
 /* Setters */
 oscoErrorCode_t OSCOCANDriverEnable(const uint8_t pID);
