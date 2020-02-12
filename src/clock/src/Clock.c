@@ -41,14 +41,14 @@ oscoErrorCode_t OSCOClockInit(void) {
 }
 
 /* Re-initialization */
-oscoErrorCode_t OSCOClockReinit(void) {
+oscoErrorCode_t OSCOClockReset(void) {
     clock.ticks = 0UL;
 
     /* TODO */
 
     oscoErrorCode_t lResult = OSCOClockInit();
     if(OSCO_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOClockReinit> OSCOClockInit failed with error code %u", lResult);
+        eprintf("[ERROR] OSCO <OSCOClockReset> OSCOClockInit failed with error code %u", lResult);
         return lResult;
     }
 

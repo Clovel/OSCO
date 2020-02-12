@@ -19,7 +19,7 @@
 oscoErrorCode_t OSCOClockInit(void);
 
 /* Re-initialization */
-oscoErrorCode_t OSCOClockReinit(void);
+oscoErrorCode_t OSCOClockReset(void);
 
 /* Getters */
 oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut);
