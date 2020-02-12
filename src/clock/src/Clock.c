@@ -18,6 +18,7 @@
 #include "OSCO.h"
 
 /* C system */
+#include <limits.h>
 
 /* Defines --------------------------------------------- */
 
@@ -59,6 +60,13 @@ oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut) {
 
 /* Setters/Modifiers */
 oscoErrorCode_t OSCOClockTick(void) {
+    /* check if the counter is not overflowing, 
+     * ven though this is very unlikely. */
+    if(UINT64_MAX <= clock.ticks) {
+        eprintf("[WARN ] OSCO <OSCOClockTick> The clock counter is overflowing, reseting it. !\n");
+        eprintf("[ERROR] OSCO <OSCOClockTick> Resetting the clock counter to 0 is unsupported !\n");
+        return OSCO_ERROR_SYS;
+    }
     clock.ticks++;
 
     return OSCO_ERROR_NONE;
