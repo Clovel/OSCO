@@ -131,6 +131,22 @@ oscoErrorCode_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
+oscoErrorCode_t OSCOCANDriverLine(const uint8_t pID, uint32_t * const pOut) {
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverLine> ID out of bounds !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    if(NULL == pOut) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverLine> Output ptr is NULL !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    *pOut = canDrivers[pID].line;
+
+    return OSCO_ERROR_NONE;
+}
+
 /* Setters */
 oscoErrorCode_t OSCOCANDriverEnable(const uint8_t pID) {
     if(OSCO_MAX_CAN_DRIVERS <= pID) {
@@ -167,6 +183,17 @@ oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint32_t pBitRa
     /* TODO */
 
     canDrivers[pID].bitRate = pBitRate;
+
+    return OSCO_ERROR_NONE;
+}
+
+oscoErrorCode_t OSCOCANDriverSetLine(const uint8_t pID, const uint8_t pLine) {
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverSetLine> ID out of bounds !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    canDrivers[pID].line = pLine;
 
     return OSCO_ERROR_NONE;
 }
