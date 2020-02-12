@@ -10,7 +10,7 @@
 /* Includes -------------------------------------------- */
 
 /* Defines --------------------------------------------- */
-#define OSCO_MAX_CAN_DRIVERS 1U
+#define OSCO_MAX_CAN_DRIVERS 1U /**< MAximum dumber of OSCOCANDriver instances */
 
 /* Type definitions ------------------------------------ */
 
