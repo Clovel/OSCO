@@ -28,6 +28,20 @@
  */
 oscoErrorCode_t OSCOInit(const uint8_t pID);
 
+/* Process functions ----------------------------------- */
+/**
+ * @brief Main OSCO stack process.
+ * 
+ * @details Processes the following modules : 
+ *  - OSCOClock
+ *  - OSCOCANDriver
+ * 
+ * @param[in]   pID     ID of the CAN Driver uses (CAN Line)
+ *
+ * @return Error code
+ */
+oscoErrorCode_t OSCOProcess(const uint8_t pID);
+
 /* Internal stack clock functions ---------------------- */
 /**
  * @brief This function increments the OSCO stack's

@@ -11,6 +11,9 @@
 /* OSCO Clock */
 #include "OSCOClock.h"
 
+/* OSCO private includes */
+#include "OSCOPrivate.h"
+
 /* OSCO public includes */
 #include "OSCOTypes.h"
 #include "OSCOPrint.h"
@@ -22,15 +25,25 @@
 /* Type definitions ------------------------------------ */
 
 /* Variable declarations ------------------------------- */
+extern oscoInstance_t gOSCOStack;
 
 /* OSCO Main functions --------------------------------- */
+oscoErrorCode_t OSCOProcess(const uint8_t pID) {
+    if(true != gOSCOStack.initialized) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCO stack is not initialized !\n");
+        return OSCO_ERROR_NOT_INIT;
+    }
 
-/**
- * @brief This is a placeholder function
- */
-void placeHolder(void){
-    /* Nothing to do, this is a placeholder */
-    oscoErrorCode_t lResult = OSCOCANDriverInit(0U);
-    lResult = OSCOClockInit();
-    (void)lResult;
+    if(OSCO_MAX_CAN_DRIVERS >= pID) {
+        eprintf("[ERROR] OSCO <OSCOInit> Invalid OSCO stack ID !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    oscoErrorCode_t lResult = OSCO_ERROR_UNKNOWN;
+    
+    /* Process incoming CAN messages */
+
+    /* Process outgoing CAN Messages */
+
+    return OSCO_ERROR_NONE;
 }
