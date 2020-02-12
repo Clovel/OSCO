@@ -23,6 +23,7 @@ oscoErrorCode_t OSCOClockReset(void);
 
 /* Getters */
 oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut);
+oscoErrorCode_t OSCOClockGetResolution(uint32_t * const pOut);
 
 /* Setters/Modifiers */
 

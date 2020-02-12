@@ -67,6 +67,17 @@ oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
+oscoErrorCode_t OSCOClockGetResolution(uint32_t * const pOut) {
+    if(NULL == pOut) {
+        eprintf("[ERROR] OSCO <OSCOClockGetTicks> Output ptr is NULL !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    *pOut = clock.resolution;
+
+    return OSCO_ERROR_NONE;
+}
+
 /* Setters/Modifiers */
 oscoErrorCode_t OSCOClockTick(void) {
     /* check if the counter is not overflowing, 
