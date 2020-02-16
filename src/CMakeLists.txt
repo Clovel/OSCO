@@ -6,6 +6,7 @@
 # Subdirectories (OSCO modules) ---------------------------
 add_subdirectory(driver)
 add_subdirectory(clock)
+add_subdirectory(sync)
 
 # Header files --------------------------------------------
 file(GLOB PUBLIC_HEADERS
@@ -27,6 +28,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/inc
     ${CMAKE_SOURCE_DIR}/src/driver/inc
     ${CMAKE_SOURCE_DIR}/src/clock/inc
+    ${CMAKE_SOURCE_DIR}/src/sync/inc
 )
 
 # Source files --------------------------------------------
@@ -46,10 +48,12 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 add_dependencies(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
+    ${CMAKE_PROJECT_NAME}Sync
 )
 target_link_libraries(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
+    ${CMAKE_PROJECT_NAME}Sync
 )
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
     PUBLIC_HEADER "${PUBLIC_HEADERS}"

@@ -5,6 +5,9 @@
  */
 
 /* Includes -------------------------------------------- */
+/* OSCO SYNC Module */
+#include "OSCOSync.h"
+
 /* OSCO Clock */
 #include "OSCOClock.h"
 
@@ -60,6 +63,19 @@ oscoErrorCode_t OSCOInit(const uint8_t pID) {
     lErrorCode = OSCOClockInit(OSCO_CLOCK_RESOLUTION);
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOClockInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
+
+    /* Initialize services */
+    lErrorCode = OSCOSyncSetPeriod(pID, OSCO_SYNC_PERIOD);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOSyncSetPeriod failed with erro code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
+
+    lErrorCode = OSCOSyncInit(pID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOSyncInit failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_MODULE;
     }
 

@@ -19,6 +19,10 @@ extern "C" {
 /* Defines --------------------------------------------- */
 #define OSCO_MAX_CAN_DRIVERS 1U /**< MAximum dumber of OSCOCANDriver instances */
 
+#define OSCO_SYNC_PRODUCER  1U          /**< Wether or not this node is a SYNC producer or not. 1U if it is, 0U elswise */
+#define OSCO_SYNC_PERIOD    1000000U    /**< Period of the SYNC message, in us */
+#define OSCO_SYNC_COUNTER_ENABLED 1U    /**< Wether or not to send the sync counter value */
+
 #define OSCO_CLOCK_RESOLUTION 1000U /**< Resolution, in us, of the internal clock's ticks */
 
 /* Macros ---------------------------------------------- */
