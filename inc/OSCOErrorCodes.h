@@ -26,7 +26,8 @@ typedef enum _oscoErrorCodes {
     OSCO_ERROR_NOT_INIT     = 6,
     OSCO_ERROR_STOPPED      = 7,
     OSCO_ERROR_DRIVER       = 8,
-    OSCO_ERROR_WARN         = 9
+    OSCO_ERROR_WARN         = 9,
+    OSCO_ERROR_MODULE       = 10
 } oscoErrorCode_t;
 
 #ifdef __cplusplus
