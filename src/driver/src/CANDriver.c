@@ -50,6 +50,8 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
         return OSCO_ERROR_DRIVER;
     }
 
+    canDrivers[pID].initialized = true;
+
 #ifdef DEBUG
     /* Set up test CAN message */
     const cipMessage_t lMsg = {
