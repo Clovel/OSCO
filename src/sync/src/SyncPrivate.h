@@ -16,7 +16,7 @@
 
 /* Type definitions ------------------------------------ */
 /**
- * @brief OSCO Clock module internal variables
+ * @brief OSCO Sync module internal variables
  */
 typedef struct _syncPrivateVars {
     bool initialized;       /**< Flag indicating if the module is initialized */
