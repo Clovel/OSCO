@@ -22,6 +22,8 @@ typedef struct _rxMgrPrivateVars {
     bool initialized;       /**< Flag indicating if the module is initialized */
 
     OSCOCANMessage_t fifo[OSCO_RX_FIFO_SIZE];
+    size_t rIdx;
+    size_t wIdx;
 } oscoRxMgrInstance_t;
 
 #endif /* OSCO_RXMGRPRIVATE_H */
