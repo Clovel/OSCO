@@ -25,7 +25,7 @@
 /* Type definitions ------------------------------------ */
 
 /* Variable declarations ------------------------------- */
-oscoCANDriverInstance_t clock;
+oscoClockInstance_t clock;
 
 /* OSCO CAN Driver functions --------------------------- */
 /* Initialization */

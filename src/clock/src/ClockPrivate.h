@@ -17,10 +17,10 @@
 /**
  * @brief OSCO Clock module internal variables
  */
-typedef struct _canDriverPrivateVars {
+typedef struct _clockPrivateVars {
     bool initialized;       /**< Flag indicating if the module is initialized */
     uint64_t ticks;         /**< Internal clock tick counter */
     uint32_t resolution;    /**< Internal clock tick time interval */
-} oscoCANDriverInstance_t;
+} oscoClockInstance_t;
 
 #endif /* OSCO_CLOCKPRIVATE_H */
