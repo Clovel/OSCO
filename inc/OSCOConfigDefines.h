@@ -19,6 +19,8 @@ extern "C" {
 /* Defines --------------------------------------------- */
 #define OSCO_MAX_CAN_DRIVERS 1U /**< MAximum dumber of OSCOCANDriver instances */
 
+#define OSCO_CLOCK_RESOLUTION 1000U /**< Resolution, in us, of the internal clock's ticks */
+
 /* Macros ---------------------------------------------- */
 /** Definition of the mutex lock and unlock functions
  * For multithreaded usage
