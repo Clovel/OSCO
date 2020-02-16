@@ -15,6 +15,7 @@ set(HEADERS
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src/driver/inc
+    ${CMAKE_SOURCE_DIR}/src/rxmgr/inc
 )
 
 # Source files --------------------------------------------
@@ -31,7 +32,11 @@ message("DRIVER SOURCES : ${SOURCES}")
 add_library(${CMAKE_PROJECT_NAME}Driver SHARED
     ${SOURCES}
 )
+add_dependencies(${CMAKE_PROJECT_NAME}Driver
+    ${CMAKE_PROJECT_NAME}RxMgr
+)
 target_link_libraries(${CMAKE_PROJECT_NAME}Driver
+    ${CMAKE_PROJECT_NAME}RxMgr
     can-ip # YOUR DRIVER LIBRARY HERE
 )
 
