@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include <unistd.h>
+
 /* Defines --------------------------------------------- */
 #define OSCO_ID 0U
 
@@ -33,8 +35,30 @@ int main(const int argc, const char * const * const argv) {
 
     /* Initialize the CAN over IP module */
     if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit(OSCO_ID))) {
-        std::cout << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
+        std::cerr << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
         exit(EXIT_FAILURE);
+    }
+
+    /* Initialize TimerThread */
+    TimerThread *timerThread = new TimerThread;
+
+    timerThread->addTimer(0U, 1000000U,
+                            [](){
+        std::cout << "[DEBUG] <TimerThread> Ticking !" << std::endl << std::flush;
+        unsigned int llErrorCode = OSCOClockTick();
+        if(OSCO_ERROR_NONE != llErrorCode) {
+            std::cerr << "[DEBUG] <TimerThread> OSCOClockTick failed !" << std::endl << std::flush;
+        }
+    });
+
+    while(true) {
+        /* Call the CANOpen stack main process routine */
+        lErrorCode = OSCOProcess(OSCO_ID);
+        if(OSCO_ERROR_NONE != lErrorCode) {
+            std::cerr << "[DEBUG] <TimerThread> OSCOProcess failed !" << std::endl;
+        }
+
+        usleep(250U);
     }
 
     return EXIT_SUCCESS;
