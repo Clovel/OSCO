@@ -7,6 +7,10 @@
 #ifndef OSCO_H
 #define OSCO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /* Includes -------------------------------------------- */
 #include "OSCOTypes.h"
 
@@ -57,5 +61,9 @@ oscoErrorCode_t OSCOProcess(const uint8_t pID);
  * @return Error code
  */
 oscoErrorCode_t OSCOClockTick(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* OSCO_H */

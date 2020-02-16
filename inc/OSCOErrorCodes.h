@@ -7,6 +7,10 @@
 #ifndef OSCO_ERRORCODES_H
 #define OSCO_ERRORCODES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /* Includes -------------------------------------------- */
 
 /* Defines --------------------------------------------- */
@@ -24,5 +28,9 @@ typedef enum _oscoErrorCodes {
     OSCO_ERROR_DRIVER       = 8,
     OSCO_ERROR_WARN         = 9
 } oscoErrorCode_t;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* OSCO_ERRORCODES_H */
