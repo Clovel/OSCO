@@ -121,9 +121,17 @@ oscoErrorCode_t OSCOClockGetResolution(uint32_t * const pOut) {
 oscoErrorCode_t OSCOClockTick(void) {
     OSCO_LOCK_CLOCK();
 
+    if(!clock.initialized) {
+        eprintf("[ERROR] OSCO <OSCOClockTick> Clock is not initialized !\n");
+
+        OSCO_UNLOCK_CLOCK();
+
+        return OSCO_ERROR_NOT_INIT;
+    }
+
     /* check if the counter is not overflowing, 
      * ven though this is very unlikely. */
-    if(UINT64_MAX <= clock.ticks) {
+    if(UINT64_MAX <= clock.ticks + clock.resolution) {
         eprintf("[WARN ] OSCO <OSCOClockTick> The clock counter is overflowing, reseting it. !\n");
         eprintf("[ERROR] OSCO <OSCOClockTick> Resetting the clock counter to 0 is unsupported !\n");
 
@@ -131,7 +139,8 @@ oscoErrorCode_t OSCOClockTick(void) {
 
         return OSCO_ERROR_SYS;
     }
-    clock.ticks++;
+
+    clock.ticks += clock.resolution;
 
     OSCO_UNLOCK_CLOCK();
 
