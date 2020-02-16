@@ -38,6 +38,8 @@ oscoErrorCode_t OSCOClockReset(void);
  * @brief Returns the current value of
  * the OSCO internal clock counter.
  * 
+ * @param[out]  pOut    Pointer to the getter's output.
+ * 
  * @return Error code
  */
 oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut);
@@ -45,6 +47,8 @@ oscoErrorCode_t OSCOClockGetTicks(uint64_t * const pOut);
 /**
  * @brief Initializes Returns the value of
  * the OSCO internal clock tick interval, or resolution.
+ * 
+ * @param[out]  pOut    Pointer to the getter's output.
  * 
  * @return Error code
  */
