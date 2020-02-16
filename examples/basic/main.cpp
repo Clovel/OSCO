@@ -7,6 +7,8 @@
 /* Includes -------------------------------------------- */
 #include "OSCO.h"
 
+#include "TimerThread.hxx"
+
 #include <iostream>
 
 /* Defines --------------------------------------------- */

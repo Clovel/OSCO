@@ -20,10 +20,12 @@ set(HEADERS
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/dest/include
+    ${CMAKE_SOURCE_DIR}/examples/deps/TimerThread/inc
 )
 
 # Source files --------------------------------------------
 set(SOURCES
+    ${CMAKE_SOURCE_DIR}/examples/deps/TimerThread/src/timerthread.cxx
     ${CMAKE_SOURCE_DIR}/examples/basic/main.cpp
 )
 
