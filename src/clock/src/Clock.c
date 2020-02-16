@@ -60,6 +60,14 @@ oscoErrorCode_t OSCOClockInit(const uint32_t pResolution) {
 oscoErrorCode_t OSCOClockReset(void) {
     OSCO_LOCK_CLOCK();
 
+    if(!clock.initialized) {
+        eprintf("[ERROR] OSCO <OSCOClockReset> Clock is not initialized !\n");
+
+        OSCO_UNLOCK_CLOCK();
+
+        return OSCO_ERROR_NOT_INIT;
+    }
+
     clock.ticks = 0UL;
 
     /* TODO */
