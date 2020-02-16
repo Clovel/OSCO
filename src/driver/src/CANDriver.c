@@ -50,6 +50,31 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
         return OSCO_ERROR_DRIVER;
     }
 
+#ifdef DEBUG
+    /* Set up test CAN message */
+    const cipMessage_t lMsg = {
+        0x987U,
+        8U,
+        {
+            0x01U,
+            0x23U,
+            0x45U,
+            0x67U,
+            0x89U,
+            0xABU,
+            0xCDU,
+            0xEFU
+        },
+        0x00000000U
+    };
+
+    lResult = CIP_send(pID, &lMsg);
+    if(CAN_IP_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_send failed !\n");
+        return OSCO_ERROR_DRIVER;
+    }
+#endif /* DEBUG */
+
     return OSCO_ERROR_NONE;
 }
 

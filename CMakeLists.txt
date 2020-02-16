@@ -23,6 +23,10 @@ set(CMAKE_BUILD_TYPE Release CACHE STRING
     FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DDEBUG=1)
+endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+
 message(STATUS "Build type is : ${CMAKE_BUILD_TYPE}")
 
 # CASE OF C PROJECT
