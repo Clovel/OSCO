@@ -12,9 +12,7 @@
 #include "ClockPrivate.h"
 
 /* OSCO public includes */
-#include "OSCOTypes.h"
 #include "OSCOPrint.h"
-#include "OSCOConfigDefines.h"
 #include "OSCO.h"
 
 /* C system */
