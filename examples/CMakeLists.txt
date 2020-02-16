@@ -7,3 +7,4 @@
 add_definitions(-DEXAMPLE)
 
 # Sub-directories -----------------------------------------
+add_subdirectory(basic)
