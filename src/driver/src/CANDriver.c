@@ -12,6 +12,9 @@
 /* OSCO Module includes */
 #include "OSCOCANDriver.h"
 
+/* OSCO Module includes */
+#include "OSCORxMgr.h"
+
 /* OSCO Module private includes */
 #include "CANDriverPrivate.h"
 
@@ -43,6 +46,8 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
         return OSCO_ERROR_DRIVER;
     }
+
+    lResult = CIP_setPutMessageFunction(pID, pID, OSCORxMgrInputMessage);
 
     lResult = CIP_init(pID, CAN_IP_MODE_NORMAL, 15024); /* TODO : Mode and port as stack members */
     if(CAN_IP_ERROR_NONE != lResult) {
