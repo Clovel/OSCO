@@ -42,9 +42,9 @@ int main(const int argc, const char * const * const argv) {
     /* Initialize TimerThread */
     TimerThread *timerThread = new TimerThread;
 
-    timerThread->addTimer(0U, 1000000U,
+    timerThread->addTimer(0U, OSCO_CLOCK_RESOLUTION,
                             [](){
-        std::cout << "[DEBUG] <TimerThread> Ticking !" << std::endl << std::flush;
+        //std::cout << "[DEBUG] <TimerThread> Ticking !" << std::endl << std::flush;
         unsigned int llErrorCode = OSCOClockTick();
         if(OSCO_ERROR_NONE != llErrorCode) {
             std::cerr << "[DEBUG] <TimerThread> OSCOClockTick failed !" << std::endl << std::flush;
@@ -55,7 +55,8 @@ int main(const int argc, const char * const * const argv) {
         /* Call the CANOpen stack main process routine */
         lErrorCode = OSCOProcess(OSCO_ID);
         if(OSCO_ERROR_NONE != lErrorCode) {
-            std::cerr << "[DEBUG] <TimerThread> OSCOProcess failed !" << std::endl;
+            std::cerr << "[DEBUG] OSCOProcess failed !" << std::endl;
+            return EXIT_FAILURE;
         }
 
         usleep(250U);

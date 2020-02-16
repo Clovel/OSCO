@@ -26,6 +26,7 @@ include_directories(
 # Source files --------------------------------------------
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/examples/deps/TimerThread/src/timerthread.cxx
+    ${CMAKE_SOURCE_DIR}/examples/basic/OSCOMutex.c
     ${CMAKE_SOURCE_DIR}/examples/basic/main.cpp
 )
 
