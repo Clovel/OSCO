@@ -19,6 +19,21 @@ extern "C" {
 /* Defines --------------------------------------------- */
 #define OSCO_MAX_CAN_DRIVERS 1U /**< MAximum dumber of OSCOCANDriver instances */
 
+/* Macros ---------------------------------------------- */
+/** Definition of the mutex lock and unlock functions
+ * For multithreaded usage
+ */
+extern void OSCOMutexLockClock(void);
+extern void OSCOMutexUnlockClock(void);
+
+#ifndef OSCO_LOCK_CLOCK
+#define OSCO_LOCK_CLOCK() OSCOMutexLockClock()
+#endif /* OSCO_LOCK_CLOCK */
+
+#ifndef OSCO_UNLOCK_CLOCK
+#define OSCO_UNLOCK_CLOCK() OSCOMutexUnlockClock()
+#endif /* OSCO_UNLOCK_CLOCK */
+
 /* Type definitions ------------------------------------ */
 
 #ifdef __cplusplus
