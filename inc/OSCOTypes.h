@@ -20,6 +20,8 @@ extern "C" {
 /* Defines --------------------------------------------- */
 #define NULL (void *)0U
 
+#define CAN_MESSAGE_MAX_SIZE 8U
+
 /* Type definitions ------------------------------------ */
 
 #ifdef __cplusplus

@@ -11,7 +11,6 @@
 #include "OSCOTypes.h"
 
 /* Defines --------------------------------------------- */
-#define CAN_MESSAGE_MAX_SIZE 8U
 
 /* Type definitions ------------------------------------ */
 
