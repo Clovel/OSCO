@@ -5,8 +5,8 @@
  */
 
 /* Includes -------------------------------------------- */
-/* OSCO Driver */
-#include "OSCOCANDriver.h"
+/* OSCO Sync */
+#include "OSCOSync.h"
 
 /* OSCO Clock */
 #include "OSCOClock.h"
@@ -39,7 +39,14 @@ oscoErrorCode_t OSCOProcess(const uint8_t pID) {
         return OSCO_ERROR_ARG;
     }
 
-    oscoErrorCode_t lResult = OSCO_ERROR_UNKNOWN;
+    oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
+
+    /* Process services */
+    lErrorCode = OSCOSyncProcess(pID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCOSyncProcess failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
     
     /* Process incoming CAN messages */
 
