@@ -10,6 +10,7 @@
 
 /* Includes -------------------------------------------- */
 #include "OSCOTypes.h"
+#include "OSCOConfigDefines.h"
 
 /* Defines --------------------------------------------- */
 
@@ -22,7 +23,11 @@ typedef struct _syncPrivateVars {
 
     bool producer;          /**< Internal clock tick counter */
     uint32_t period;        /**< Period in ms to send the SYNC message */
-    uint32_t cobID;     /**< COB-ID of the syncMessage */
+    uint32_t cobID;         /**< COB-ID of the syncMessage */
+
+#ifdef OSCO_SYNC_COUNTER_ENABLED
+    uint8_t counter;        /**< SYNC Counter */
+#endif /* OSCO_SYNC_COUNTER_ENABLED */
 } oscoSyncInstance_t;
 
 #endif /* OSCO_SYNCPRIVATE_H */
