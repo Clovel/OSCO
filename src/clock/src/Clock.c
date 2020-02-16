@@ -36,11 +36,16 @@ oscoClockInstance_t clock;
 
 /* OSCO CAN Driver functions --------------------------- */
 /* Initialization */
-oscoErrorCode_t OSCOClockInit(void) {
+oscoErrorCode_t OSCOClockInit(const uint32_t pResolution) {
     OSCO_LOCK_CLOCK();
 
+    if(clock.initialized) {
+        eprintf("[ERROR] OSCO <OSCOClockInit> Clock is already initialized !\n");
+        return OSCO_ERROR_ALREADY_INIT;
+    }
+
     clock.ticks = 0UL;
-    clock.resolution = 0U;
+    clock.resolution = pResolution;
 
     /* TODO */
 
@@ -59,7 +64,7 @@ oscoErrorCode_t OSCOClockReset(void) {
 
     /* TODO */
 
-    oscoErrorCode_t lResult = OSCOClockInit();
+    oscoErrorCode_t lResult = OSCOClockInit(clock.resolution);
     if(OSCO_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOClockReset> OSCOClockInit failed with error code %u", lResult);
 

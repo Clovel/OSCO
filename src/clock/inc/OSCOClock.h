@@ -19,9 +19,11 @@
 /**
  * @brief Initializes the OSCO internal clock.
  * 
+ * @param[in]   pResolution     Internal timer/clock's resolution
+ * 
  * @return Error code
  */
-oscoErrorCode_t OSCOClockInit(void);
+oscoErrorCode_t OSCOClockInit(const uint32_t pResolution);
 
 /* Re-initialization */
 /**
