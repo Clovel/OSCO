@@ -30,12 +30,12 @@ extern oscoInstance_t gOSCOStack;
 /* OSCO Main functions --------------------------------- */
 oscoErrorCode_t OSCOProcess(const uint8_t pID) {
     if(true != gOSCOStack.initialized) {
-        eprintf("[ERROR] OSCO <OSCOInit> OSCO stack is not initialized !\n");
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCO stack is not initialized !\n");
         return OSCO_ERROR_NOT_INIT;
     }
 
-    if(OSCO_MAX_CAN_DRIVERS >= pID) {
-        eprintf("[ERROR] OSCO <OSCOInit> Invalid OSCO stack ID !\n");
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
+        eprintf("[ERROR] OSCO <OSCOProcess> Invalid OSCO stack ID !\n");
         return OSCO_ERROR_ARG;
     }
 
