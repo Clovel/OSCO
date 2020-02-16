@@ -34,7 +34,7 @@ oscoErrorCode_t OSCOInit(const uint8_t pID) {
         return OSCO_ERROR_ALREADY_INIT;
     }
 
-    if(OSCO_MAX_CAN_DRIVERS >= pID) {
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
         eprintf("[ERROR] OSCO <OSCOInit> Invalid OSCO stack ID !\n");
         return OSCO_ERROR_ARG;
     }
@@ -56,6 +56,8 @@ oscoErrorCode_t OSCOInit(const uint8_t pID) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOClockInit failed with error code %u !\n", lResult);
         return lResult;
     }
+
+    gOSCOStack.initialized = true;
 
     return OSCO_ERROR_NONE;
 }
