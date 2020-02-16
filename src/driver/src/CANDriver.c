@@ -220,8 +220,8 @@ oscoErrorCode_t OSCOCANDriverSend(const uint8_t pID,
         return OSCO_ERROR_STOPPED;
     }
 
-    if(NULL == pData) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSend> Driver is not enabled !\n");
+    if(NULL == pData && 0U < pSize) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverSend> Data pointer is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
@@ -230,13 +230,16 @@ oscoErrorCode_t OSCOCANDriverSend(const uint8_t pID,
         .size = pSize,
         .flags = pFlags
     };
-    memcpy(lMsg.data, pData, pSize);
+    
+    if(0 < lMsg.size) {
+        memcpy(lMsg.data, pData, pSize);
+    }
 
     cipErrorCode_t lCIPError = CAN_IP_ERROR_UNKNOWN;
 
     lCIPError = CIP_send(pID, &lMsg);
     if(CAN_IP_ERROR_NONE != lCIPError) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed !\n");
+        eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed with error code %u !\n", lCIPError);
         return OSCO_ERROR_DRIVER;
     }
 
