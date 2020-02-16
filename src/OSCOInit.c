@@ -39,22 +39,28 @@ oscoErrorCode_t OSCOInit(const uint8_t pID) {
         return OSCO_ERROR_ARG;
     }
 
-    oscoErrorCode_t lResult = OSCO_ERROR_UNKNOWN;
+    oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
 
     gOSCOStack.canDriverID = pID;
 
     /* Initialize the CAN Driver */
-    lResult = OSCOCANDriverInit(gOSCOStack.canDriverID);
-    if(OSCO_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverInit failed with error code %u !\n", lResult);
-        return lResult;
+    lErrorCode = OSCOCANDriverInit(gOSCOStack.canDriverID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_DRIVER;
+    }
+
+    lErrorCode = OSCOCANDriverEnable(gOSCOStack.canDriverID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverEnable failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_DRIVER;
     }
 
     /* Initialize the stack's internal clock */
-    lResult = OSCOClockInit();
-    if(OSCO_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOInit> OSCOClockInit failed with error code %u !\n", lResult);
-        return lResult;
+    lErrorCode = OSCOClockInit(OSCO_CLOCK_RESOLUTION);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOClockInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
     }
 
     gOSCOStack.initialized = true;
