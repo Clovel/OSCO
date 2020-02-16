@@ -23,6 +23,12 @@ extern "C" {
 #define CAN_MESSAGE_MAX_SIZE 8U
 
 /* Type definitions ------------------------------------ */
+typedef struct _oscoCANMessage {
+    uint32_t id;
+    uint8_t  size;
+    uint8_t  data[CAN_MESSAGE_MAX_SIZE];
+    uint32_t flags;
+} OSCOCANMessage_t;
 
 #ifdef __cplusplus
 }
