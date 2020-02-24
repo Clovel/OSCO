@@ -18,6 +18,7 @@
 /* Type definitions ------------------------------------ */
 
 /* Variable declarations ------------------------------- */
+oscoRxMgrInstance_t gRxMgr;
 
 /* OSCO Reception manager functions -------------------- */
 int OSCORxMgrInputMessage(const uint8_t pID, 
@@ -26,7 +27,23 @@ int OSCORxMgrInputMessage(const uint8_t pID,
     const uint8_t * const pData,
     const uint32_t pFlags)
 {
-    //
+    /* Copy the CAN Message */
+    (gRxMgr.fifo + gRxMgr.wIdx)->id    = pID;
+    (gRxMgr.fifo + gRxMgr.wIdx)->size  = pSize;
+    (gRxMgr.fifo + gRxMgr.wIdx)->flags = pFlags;
+
+    for(uint8_t i = 0U; (i < pSize) && (i < CAN_MESSAGE_MAX_SIZE); i++) {
+        (gRxMgr.fifo + gRxMgr.wIdx)->data[i] = pData[i];
+    }
+
+    /* Increment the write index */
+    gRxMgr.wIdx++;
+    if(OSCO_RX_FIFO_SIZE <= gRxMgr.wIdx) {
+        gRxMgr.wIdx = 0U;
+        gRxMgr.wIdxWrapAround++;
+    }
+
+    return 0; /* TODO : error checking */
 }
 
 oscoErrorCode_t OSCORxMgrProcess(const uint8_t pID) {
