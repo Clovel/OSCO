@@ -43,6 +43,17 @@ extern void OSCOMutexUnlockClock(void);
 #define OSCO_UNLOCK_CLOCK() OSCOMutexUnlockClock()
 #endif /* OSCO_UNLOCK_CLOCK */
 
+extern void OSCOMutexLockRxMgr(void);
+extern void OSCOMutexUnlockRxMgr(void);
+
+#ifndef OSCO_LOCK_RXMGR
+#define OSCO_LOCK_RXMGR() OSCOMutexLockRxMgr()
+#endif /* OSCO_LOCK_RXMGR */
+
+#ifndef OSCO_UNLOCK_RXMGR
+#define OSCO_UNLOCK_RXMGR() OSCOMutexUnlockRxMgr()
+#endif /* OSCO_UNLOCK_RXMGR */
+
 /* Type definitions ------------------------------------ */
 
 #ifdef __cplusplus
