@@ -11,6 +11,9 @@
 /* OSCO Clock */
 #include "OSCOClock.h"
 
+/* OSCO Clock */
+#include "OSCORxMgr.h"
+
 /* OSCO CAN Driver */
 #include "OSCOCANDriver.h"
 
@@ -76,6 +79,12 @@ oscoErrorCode_t OSCOInit(const uint8_t pID) {
     lErrorCode = OSCOSyncInit(pID);
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOSyncInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
+
+    lErrorCode = OSCORxMgrInit(pID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCORxMgrInit failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_MODULE;
     }
 

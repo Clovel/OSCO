@@ -31,6 +31,13 @@ int OSCORxMgrInputMessage(const uint8_t pID,
     const uint32_t pFlags);
 
 /**
+ * @brief Reception manager initialization
+ * 
+ * @return Error code
+ */
+oscoErrorCode_t OSCORxMgrInit(const uint8_t pID);
+
+/**
  * @brief Reception manager process
  * 
  * @return Error code

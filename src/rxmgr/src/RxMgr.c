@@ -59,6 +59,22 @@ int OSCORxMgrInputMessage(const uint8_t pID,
     return 0; /* TODO : error checking */
 }
 
+oscoErrorCode_t OSCORxMgrInit(const uint8_t pID) {
+    if(OSCO_MAX_CAN_DRIVERS <= pID) {
+        eprintf("[ERROR] OSCO <OSCORxMgrInit> ID out of bounds !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    if(gRxMgr.initialized) {
+        eprintf("[ERROR] OSCO <OSCORxMgrInit> Service is already initialized !\n");
+        return OSCO_ERROR_ALREADY_INIT;
+    }
+
+    gRxMgr.initialized = true;
+
+    return OSCO_ERROR_NONE;
+}
+
 oscoErrorCode_t OSCORxMgrProcess(const uint8_t pID) {
     //
 }
