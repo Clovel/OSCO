@@ -25,8 +25,8 @@ typedef struct _rxMgrPrivateVars {
     OSCOCANMessage_t fifo[OSCO_RX_FIFO_SIZE];   /**< Message-per-message FIFO buffer */
     size_t rIdx;                                /**< Message-per-message FIFO buffer read index */
     size_t wIdx;                                /**< Message-per-message FIFO buffer write index */
-    uint32_t rIdxWrapAround;                    /**< Read index wraparound counter */
-    uint32_t wIdxWrapAround;                    /**< Write index wraparound counter */
+    bool rIdxWrapAround;                    /**< Read index wraparound flag */
+    bool wIdxWrapAround;                    /**< Write index wraparound flag */
 } oscoRxMgrInstance_t;
 
 #endif /* OSCO_RXMGRPRIVATE_H */
