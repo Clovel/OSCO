@@ -4,8 +4,8 @@
  * @file OSCOSync.h
  */
 
-#ifndef OSCO_CLOCK_H
-#define OSCO_CLOCK_H
+#ifndef OSCO_SYNC_H
+#define OSCO_SYNC_H
 
 /* Includes -------------------------------------------- */
 #include "OSCOTypes.h"
@@ -50,4 +50,4 @@ oscoErrorCode_t OSCOSyncSetPeriod(const uint8_t pID, const uint32_t pPeriodMs);
  */
 oscoErrorCode_t OSCOSyncProcess(const uint8_t pID);
 
-#endif /* OSCO_CLOCK_H */
+#endif /* OSCO_SYNC_H */
