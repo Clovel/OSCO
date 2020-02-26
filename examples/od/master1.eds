@@ -1,0 +1,295 @@
+[FileInfo]
+FileName=master1.eds
+FileVersion=1
+FileRevision=1
+EDSVersion=4.0
+Description=EDS
+CreationTime=12:59PM
+CreationDate=08-30-19
+ModificationTime=12:59PM
+ModificationDate=08-30-19
+CreatedBy=
+ModifiedBy=
+
+[Comments]
+Lines=0
+
+[DeviceInfo]
+VendorNumber=0x319
+ProductName=master1
+ProductNumber=0x0815
+RevisionNumber=0x00010001
+OrderCode=0815-BUY-ME
+BaudRate_10=0
+BaudRate_20=0
+BaudRate_50=0
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=0
+BaudRate_800=0
+BaudRate_1000=0
+NrOfRxPDO=0
+NrOfTxPDO=0
+SimpleBootupSlave=1
+SimpleBootupMaster=0
+LSS_Supported=0
+Granularity=0
+DynamicChannelsSupported=0
+GroupMessaging=0
+
+[DummyUsage]
+Dummy0001=0
+Dummy0002=0
+Dummy0003=0
+Dummy0004=0
+Dummy0005=0
+Dummy0006=0
+Dummy0007=0
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[ManufacturerObjects]
+SupportedObjects=0
+
+[OptionalObjects]
+SupportedObjects=9
+1=0x1005
+2=0x1006
+3=0x1012
+4=0x1016
+5=0x1017
+6=0x1028
+7=0x1029
+8=0x102a
+9=0x1200
+
+[1000]
+ParameterName=Device Type
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+;;This objects contains the CANopen device type of the device.
+
+[1001]
+ParameterName=Error Register
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=1
+;;This object contains a register of 8 error information bits.
+
+[1005]
+ParameterName=COB ID SYNC
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x40000080
+
+[1006]
+ParameterName=Communication Cycle Period
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=500000
+
+[1012]
+ParameterName=COB ID Time Stamp
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x40000100
+
+[1016]
+ParameterName=Consumer Heartbeat Time
+ObjectType=8
+SubNumber=3
+
+[1016sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1016sub1]
+ParameterName=Consumer Heartbeat Time
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x2003e8
+
+[1016sub2]
+ParameterName=Consumer Heartbeat Time
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x2103e8
+
+[1017]
+ParameterName=Producer Heartbeat Time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+;;The producer heartbeat time shall indicate the configured cycle time of the heartbeat produced by the device.
+;;
+;;The value shall be given in multiples of 1 ms. The value 0 shall disable the producer heartbeat.
+;;
+
+[1018]
+ParameterName=Identity Object
+ObjectType=9
+SubNumber=5
+;;This objects contains the identity information of the device.
+;;
+
+[1018sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=4
+
+[1018sub1]
+ParameterName=Vendor Id
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x319
+
+[1018sub2]
+ParameterName=Product Code
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x0815
+
+[1018sub3]
+ParameterName=Revision number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x00010001
+
+[1018sub4]
+ParameterName=Serial number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=1
+
+[1028]
+ParameterName=Emergency Consumer
+ObjectType=8
+SubNumber=3
+
+[1028sub0]
+ParameterName=Nr of EMCY Consumer
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1028sub1]
+ParameterName=EMCYConsumer 1
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0xa0
+
+[1028sub2]
+ParameterName=EMCYConsumer 2
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0xa1
+
+[1029]
+ParameterName=Error behaviour
+ObjectType=8
+SubNumber=3
+
+[1029sub0]
+ParameterName=Nr of Error Classes
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1029sub1]
+ParameterName=Communication Error
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=0
+
+[1029sub2]
+ParameterName=Specific Error Class 
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=0
+
+[102a]
+ParameterName=NMT inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=0
+;;This object shall indicate the configured inhibit time between two subsequent NMT messages. The outstanding NMT services shall be queued and shall be issued in order of their occurrence respecting the configured inhibit time. 
+;;
+;;The value shall be given in multiples of 100 μs. The value 0 shall disable the inhibit time.
+;;
+
+[1200]
+ParameterName=Server SDO Parameter
+ObjectType=9
+SubNumber=3
+
+[1200sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x02
+
+[1200sub1]
+ParameterName=COB ID Client to Server
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=$NODEID+0x600
+
+[1200sub2]
+ParameterName=COB ID Server to Client
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=$NODEID+0x580
+
