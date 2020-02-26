@@ -16,11 +16,10 @@
 
 /* Variable declaration -------------------------------- */
 /** @brief pthread_mutex_t oscoClockMutex
- * This mutex is used by the emotas CANOpen Clock.
+ * This mutex is used by the CANOpen Clock.
  * 
  * @details A lock and unlock function should be defined
- * in the custom/application-specific definition section
- * of the CANOpen OD :
+ * in the OSCOConfigDefines.h configuration header file :
  * - OSCO_LOCK_CLOCK()
  * - OSCO_UNLOCK_CLOCK()
  */
