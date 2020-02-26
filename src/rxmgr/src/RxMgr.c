@@ -14,6 +14,13 @@
 #include "OSCOPrint.h"
 
 /* Defines --------------------------------------------- */
+#ifndef OSCO_LOCK_RXMGR
+#define OSCO_LOCK_RXMGR()
+#endif /* OSCO_LOCK_RXMGR */
+
+#ifndef OSCO_UNLOCK_RXMGR
+#define OSCO_UNLOCK_RXMGR()
+#endif /* OSCO_UNLOCK_RXMGR */
 
 /* Type definitions ------------------------------------ */
 
@@ -27,6 +34,8 @@ int OSCORxMgrInputMessage(const uint8_t pID,
     const uint8_t * const pData,
     const uint32_t pFlags)
 {
+    OSCO_LOCK_RXMGR();
+
     /* Copy the CAN Message */
     (gRxMgr.fifo + gRxMgr.wIdx)->id    = pID;
     (gRxMgr.fifo + gRxMgr.wIdx)->size  = pSize;
@@ -42,6 +51,8 @@ int OSCORxMgrInputMessage(const uint8_t pID,
         gRxMgr.wIdx = 0U;
         gRxMgr.wIdxWrapAround++;
     }
+
+    OSCO_UNLOCK_RXMGR();
 
     return 0; /* TODO : error checking */
 }
