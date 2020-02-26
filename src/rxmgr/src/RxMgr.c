@@ -12,6 +12,8 @@
 
 /* OSCO public includes */
 #include "OSCOPrint.h"
+#include "OSCOTypes.h"
+#include "OSCOConfigDefines.h"
 
 /* Defines --------------------------------------------- */
 #ifndef OSCO_LOCK_RXMGR
