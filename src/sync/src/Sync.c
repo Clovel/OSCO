@@ -90,7 +90,7 @@ oscoErrorCode_t OSCOSyncProcess(const uint8_t pID) {
         /* Period passed, we must send the SYNC message */
 #ifdef OSCO_SYNC_COUNTER_ENABLED        
         lErrorCode = OSCOCANDriverSend(pID, syncModule.cobID, 1U, &syncModule.counter, 0x00000000U);
-        syncModule.counter = 0xFF <= syncModule.counter ? 0U : syncModule.counter + 1;
+        syncModule.counter = 0xFFU <= syncModule.counter ? 0U : syncModule.counter + 1U;
 #else /* OSCO_SYNC_COUNTER_ENABLED */
         lErrorCode = OSCOCANDriverSend(pID, syncModule.cobID, 0U, NULL, 0x00000000U);
 #endif /* OSCO_SYNC_COUNTER_ENABLED */
