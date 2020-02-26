@@ -15,9 +15,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes -------------------------------------------- */
+#include "OSCOTypes.h" /* If needed here by config function declarations */
 
 /* Defines --------------------------------------------- */
 #define OSCO_MAX_CAN_DRIVERS 1U /**< Maximum dumber of OSCOCANDriver instances */
+
+#define OSCO_RX_FIFO_SIZE 128U /**< Size of the reception queue */
+#define OSCO_TX_FIFO_SIZE 128U /**< Size of the transmission queue */
 
 #define OSCO_SYNC_PRODUCER  1U          /**< Wether or not this node is a SYNC producer or not. 1U if it is, 0U elswise */
 #define OSCO_SYNC_PERIOD    1000000U    /**< Period of the SYNC message, in us */
@@ -39,6 +43,23 @@ extern void OSCOMutexUnlockClock(void);
 #ifndef OSCO_UNLOCK_CLOCK
 #define OSCO_UNLOCK_CLOCK() OSCOMutexUnlockClock()
 #endif /* OSCO_UNLOCK_CLOCK */
+
+extern void OSCOMutexLockRxMgr(void);
+extern void OSCOMutexUnlockRxMgr(void);
+
+#ifndef OSCO_LOCK_RXMGR
+#define OSCO_LOCK_RXMGR() OSCOMutexLockRxMgr()
+#endif /* OSCO_LOCK_RXMGR */
+
+#ifndef OSCO_UNLOCK_RXMGR
+#define OSCO_UNLOCK_RXMGR() OSCOMutexUnlockRxMgr()
+#endif /* OSCO_UNLOCK_RXMGR */
+
+extern void printMessageShort(const OSCOCANMessage_t * const pMsg);
+
+#ifndef CAN_PRINT_SHORT
+#define CAN_PRINT_SHORT(pMsg) printMessageShort(pMsg)
+#endif /* CAN_PRINT_SHORT */
 
 /* Type definitions ------------------------------------ */
 

@@ -4,6 +4,7 @@
 # -----------------------------------------------------------------------------
 
 # Subdirectories (OSCO modules) ---------------------------
+add_subdirectory(rxmgr)
 add_subdirectory(driver)
 add_subdirectory(clock)
 add_subdirectory(sync)
@@ -29,6 +30,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/driver/inc
     ${CMAKE_SOURCE_DIR}/src/clock/inc
     ${CMAKE_SOURCE_DIR}/src/sync/inc
+    ${CMAKE_SOURCE_DIR}/src/rxmgr/inc
 )
 
 # Source files --------------------------------------------
@@ -49,11 +51,13 @@ add_dependencies(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
+    ${CMAKE_PROJECT_NAME}RxMgr
 )
 target_link_libraries(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
+    ${CMAKE_PROJECT_NAME}RxMgr
 )
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
     PUBLIC_HEADER "${PUBLIC_HEADERS}"

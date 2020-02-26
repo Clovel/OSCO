@@ -11,6 +11,9 @@
 /* OSCO Clock */
 #include "OSCOClock.h"
 
+/* OSCO RxMgr */
+#include "OSCORxMgr.h"
+
 /* OSCO private includes */
 #include "OSCOPrivate.h"
 
@@ -49,6 +52,11 @@ oscoErrorCode_t OSCOProcess(const uint8_t pID) {
     }
     
     /* Process incoming CAN messages */
+    lErrorCode = OSCORxMgrProcess(pID);
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCORxMgrProcess failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
 
     /* Process outgoing CAN Messages */
 
