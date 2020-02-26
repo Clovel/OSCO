@@ -29,8 +29,7 @@ static pthread_mutex_t oscoClockMutex = PTHREAD_MUTEX_INITIALIZER;
  * This mutex is used by the CANOpen stack RxMgr.
  * 
  * @details A lock and unlock function should be defined
- * in the custom/application-specific definition section
- * of the CANOpen OD :
+ * in the OSCOConfigDefines.h configuration header file :
  * - OSCO_LOCK_RX()
  * - OSCO_UNLOCK_RX()
  */
