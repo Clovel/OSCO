@@ -166,6 +166,11 @@ oscoErrorCode_t OSCOCANDriverEnable(const uint8_t pID) {
     }
 
     /* TODO */
+    int lResult = CIP_startRxThread(pID);
+    if(1 != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverEnable> CIP_startRxThread failed !\n");
+        return OSCO_ERROR_DRIVER;
+    }
 
     canDrivers[pID].enabled = true;
 
