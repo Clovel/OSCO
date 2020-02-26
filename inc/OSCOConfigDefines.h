@@ -17,7 +17,7 @@ extern "C" {
 /* Includes -------------------------------------------- */
 
 /* Defines --------------------------------------------- */
-#define OSCO_MAX_CAN_DRIVERS 1U /**< MAximum dumber of OSCOCANDriver instances */
+#define OSCO_MAX_CAN_DRIVERS 1U /**< Maximum dumber of OSCOCANDriver instances */
 
 #define OSCO_SYNC_PRODUCER  1U          /**< Wether or not this node is a SYNC producer or not. 1U if it is, 0U elswise */
 #define OSCO_SYNC_PERIOD    1000000U    /**< Period of the SYNC message, in us */
@@ -27,7 +27,7 @@ extern "C" {
 
 /* Macros ---------------------------------------------- */
 /** Definition of the mutex lock and unlock functions
- * For multithreaded usage
+ * for multithreaded usage
  */
 extern void OSCOMutexLockClock(void);
 extern void OSCOMutexUnlockClock(void);
