@@ -8,6 +8,9 @@ add_definitions(-DEXAMPLE_BASIC)
 
 # Requirements --------------------------------------------
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 # Header files --------------------------------------------
 file(GLOB_RECURSE PUBLIC_HEADERS 
     ${CMAKE_SOURCE_DIR}/dest/include/*.h
@@ -36,4 +39,7 @@ add_executable(${CMAKE_PROJECT_NAME}-basic
 )
 add_dependencies(${CMAKE_PROJECT_NAME}-basic ${CMAKE_PROJECT_NAME})
 link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
-target_link_libraries(${CMAKE_PROJECT_NAME}-basic ${CMAKE_PROJECT_NAME})
+target_link_libraries(${CMAKE_PROJECT_NAME}-basic
+    ${CMAKE_PROJECT_NAME}
+    Threads::Threads
+)
