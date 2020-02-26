@@ -25,6 +25,17 @@
  */
 static pthread_mutex_t oscoClockMutex = PTHREAD_MUTEX_INITIALIZER;
 
+/** @brief pthread_mutex_t oscoRxMutex
+ * This mutex is used by the CANOpen stack RxMgr.
+ * 
+ * @details A lock and unlock function should be defined
+ * in the custom/application-specific definition section
+ * of the CANOpen OD :
+ * - OSCO_LOCK_RX()
+ * - OSCO_UNLOCK_RX()
+ */
+static pthread_mutex_t oscoRxMgrMutex = PTHREAD_MUTEX_INITIALIZER;
+
 /* Type definitions ------------------------------------ */
 
 /* Mutex functions ------------------------------------- */
@@ -36,4 +47,14 @@ void OSCOMutexLockClock(void) {
 void OSCOMutexUnlockClock(void) {
     //printf("[DEBUG] <OSCOMutexLockClock> Clock unlock function called !\n");
     pthread_mutex_unlock(&oscoClockMutex);
+}
+
+void OSCOMutexLockRxMgr(void) {
+    //printf("[DEBUG] <OSCOMutexLockRx> RxMgr lock function called !\n");
+    pthread_mutex_lock(&oscoRxMgrMutex);
+}
+
+void OSCOMutexUnlockRxMgr(void) {
+    //printf("[DEBUG] <OSCOMutexLockRx> RxMgr unlock function called !\n");
+    pthread_mutex_unlock(&oscoRxMgrMutex);
 }
