@@ -23,6 +23,13 @@
 /* Type definitions ------------------------------------ */
 
 /* Support functions ----------------------------------- */
+void printMessageShort(const OSCOCANMessage_t * const pMsg) {
+    printf("0x%03X [%u] ", pMsg->id, pMsg->size);
+    for(uint8_t i = 0U; (i < pMsg->size) && (i < 8U); i++) {
+        printf("%02X ", pMsg->data[i]);
+    }
+    printf("0x%08X\n", pMsg->flags);
+}
 
 /* ----------------------------------------------------- */
 /* Main ------------------------------------------------ */

@@ -15,6 +15,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes -------------------------------------------- */
+#include "OSCOTypes.h" /* If needed here by config function declarations */
 
 /* Defines --------------------------------------------- */
 #define OSCO_MAX_CAN_DRIVERS 1U /**< Maximum dumber of OSCOCANDriver instances */
@@ -53,6 +54,12 @@ extern void OSCOMutexUnlockRxMgr(void);
 #ifndef OSCO_UNLOCK_RXMGR
 #define OSCO_UNLOCK_RXMGR() OSCOMutexUnlockRxMgr()
 #endif /* OSCO_UNLOCK_RXMGR */
+
+extern void printMessageShort(const OSCOCANMessage_t * const pMsg);
+
+#ifndef CAN_PRINT_SHORT
+#define CAN_PRINT_SHORT(pMsg) printMessageShort(pMsg)
+#endif /* CAN_PRINT_SHORT */
 
 /* Type definitions ------------------------------------ */
 
