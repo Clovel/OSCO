@@ -33,6 +33,10 @@ typedef struct _oscoCANMessage {
     uint32_t flags;
 } OSCOCANMessage_t;
 
+typedef uint8_t * visibleStr_t;
+typedef uint8_t * octetStr_t;
+typedef uint8_t * domain_t;
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
