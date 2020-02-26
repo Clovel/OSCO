@@ -16,9 +16,12 @@ extern "C" {
 
 #include <stdint.h>   /* TODO : Delete this and use custom types */
 #include <stdbool.h>  /* TODO : Delete this and use custom types */
+#include <stddef.h>   /* TODO : Delete this and use custom types */
 
 /* Defines --------------------------------------------- */
+#ifndef NULL
 #define NULL (void *)0U
+#endif /* NULL */
 
 #define CAN_MESSAGE_MAX_SIZE 8U
 
