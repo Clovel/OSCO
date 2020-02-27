@@ -28,7 +28,7 @@ message("DRIVER SOURCES : ${SOURCES}")
 # Link directories ----------------------------------------
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}Clock SHARED
+add_library(${CMAKE_PROJECT_NAME}Clock
     ${SOURCES}
 )
 

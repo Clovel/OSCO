@@ -29,7 +29,7 @@ message("DRIVER SOURCES : ${SOURCES}")
 # Link directories ----------------------------------------
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}Driver SHARED
+add_library(${CMAKE_PROJECT_NAME}Driver
     ${SOURCES}
 )
 add_dependencies(${CMAKE_PROJECT_NAME}Driver
