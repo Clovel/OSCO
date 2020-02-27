@@ -12,6 +12,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes -------------------------------------------- */
+#include "testOD.h" /* Generated OD header here, to be included by stack code */
 #include "OSCOTypes.h"
 
 /* Defines --------------------------------------------- */
