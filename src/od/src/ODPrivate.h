@@ -155,8 +155,11 @@ typedef struct _od {
     uint16_t            idx;
     uint8_t             subIdx;
     OSCOODElmtType_t    type;
+    OSCOODAccessType_t  access;
     void               *ptr;
     void               *defaultValuePtr;
+    void               *maxValPtr;
+    void               *minValPtr;
 } OSCOOD_t;
 
 #endif /* OSCO_OD_PRIVATE_H */
