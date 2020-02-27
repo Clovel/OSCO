@@ -7,6 +7,10 @@
 #ifndef OSCO_OD_PRIVATE_H
 #define OSCO_OD_PRIVATE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /* Includes -------------------------------------------- */
 #include "OSCOTypes.h"
 
@@ -161,5 +165,9 @@ typedef struct _od {
     void               *maxValPtr;
     void               *minValPtr;
 } OSCOOD_t;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* OSCO_OD_PRIVATE_H */
