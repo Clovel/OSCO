@@ -28,7 +28,7 @@ message("OD SOURCES : ${SOURCES}")
 # Link directories ----------------------------------------
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}OD SHARED
+add_library(${CMAKE_PROJECT_NAME}OD
     ${SOURCES}
 )
 # add_dependencies(${CMAKE_PROJECT_NAME}OD
