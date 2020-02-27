@@ -147,7 +147,8 @@ typedef enum _odAccessTypes {
     OD_ACCESS_TYPE_UNKNOWN = 0U,
     OD_ACCESS_TYPE_RO,
     OD_ACCESS_TYPE_WO,
-    OD_ACCESS_TYPE_RW
+    OD_ACCESS_TYPE_RW,
+    OD_ACCESS_TYPE_CONST
 } OSCOODAccessType_t;
 
 /**
