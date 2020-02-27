@@ -48,6 +48,10 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
     }
 
     lResult = CIP_setPutMessageFunction(pID, pID, OSCORxMgrInputMessage);
+    if(CAN_IP_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_setPutMessageFunction failed !\n");
+        return OSCO_ERROR_DRIVER;
+    }
 
     lResult = CIP_init(pID, CAN_IP_MODE_NORMAL, 15024); /* TODO : Mode and port as stack members */
     if(CAN_IP_ERROR_NONE != lResult) {
