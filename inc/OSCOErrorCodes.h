@@ -17,17 +17,20 @@ extern "C" {
 
 /* Type definitions ------------------------------------ */
 typedef enum _oscoErrorCodes {
-    OSCO_ERROR_UNKNOWN      = 0U,
-    OSCO_ERROR_NONE         = 1,
-    OSCO_ERROR_ARG          = 2,
-    OSCO_ERROR_SYS          = 3,
-    OSCO_ERROR_NET          = 4,
-    OSCO_ERROR_ALREADY_INIT = 5,
-    OSCO_ERROR_NOT_INIT     = 6,
-    OSCO_ERROR_STOPPED      = 7,
-    OSCO_ERROR_DRIVER       = 8,
-    OSCO_ERROR_WARN         = 9,
-    OSCO_ERROR_MODULE       = 10
+    OSCO_ERROR_UNKNOWN = 0U,
+    OSCO_ERROR_NONE,
+    OSCO_ERROR_ARG,
+    OSCO_ERROR_SYS,
+    OSCO_ERROR_NET,
+    OSCO_ERROR_ALREADY_INIT,
+    OSCO_ERROR_NOT_INIT,
+    OSCO_ERROR_STOPPED,
+    OSCO_ERROR_DRIVER,
+    OSCO_ERROR_WARN,
+    OSCO_ERROR_MODULE,
+    OSCO_ERROR_OD,
+    OSCO_ERROR_OD_NOT_FOUND,
+    OSCO_ERROR_OD_ACCESS_DENIED,
 } oscoErrorCode_t;
 
 #ifdef __cplusplus
