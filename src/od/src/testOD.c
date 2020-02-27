@@ -63,5 +63,27 @@ OSCOODElement_t gOD[] = {
         NULL,
         NULL,
         NULL
+    },
+    /* SYNC COB OD */
+    {
+        0x1005U,
+        0x00,
+        OD_BASIC_TYPE_UNSIGNED32,
+        OD_ACCESS_TYPE_RW,
+        (objValU32 + 2U),
+        (defValU32 + 1U),
+        NULL,
+        NULL
+    },
+    /* Communication Cycle Period */
+    {
+        0x1006U,
+        0x00,
+        OD_BASIC_TYPE_UNSIGNED32,
+        OD_ACCESS_TYPE_RW,
+        (objValU32 + 3U),
+        (defValU32 + 2U),
+        NULL,
+        NULL
     }
 };
