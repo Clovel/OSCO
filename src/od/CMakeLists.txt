@@ -31,11 +31,11 @@ message("OD SOURCES : ${SOURCES}")
 add_library(${CMAKE_PROJECT_NAME}OD SHARED
     ${SOURCES}
 )
-add_dependencies(${CMAKE_PROJECT_NAME}OD
-)
+# add_dependencies(${CMAKE_PROJECT_NAME}OD
+# )
 link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
-target_link_libraries(${CMAKE_PROJECT_NAME}OD
-)
+# target_link_libraries(${CMAKE_PROJECT_NAME}OD
+# )
 
 #------------------------------------------------------------------------------
 # pkgconfig
