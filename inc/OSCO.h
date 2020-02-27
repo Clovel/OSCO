@@ -64,6 +64,22 @@ oscoErrorCode_t OSCOProcess(const uint8_t pID);
  */
 oscoErrorCode_t OSCOClockTick(void);
 
+/* OD Access functions --------------------------------- */
+oscoErrorCode_t OSCOODGetU8(const uint8_t pID,
+    const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    uint8_t * const pOut);
+
+oscoErrorCode_t OSCOODGetU16(const uint8_t pID,
+    const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    uint16_t * const pOut);
+
+oscoErrorCode_t OSCOODGetU32(const uint8_t pID,
+    const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    uint32_t * const pOut);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
