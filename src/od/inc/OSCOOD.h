@@ -156,16 +156,16 @@ typedef enum _odAccessTypes {
  * 
  * TODO : WIP
  */
-typedef struct _od {
+typedef struct _odElmt {
     uint16_t            idx;
     uint8_t             subIdx;
     OSCOODElmtType_t    type;
     OSCOODAccessType_t  access;
     void               *ptr;
-    void               *defaultValuePtr;
-    void               *maxValPtr;
-    void               *minValPtr;
-} OSCOOD_t;
+    const void         *defaultValuePtr;
+    const void         *maxValPtr;
+    const void         *minValPtr;
+} OSCOODElement_t;
 
 #ifdef __cplusplus
 }
