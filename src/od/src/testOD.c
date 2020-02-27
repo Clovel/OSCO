@@ -49,8 +49,8 @@ OSCOODElement_t gOD[OD_OBJECT_COUNT] = {
         0x00U,
         OD_BASIC_TYPE_UNSIGNED32,
         OD_ACCESS_TYPE_RO,
-        (objValU32 + 0U),
-        (defValU32 + 0U),
+        (void *)(objValU32 + 0U),
+        (void *)(defValU32 + 0U),
         NULL,
         NULL
     },
@@ -60,7 +60,7 @@ OSCOODElement_t gOD[OD_OBJECT_COUNT] = {
         0x00U,
         OD_BASIC_TYPE_UNSIGNED8,
         OD_ACCESS_TYPE_RO,
-        (objValU32 + 1U),
+        (void *)(objValU32 + 1U),
         NULL,
         NULL,
         NULL
@@ -71,8 +71,8 @@ OSCOODElement_t gOD[OD_OBJECT_COUNT] = {
         0x00,
         OD_BASIC_TYPE_UNSIGNED32,
         OD_ACCESS_TYPE_RW,
-        (objValU32 + 2U),
-        (defValU32 + 1U),
+        (void *)(objValU32 + 2U),
+        (void *)(defValU32 + 1U),
         NULL,
         NULL
     },
@@ -82,8 +82,8 @@ OSCOODElement_t gOD[OD_OBJECT_COUNT] = {
         0x00,
         OD_BASIC_TYPE_UNSIGNED32,
         OD_ACCESS_TYPE_RW,
-        (objValU32 + 3U),
-        (defValU32 + 2U),
+        (void *)(objValU32 + 3U),
+        (void *)(defValU32 + 2U),
         NULL,
         NULL
     }
