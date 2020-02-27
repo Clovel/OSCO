@@ -15,14 +15,14 @@
 // const uint8_t defValU8[] = {
 //     //
 // };
-// const uint8_t defValU16[] = {
+// const uint16_t defValU16[] = {
 //     //
 // };
-const uint8_t defValU32[] = {
+const uint32_t defValU32[] = {
     0U, /* 0x1000 */
     0x40000080U, /* 0x1005 */
     1000000U, /* 0x1006 */
 };
-// const uint8_t defValU64[] = {
+// const uint64_t defValU64[] = {
 //     //
 // };

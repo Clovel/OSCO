@@ -15,12 +15,12 @@
 // uint8_t maxValU8[] = {
 //     //
 // };
-// uint8_t maxValU16[] = {
+// uint16_t maxValU16[] = {
 //     //
 // };
-// uint8_t maxValU32[] = {
+// uint32_t maxValU32[] = {
 //     //
 // };
-// uint8_t maxValU64[] = {
+// uint64_t maxValU64[] = {
 //     //
 // };

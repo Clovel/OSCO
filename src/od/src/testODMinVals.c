@@ -15,12 +15,12 @@
 // uint8_t minValU8[] = {
 //     //
 // };
-// uint8_t minValU16[] = {
+// uint16_t minValU16[] = {
 //     //
 // };
-// uint8_t minValU32[] = {
+// uint32_t minValU32[] = {
 //     //
 // };
-// uint8_t minValU64[] = {
+// uint64_t minValU64[] = {
 //     //
 // };
