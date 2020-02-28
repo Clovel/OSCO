@@ -79,7 +79,7 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
         0x00000000U
     };
 
-    lResult = CIP_send(pID, &lMsg);
+    lResult = CIP_send(pID, lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_send failed !\n");
         return OSCO_ERROR_DRIVER;
@@ -239,19 +239,9 @@ oscoErrorCode_t OSCOCANDriverSend(const uint8_t pID,
         return OSCO_ERROR_ARG;
     }
 
-    canMessage_t lMsg = {
-        .id = pMsgID,
-        .size = pSize,
-        .flags = pFlags
-    };
-    
-    if(0 < lMsg.size) {
-        memcpy(lMsg.data, pData, pSize);
-    }
-
     cipErrorCode_t lCIPError = CAN_IP_ERROR_UNKNOWN;
 
-    lCIPError = CIP_send(pID, &lMsg);
+    lCIPError = CIP_send(pID, pMsgID, pSize, pData, pFlags);
     if(CAN_IP_ERROR_NONE != lCIPError) {
         eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed with error code %u !\n", lCIPError);
         return OSCO_ERROR_DRIVER;
