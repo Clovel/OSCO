@@ -5,8 +5,10 @@ Open Source CANOpen stack by Clovel
 
 ## Linked repositories
 For now, the `OSCOCANDriver` uses [CAN over IP](https://github.com/Clovel/can-ip) as a CAN driver.
-A Object Dictionary code geenrator is being built at (OSCO-OD-Gen)[https://github.com/Clovel/OSCO-OD-Gen]
-To implement a clock for the examples, (TimerThread)[https://github.com/Clovel/TimerThread].
+
+A Object Dictionary code geenrator is being built at [OSCO-OD-Gen](https://github.com/Clovel/OSCO-OD-Gen).
+
+To implement a clock for the examples, [TimerThread](https://github.com/Clovel/TimerThread).
 
 ## Contributing
 Contributions are welcome !
