@@ -4,7 +4,7 @@ Feel free to study the code to add to it or to fix it, report issues and make me
 
 ## Rules
 The rules are basic : 
-- Fork the project if ou want to change it. 
+- Fork the project if you want to change it. 
 - Make pull requests
 - Base your pull requests and branches on an issue
 
