@@ -8,6 +8,6 @@
 #define OSCO_GEN_NODEID_H
 
 /* Defines --------------------------------------------- */
-#define OSCO_NODE_ID 0
+#define OSCO_NODE_ID 5
 
 #endif /* OSCO_GEN_NODEID_H */
