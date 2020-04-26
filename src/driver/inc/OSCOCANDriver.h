@@ -28,8 +28,6 @@ oscoErrorCode_t OSCOCANDriverIsEnabled(bool * const pOut);
 oscoErrorCode_t OSCOCANDriverBitRate(uint32_t * const pOut);
 
 /* Setters */
-oscoErrorCode_t OSCOCANDriverEnable(void);
-oscoErrorCode_t OSCOCANDriverDisable(void);
 oscoErrorCode_t OSCOCANDriverSetBitRate(const uint32_t pBitRate);
 
 /* Send CAN message */

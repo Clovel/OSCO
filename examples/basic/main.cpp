@@ -5,12 +5,19 @@
  */
 
 /* Includes -------------------------------------------- */
+/* OSCO stack */
 #include "OSCO.h"
 
+/* CAN Driver wrapper */
+#include "CANDriverWrapper.h"
+
+/* TimerThread */
 #include "TimerThread.hxx"
 
+/* C++ system */
 #include <iostream>
 
+/* C system */
 #include <unistd.h>
 
 /* Defines --------------------------------------------- */
@@ -39,10 +46,37 @@ int main(const int argc, const char * const * const argv) {
 
     unsigned int lErrorCode = 0U;
 
+    /* Link the OSCO stack w/ the CAN Driver */
+    const OSCOCANDriverCallbacks_t lDriverFcts = {
+        .init          = initCANDriver,
+        .reset         = resetCANDriver,
+        .disable       = disableCANDriver,
+        .send          = sendCANMsg,
+        .msgAvail      = CANMsgAvail,
+        .recv          = recvCANMsg,
+        .rxThreadStart = startCANDriverRxThread,
+        .isRxThreadOn  = startCANDriverIsRxThreadOn,
+    };
+
+    if(OSCO_ERROR_NONE != OSCOSetCANDriverFunctionSet(lDriverFcts)) {
+        std::cerr << "[ERROR] OSCOSetCANDriverFunctionSet failed w/ error code " << lErrorCode << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     /* Initialize the CAN over IP module */
     if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit())) {
         std::cerr << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
         exit(EXIT_FAILURE);
+    }
+
+    if(OSCO_ERROR_NONE != setPutMsgClbk()) {
+        std::cerr << "[ERROR] setPutMsgClbk failed w/ error code " << lErrorCode << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if(OSCO_ERROR_NONE != OSCOCANDriverEnable()) {
+        std::cerr << "[ERROR]  OSCOCANDriverEnable failed with error code " << lErrorCode << std::endl;
+        return OSCO_ERROR_DRIVER;
     }
 
     /* Initialize TimerThread */

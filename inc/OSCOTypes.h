@@ -1,5 +1,5 @@
 /*
- * @brief OSCI custom public types
+ * @brief OSCO custom public types
  * 
  * @file OSCOTypes.h
  */
@@ -42,22 +42,24 @@ typedef uint8_t * octetStr_t;
 typedef uint8_t * domain_t;
 
 /* CAN Driver function types */
-typedef uint16_t (*OSCOCANDriverInitFct_t)(const uint8_t);
-typedef uint16_t (*OSCOCANDriverResetFct_t)(const uint8_t);
-typedef uint16_t (*OSCOCANDriverDisableFct_t)(const uint8_t);
-typedef uint16_t (*OSCOCANDriverSetPutClbkFct_t)(const uint8_t, const uint8_t, int (*)(const uint8_t, const uint32_t, const uint8_t, const uint8_t * const, const uint32_t));
-typedef uint16_t (*OSCOCANDriverSendFct_t)(const uint8_t, const uint32_t, const uint8_t, const uint8_t * const, const uint32_t);
-typedef uint16_t (*OSCOCANDriverRecvFct_t)(const uint8_t, uint32_t * const, uint8_t * const, uint8_t * const, uint32_t * const);
-typedef uint16_t (*OSCOCANDriverRxThreadStartFct_t)(const uint8_t);
+typedef oscoErrorCode_t (*OSCOCANDriverInitFct_t)(void);
+typedef oscoErrorCode_t (*OSCOCANDriverResetFct_t)(void);
+typedef oscoErrorCode_t (*OSCOCANDriverDisableFct_t)(void);
+typedef oscoErrorCode_t (*OSCOCANDriverSendFct_t)(const uint32_t, const uint8_t, const uint8_t * const, const uint32_t);
+typedef oscoErrorCode_t (*OSCOCANDriverRecvFct_t)(uint32_t * const, uint8_t * const, uint8_t * const, uint32_t * const);
+typedef oscoErrorCode_t (*OSCOCANDriverRxThreadStartFct_t)(void);
+typedef oscoErrorCode_t (*OSCOCANDriverMsgAvailable_t)(bool * const);
+typedef oscoErrorCode_t (*OSCOCANDriverIsRxThreadOn_t)(bool * const);
 
 typedef struct _CanDriverCallbacks {
-    OSCOCANDriverInitFct_t          driverInit;
-    OSCOCANDriverResetFct_t         driverReset;
-    OSCOCANDriverDisableFct_t       driverDisable;
-    OSCOCANDriverSetPutClbkFct_t    driverSetPutClbk;
-    OSCOCANDriverSendFct_t          driverSend;
-    OSCOCANDriverRecvFct_t          driverRecv;
-    OSCOCANDriverRxThreadStartFct_t driverRxThreadStart;
+    OSCOCANDriverInitFct_t          init;
+    OSCOCANDriverResetFct_t         reset;
+    OSCOCANDriverDisableFct_t       disable;
+    OSCOCANDriverSendFct_t          send;
+    OSCOCANDriverRecvFct_t          recv;
+    OSCOCANDriverRxThreadStartFct_t rxThreadStart;
+    OSCOCANDriverMsgAvailable_t     msgAvail;
+    OSCOCANDriverIsRxThreadOn_t     isRxThreadOn;
 } OSCOCANDriverCallbacks_t;
 
 #ifdef __cplusplus

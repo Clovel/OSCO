@@ -49,12 +49,6 @@ oscoErrorCode_t OSCOInit(void) {
         return OSCO_ERROR_DRIVER;
     }
 
-    lErrorCode = OSCOCANDriverEnable();
-    if(OSCO_ERROR_NONE != lErrorCode) {
-        eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverEnable failed with error code %u !\n", lErrorCode);
-        return OSCO_ERROR_DRIVER;
-    }
-
     /* Initialize the stack's internal clock */
     lErrorCode = OSCOClockInit(OSCO_CLOCK_RESOLUTION);
     if(OSCO_ERROR_NONE != lErrorCode) {

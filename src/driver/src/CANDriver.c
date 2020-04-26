@@ -6,9 +6,6 @@
  */
 
 /* Includes -------------------------------------------- */
-/* Custom CAN Driver API */
-#include "can_ip.h"
-
 /* OSCO Module includes */
 #include "OSCOCANDriver.h"
 
@@ -43,23 +40,9 @@ oscoErrorCode_t OSCOSetCANDriverFunctionSet(const OSCOCANDriverCallbacks_t pFunc
 
 /* Initialization */
 oscoErrorCode_t OSCOCANDriverInit(void) {
-    cipErrorCode_t lResult = CIP_createModule(0U);
-    if(CAN_IP_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
-        return OSCO_ERROR_DRIVER;
-    }
-
-    gCANDriver.driverID = 0U;
-
-    lResult = CIP_init(0U, CAN_IP_MODE_NORMAL, 15024); /* TODO : Mode and port as stack members */
-    if(CAN_IP_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
-        return OSCO_ERROR_DRIVER;
-    }
-
-    lResult = CIP_setPutMessageFunction(0U, 0U, OSCORxMgrInputMessage);
-    if(CAN_IP_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_setPutMessageFunction failed !\n");
+    oscoErrorCode_t lResult = gCANDriver.driverFunctions.init();
+    if(OSCO_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverInit> driverInit failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
@@ -83,9 +66,9 @@ oscoErrorCode_t OSCOCANDriverInit(void) {
         0x00000000U
     };
 
-    lResult = CIP_send(0U, lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
-    if(CAN_IP_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_send failed !\n");
+    lResult = gCANDriver.driverFunctions.send(lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
+    if(OSCO_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverInit> driverSend failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 #endif /* DEBUG */
@@ -97,13 +80,13 @@ oscoErrorCode_t OSCOCANDriverInit(void) {
 oscoErrorCode_t OSCOCANDriverReset(void) {
     /* TODO */
 
-    gCANDriver.driverFunctions.driverInit          = NULL;
-    gCANDriver.driverFunctions.driverReset         = NULL;
-    gCANDriver.driverFunctions.driverDisable       = NULL;
-    gCANDriver.driverFunctions.driverSetPutClbk    = NULL;
-    gCANDriver.driverFunctions.driverSend          = NULL;
-    gCANDriver.driverFunctions.driverRecv          = NULL;
-    gCANDriver.driverFunctions.driverRxThreadStart = NULL;
+    gCANDriver.driverFunctions.init          = NULL;
+    gCANDriver.driverFunctions.reset         = NULL;
+    gCANDriver.driverFunctions.disable       = NULL;
+    gCANDriver.driverFunctions.send          = NULL;
+    gCANDriver.driverFunctions.recv          = NULL;
+    gCANDriver.driverFunctions.rxThreadStart = NULL;
+    gCANDriver.driverFunctions.msgAvail      = NULL;
 
     return OSCO_ERROR_NONE;
 }
@@ -156,9 +139,9 @@ oscoErrorCode_t OSCOCANDriverBitRate(uint32_t * const pOut) {
 
 /* Setters */
 oscoErrorCode_t OSCOCANDriverEnable() {
-    int lResult = CIP_startRxThread(0U);
-    if(1 != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverEnable> CIP_startRxThread failed !\n");
+    oscoErrorCode_t lResult = gCANDriver.driverFunctions.rxThreadStart();
+    if(OSCO_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverEnable> driverRxThreadStart failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
@@ -169,6 +152,11 @@ oscoErrorCode_t OSCOCANDriverEnable() {
 
 oscoErrorCode_t OSCOCANDriverDisable() {
     /* TODO */
+    oscoErrorCode_t lResult = gCANDriver.driverFunctions.disable();
+    if(OSCO_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverDisable> driverDisable failed !\n");
+        return OSCO_ERROR_DRIVER;
+    }
 
     gCANDriver.enabled = false;
 
@@ -204,11 +192,9 @@ oscoErrorCode_t OSCOCANDriverSend(const uint32_t pMsgID,
         return OSCO_ERROR_ARG;
     }
 
-    cipErrorCode_t lCIPError = CAN_IP_ERROR_UNKNOWN;
-
-    lCIPError = CIP_send(0U, pMsgID, pSize, pData, pFlags);
-    if(CAN_IP_ERROR_NONE != lCIPError) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed with error code %u !\n", lCIPError);
+    oscoErrorCode_t lResult = gCANDriver.driverFunctions.send(pMsgID, pSize, pData, pFlags);
+    if(OSCO_ERROR_NONE != lResult) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed with error code %u !\n", lResult);
         return OSCO_ERROR_DRIVER;
     }
 
