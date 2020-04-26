@@ -1,0 +1,26 @@
+/**
+ * @CMAKE_PROJECT_NAME@ version definitions
+ * 
+ * @file Version.h
+ */
+
+#ifndef VERSION_H
+#define VERSION_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+/* Includes -------------------------------------------- */
+
+/* Defines --------------------------------------------- */
+#define OSCO_VERSION_MAJOR @CMAKE_PROJECT_VERSION_MAJOR@
+#define OSCO_VERSION_MINOR @CMAKE_PROJECT_VERSION_MINOR@
+#define OSCO_VERSION_PATCH @CMAKE_PROJECT_VERSION_PATCH@
+#define OSCO_VERSION "@CMAKE_PROJECT_VERSION@"
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* VERSION_H */

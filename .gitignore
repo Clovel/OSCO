@@ -19,6 +19,9 @@ CTestTestfile.cmake
 CMakeFiles/
 CMakeScripts/
 
+# Generated version file ------------------------
+inc/Version.h
+
 # VS Code related files -------------------------
 .vscode/
 

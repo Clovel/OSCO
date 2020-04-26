@@ -4,13 +4,10 @@
 # -----------------------------------------------------------------------------
 
 # CMake version required ----------------------------------
-cmake_minimum_required(VERSION 3.0)
-project(osco)
+cmake_minimum_required(VERSION 3.9)
 
 # Project definition --------------------------------------
-if(NOT DEFINED PRJ_VERSION)
-    set(PRJ_VERSION "1.0.0")
-endif(NOT DEFINED PRJ_VERSION)
+project(OSCO VERSION "1.0.0")
 
 #------------------------------------------------------------------------------
 # Build definition (to do before calling 'project()')
@@ -48,10 +45,13 @@ endif(NOT CMAKE_CXX_FLAGS)
 set(CMAKE_PROJECT_NAME ${PROJECT_NAME})
 set(CMAKE_SYSTEM_NAME Linux)
 
-set(CMAKE_PROJECT_BRIEF "Open Source CANOpen library")
+set(CMAKE_PROJECT_BRIEF "Open Source CANOpen stack")
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/dest CACHE PATH "" FORCE)
+    if(NOT INSTALL_DESTINATION_SET)
+        set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/dest CACHE PATH "" FORCE)
+        set(INSTALL_DESTINATION_SET TRUE)
+    endif(NOT INSTALL_DESTINATION_SET)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
 # Allow CTest
@@ -109,6 +109,12 @@ set(RELEASE_VERSION ${tmp_SOVERSION} CACHE STRING "Release version" FORCE)
 # Build version is generated using the hash of the current commit build with
 set(BUILD_VERSION ${GIT_COMMIT_HASH} CACHE STRING "Build version" FORCE)
 
+message(STATUS "OSCO OD Gen version : ${CMAKE_PROJECT_VERSION}")
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/Version.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/Version.h
+)
+
 #------------------------------------------------------------------------------
 # pkgconfig
 #------------------------------------------------------------------------------
@@ -122,7 +128,7 @@ if(PKG_CONFIG_FOUND)
         @ONLY
     )
     install (
-        FILES ${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc    
+        FILES ${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc
         DESTINATION lib/pkgconfig
     )
 endif(PKG_CONFIG_FOUND)
@@ -162,23 +168,3 @@ if(ENABLE_EXAMPLES)
 else()
     message(STATUS "EXAMPLES disabled")
 endif (ENABLE_EXAMPLES)
-
-#------------------------------------------------------------------------------
-# Gencov custom command
-#------------------------------------------------------------------------------
-
-set(COVERITY_FILES
-  " ${CMAKE_SOURCE_DIR}/build-coverity/output/summary.txt"
-)
-
-add_custom_command(OUTPUT ${COVERITY_FILES}
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} mkdir -p build-coverity
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} cov-configure --gcc
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} cov-build --dir build-coverity make -j $(nproc)
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} cov-analyze --dir build-coverity --all --aggressiveness-level low --misra-config MISRA_c2012_MM.config
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} cov-commit-defects --dir build-coverity --host coverity3.freescale.net --user committer --password CoverityGuest --stream lib${PROJECT_NAME}
-    COMMAND ${CMAKE_COMMAND} -E touch ${COVERITY_FILES}
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    COMMENT "run coverity"
-)
-add_custom_target(coverity DEPENDS ${COVERITY_FILES})
