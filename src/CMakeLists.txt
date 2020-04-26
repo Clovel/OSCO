@@ -55,13 +55,15 @@ add_dependencies(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
     ${CMAKE_PROJECT_NAME}OD
-)
-target_link_libraries(${CMAKE_PROJECT_NAME}
+    ${CMAKE_PROJECT_NAME}GenOD
+    )
+    target_link_libraries(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
     ${CMAKE_PROJECT_NAME}OD
+    ${CMAKE_PROJECT_NAME}GenOD
 )
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
     PUBLIC_HEADER "${PUBLIC_HEADERS}"

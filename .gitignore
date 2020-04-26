@@ -22,6 +22,16 @@ CMakeScripts/
 # Generated version file ------------------------
 inc/Version.h
 
+# Generated OD files ----------------------------
+gen/OSCOGenNodeID.h
+gen/OSCOGenOD_DefaultValues.c
+gen/OSCOGenOD_Values.c
+gen/OSCOGenOD.c
+gen/OSCOGenOD_MaxValues.c
+gen/*.eds
+gen/OSCOGenOD.h
+gen/OSCOGenOD_MinValues.c
+
 # VS Code related files -------------------------
 .vscode/
 

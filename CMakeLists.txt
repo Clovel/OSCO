@@ -139,12 +139,14 @@ endif(PKG_CONFIG_FOUND)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/inc)
+include_directories(${CMAKE_SOURCE_DIR}/gen)
 
 #------------------------------------------------------------------------------
 # Sub-directories 
 #------------------------------------------------------------------------------
 
 # Main build
+add_subdirectory(gen)
 add_subdirectory(src)
 
 # Builds dependent on main build

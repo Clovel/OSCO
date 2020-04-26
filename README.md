@@ -3,6 +3,16 @@ Open Source CANOpen stack by Clovel
 
 **This project and it's dependecies are WIP !**
 
+## The Object Dictionary
+You first need to generate a CANOpen Object Dictionary using [OSCO-OD-Gen](https://github.com/Clovel/OSCO-OD-Gen).
+Once your Object Dictionary C code has been generated, they should be all in one directory.
+Use the `copy_od_gen_code.sh` script to copy the source files into the correct directory in the OSCO project.
+```bash
+./copy_od_gen_code.sh <GEN_SOURCE_DIRECTORY>
+```
+
+The source files will be copied in the `gen/` directory, and be compiled with CMake (if you use CMake).
+
 ## Linked repositories
 For now, the `OSCOCANDriver` uses [CAN over IP](https://github.com/Clovel/can-ip) as a CAN driver.
 Here is the list of driver layers in development for the OSCO project : 
