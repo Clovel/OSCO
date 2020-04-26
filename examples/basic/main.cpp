@@ -14,7 +14,6 @@
 #include <unistd.h>
 
 /* Defines --------------------------------------------- */
-#define OSCO_ID 0U
 
 /* Notes ----------------------------------------------- */
 
@@ -41,7 +40,7 @@ int main(const int argc, const char * const * const argv) {
     unsigned int lErrorCode = 0U;
 
     /* Initialize the CAN over IP module */
-    if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit(OSCO_ID))) {
+    if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit())) {
         std::cerr << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -60,7 +59,7 @@ int main(const int argc, const char * const * const argv) {
 
     while(true) {
         /* Call the CANOpen stack main process routine */
-        lErrorCode = OSCOProcess(OSCO_ID);
+        lErrorCode = OSCOProcess();
         if(OSCO_ERROR_NONE != lErrorCode) {
             std::cerr << "[DEBUG] OSCOProcess failed !" << std::endl;
             return EXIT_FAILURE;

@@ -20,16 +20,15 @@
 
 /* External variable declarations ---------------------- */
 extern OSCOODElement_t gOD[];
+extern uint16_t OSCOODObjCount;
 
 /* OD pointer getters ---------------------------------- */
-static oscoErrorCode_t getObjPtr(const uint8_t pID,
+static oscoErrorCode_t getObjPtr(
     const uint16_t pIdx,
     const uint8_t pSubIdx,
     void **pOut)
 {
-    (void)pID;
-
-    for(uint8_t i = 0U; i < OD_OBJECT_COUNT; i++) {
+    for(uint16_t i = 0U; i < OSCOODObjCount; i++) {
         if((pIdx == gOD[i].idx) && (pSubIdx == gOD[i].subIdx)) {
             /* We found our object */
             
@@ -55,8 +54,7 @@ static oscoErrorCode_t getObjPtr(const uint8_t pID,
 }
 
 /* OD Getters ------------------------------------------ */
-oscoErrorCode_t OSCOODGetU8(const uint8_t pID,
-    const uint16_t pIdx,
+oscoErrorCode_t OSCOODGetU8(const uint16_t pIdx,
     const uint8_t pSubIdx,
     uint8_t * const pOut)
 {
@@ -68,7 +66,7 @@ oscoErrorCode_t OSCOODGetU8(const uint8_t pID,
     void *lObjectPtr = NULL;
 
     /* Get the pointer to the objects data */
-    oscoErrorCode_t lErrorCode = getObjPtr(pID, pIdx, pSubIdx, &lObjectPtr);
+    oscoErrorCode_t lErrorCode = getObjPtr(pIdx, pSubIdx, &lObjectPtr);
     switch(lErrorCode) {
         case OSCO_ERROR_NONE:
             /* We found the object, and we can read it */
@@ -96,8 +94,7 @@ oscoErrorCode_t OSCOODGetU8(const uint8_t pID,
     return OSCO_ERROR_OD_NOT_FOUND;
 }
 
-oscoErrorCode_t OSCOODGetU16(const uint8_t pID,
-    const uint16_t pIdx,
+oscoErrorCode_t OSCOODGetU16(const uint16_t pIdx,
     const uint8_t pSubIdx,
     uint16_t * const pOut)
 {
@@ -109,7 +106,7 @@ oscoErrorCode_t OSCOODGetU16(const uint8_t pID,
     void *lObjectPtr = NULL;
 
     /* Get the pointer to the objects data */
-    oscoErrorCode_t lErrorCode = getObjPtr(pID, pIdx, pSubIdx, &lObjectPtr);
+    oscoErrorCode_t lErrorCode = getObjPtr(pIdx, pSubIdx, &lObjectPtr);
     switch(lErrorCode) {
         case OSCO_ERROR_NONE:
             /* We found the object, and we can read it */
@@ -137,8 +134,7 @@ oscoErrorCode_t OSCOODGetU16(const uint8_t pID,
     return OSCO_ERROR_OD_NOT_FOUND;
 }
 
-oscoErrorCode_t OSCOODGetU32(const uint8_t pID,
-    const uint16_t pIdx,
+oscoErrorCode_t OSCOODGetU32(const uint16_t pIdx,
     const uint8_t pSubIdx,
     uint32_t * const pOut)
 {
@@ -150,7 +146,7 @@ oscoErrorCode_t OSCOODGetU32(const uint8_t pID,
     void *lObjectPtr = NULL;
 
     /* Get the pointer to the objects data */
-    oscoErrorCode_t lErrorCode = getObjPtr(pID, pIdx, pSubIdx, &lObjectPtr);
+    oscoErrorCode_t lErrorCode = getObjPtr(pIdx, pSubIdx, &lObjectPtr);
     switch(lErrorCode) {
         case OSCO_ERROR_NONE:
             /* We found the object, and we can read it */

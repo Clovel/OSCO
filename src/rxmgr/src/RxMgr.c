@@ -39,12 +39,7 @@ typedef enum _fifoState {
 } fifoState_t;
 
 /* OSCO Reception manager functions -------------------- */
-static fifoState_t getFifoState(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <getFifoState> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-    
+static fifoState_t getFifoState(void) {
     /* Check if the FIFO is full */
     if(gRxMgr.rIdx == gRxMgr.wIdx) {
         /* Either empty or full */
@@ -61,12 +56,7 @@ static fifoState_t getFifoState(const uint8_t pID) {
     }
 }
 
-static oscoErrorCode_t getMsgFromFifo(const uint8_t pID, OSCOCANMessage_t * const pMsg) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <getMsgFromFifo> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+static oscoErrorCode_t getMsgFromFifo(OSCOCANMessage_t * const pMsg) {
     if(!gRxMgr.initialized) {
         eprintf("[ERROR] OSCO <getMsgFromFifo> Service is not initialized !\n");
         return OSCO_ERROR_NOT_INIT;
@@ -100,17 +90,11 @@ static oscoErrorCode_t getMsgFromFifo(const uint8_t pID, OSCOCANMessage_t * cons
     return OSCO_ERROR_NONE;
 }
 
-int OSCORxMgrInputMessage(const uint8_t pID, 
-    const uint32_t pCOBID,
+int OSCORxMgrInputMessage(const uint32_t pCOBID,
     const uint8_t pSize,
     const uint8_t * const pData,
     const uint32_t pFlags)
 {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCORxMgrInputMessage> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
     if(!gRxMgr.initialized) {
         eprintf("[ERROR] OSCO <OSCORxMgrInputMessage> Service is not initialized !\n");
         return OSCO_ERROR_NOT_INIT;
@@ -118,7 +102,7 @@ int OSCORxMgrInputMessage(const uint8_t pID,
 
     OSCO_LOCK_RXMGR();
 
-    if(FIFO_FULL == getFifoState(pID)) {
+    if(FIFO_FULL == getFifoState()) {
         eprintf("[ERROR] OSCO <OSCORxMgrInputMessage> Rx FIFO is full !\n");
         return 1;
     }
@@ -144,12 +128,7 @@ int OSCORxMgrInputMessage(const uint8_t pID,
     return 0; /* TODO : error checking */
 }
 
-oscoErrorCode_t OSCORxMgrInit(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCORxMgrInit> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCORxMgrInit(void) {
     if(gRxMgr.initialized) {
         eprintf("[ERROR] OSCO <OSCORxMgrInit> Service is already initialized !\n");
         return OSCO_ERROR_ALREADY_INIT;
@@ -157,29 +136,26 @@ oscoErrorCode_t OSCORxMgrInit(const uint8_t pID) {
 
     gRxMgr.initialized = true;
 
+    /* TODO : Zero out the FIFO buffers */
+
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCORxMgrProcess(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCORxMgrProcess> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCORxMgrProcess(void) {
     if(!gRxMgr.initialized) {
         eprintf("[ERROR] OSCO <OSCORxMgrProcess> Service is not initialized !\n");
         return OSCO_ERROR_NOT_INIT;
     }
 
     /* Check if new messages are available */
-    if(FIFO_EMPTY == getFifoState(pID)) {
+    if(FIFO_EMPTY == getFifoState()) {
         /* No new messages, return w/o any error */
         return OSCO_ERROR_NONE;
     }
 
     /* Get a message from the FIFO */
     OSCOCANMessage_t lMsg;
-    if(OSCO_ERROR_NONE != getMsgFromFifo(pID, &lMsg)) {
+    if(OSCO_ERROR_NONE != getMsgFromFifo(&lMsg)) {
         eprintf("[ERROR] OSCO <OSCORxMgrProcess> OSCORxMgrGetMsgFromFifo failed !\n");
         return OSCO_ERROR_MODULE;
     }

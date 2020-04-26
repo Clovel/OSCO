@@ -5,7 +5,7 @@
 
 # CMakeLists.txt that generates the Doxygen documentation
 find_package(Doxygen)
-option(BUILD_DOC "Build API documentation" ${DOXYGEN_FOUND})
+option(BUILD_DOC "Build ${CMAKE_PROJECT_NAME} documentation" ${DOXYGEN_FOUND})
 
 set(doxy_main_page ${CMAKE_SOURCE_DIR}/README.md)
 
@@ -22,7 +22,7 @@ if(DOXYGEN_FOUND)
     add_custom_target(doc_doxygen ALL
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs
-        COMMENT "Generating API documentation with Doxygen"
+        COMMENT "Generating ${CMAKE_PROJECT_NAME} documentation with Doxygen"
         VERBATIM)
 else(DOXYGEN_FOUND)
     message("[WARN ] Doxygen is required to generate the doxygen documentation")
