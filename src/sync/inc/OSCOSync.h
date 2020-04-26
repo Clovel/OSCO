@@ -19,11 +19,9 @@
 /**
  * @brief Initializes the OSCO SYNC service.
  * 
- * @param[in]   pID     ID of the module.
- * 
  * @return Error code
  */
-oscoErrorCode_t OSCOSyncInit(const uint8_t pID);
+oscoErrorCode_t OSCOSyncInit(void);
 
 /* Getters */
 
@@ -33,21 +31,18 @@ oscoErrorCode_t OSCOSyncInit(const uint8_t pID);
  * the SYNC message must be sent if the node is a 
  * SYNC producer.
  * 
- * @param[in]   pID         ID of the module.
  * @param[in]   pPeriodMs   Period in ms.
  * 
  * @return Error code
  */
-oscoErrorCode_t OSCOSyncSetPeriod(const uint8_t pID, const uint32_t pPeriodMs);
+oscoErrorCode_t OSCOSyncSetPeriod(const uint32_t pPeriodMs);
 
 /* Process */
 /**
  * @brief SYNC service main process
  * 
- * @param[in]   pID     ID of the module.
- * 
  * @return Error code
  */
-oscoErrorCode_t OSCOSyncProcess(const uint8_t pID);
+oscoErrorCode_t OSCOSyncProcess(void);
 
 #endif /* OSCO_SYNC_H */

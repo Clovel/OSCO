@@ -15,7 +15,7 @@
 
 /* Type definitions ------------------------------------ */
 typedef struct _canDriverPrivateVars {
-    uint8_t id;
+    uint8_t driverID;
     bool initialized;
     bool enabled;
 

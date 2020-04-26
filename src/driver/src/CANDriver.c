@@ -31,35 +31,33 @@
 /* Type definitions ------------------------------------ */
 
 /* Variable declarations ------------------------------- */
-oscoCANDriverInstance_t canDrivers[OSCO_MAX_CAN_DRIVERS];
+oscoCANDriverInstance_t gCANDriver;
 
 /* OSCO CAN Driver functions --------------------------- */
 /* Initialization */
-oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverInit> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
+oscoErrorCode_t OSCOCANDriverInit(void) {
 
-    cipErrorCode_t lResult = CIP_createModule(pID);
+    cipErrorCode_t lResult = CIP_createModule(0U);
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
-    lResult = CIP_init(pID, CAN_IP_MODE_NORMAL, 15024); /* TODO : Mode and port as stack members */
+    gCANDriver.driverID = 0U;
+
+    lResult = CIP_init(0U, CAN_IP_MODE_NORMAL, 15024); /* TODO : Mode and port as stack members */
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
-    lResult = CIP_setPutMessageFunction(pID, pID, OSCORxMgrInputMessage);
+    lResult = CIP_setPutMessageFunction(0U, 0U, OSCORxMgrInputMessage);
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_setPutMessageFunction failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
-    canDrivers[pID].initialized = true;
+    gCANDriver.initialized = true;
 
 #ifdef DEBUG
     /* Set up test CAN message */
@@ -79,7 +77,7 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
         0x00000000U
     };
 
-    lResult = CIP_send(pID, lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
+    lResult = CIP_send(0U, lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_send failed !\n");
         return OSCO_ERROR_DRIVER;
@@ -90,146 +88,99 @@ oscoErrorCode_t OSCOCANDriverInit(const uint8_t pID) {
 }
 
 /* Re-initialization */
-oscoErrorCode_t OSCOCANDriverReinit(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverReinit> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverReinit(void) {
     /* TODO */
 
     return OSCO_ERROR_NONE;
 }
 
 /* Getters */
-oscoErrorCode_t OSCOCANDriverID(const uint8_t pID, uint8_t * const pOut) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverID> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverID(uint8_t * const pOut) {
     if(NULL == pOut) {
         eprintf("[ERROR] OSCO <OSCOCANDriverID> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
-    /* pID should be equal to canDrivers[pID].id */
-    *pOut = canDrivers[pID].id;
+    /* pID should be equal to gCANDriver.id */
+    *pOut = gCANDriver.driverID;
 
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCOCANDriverIsInitialized(const uint8_t pID, bool * const pOut) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverIsInitialized> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverIsInitialized(bool * const pOut) {
     if(NULL == pOut) {
         eprintf("[ERROR] OSCO <OSCOCANDriverIsInitialized> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
-    *pOut = canDrivers[pID].initialized;
+    *pOut = gCANDriver.initialized;
 
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCOCANDriverIsEnabled(const uint8_t pID, bool * const pOut) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverIsEnabled> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverIsEnabled(bool * const pOut) {
     if(NULL == pOut) {
         eprintf("[ERROR] OSCO <OSCOCANDriverIsEnabled> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
-    *pOut = canDrivers[pID].enabled;
+    *pOut = gCANDriver.enabled;
 
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCOCANDriverBitRate(const uint8_t pID, uint32_t * const pOut) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverBitRate(uint32_t * const pOut) {
     if(NULL == pOut) {
         eprintf("[ERROR] OSCO <OSCOCANDriverBitRate> Output ptr is NULL !\n");
         return OSCO_ERROR_ARG;
     }
 
-    *pOut = canDrivers[pID].bitRate;
+    *pOut = gCANDriver.bitRate;
 
     return OSCO_ERROR_NONE;
 }
 
 /* Setters */
-oscoErrorCode_t OSCOCANDriverEnable(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverEnable> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
-    /* TODO */
-    int lResult = CIP_startRxThread(pID);
+oscoErrorCode_t OSCOCANDriverEnable() {
+    int lResult = CIP_startRxThread(0U);
     if(1 != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverEnable> CIP_startRxThread failed !\n");
         return OSCO_ERROR_DRIVER;
     }
 
-    canDrivers[pID].enabled = true;
+    gCANDriver.enabled = true;
 
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCOCANDriverDisable(const uint8_t pID) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverDisable> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverDisable() {
     /* TODO */
 
-    canDrivers[pID].enabled = false;
+    gCANDriver.enabled = false;
 
     return OSCO_ERROR_NONE;
 }
 
-oscoErrorCode_t OSCOCANDriverSetBitRate(const uint8_t pID, const uint32_t pBitRate) {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSetBitRate> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
+oscoErrorCode_t OSCOCANDriverSetBitRate(const uint32_t pBitRate) {
     /* TODO */
 
-    canDrivers[pID].bitRate = pBitRate;
+    gCANDriver.bitRate = pBitRate;
 
     return OSCO_ERROR_NONE;
 }
 
 /* Send CAN message */
-oscoErrorCode_t OSCOCANDriverSend(const uint8_t pID, 
-    const uint32_t pMsgID,
+oscoErrorCode_t OSCOCANDriverSend(const uint32_t pMsgID,
     const uint8_t pSize,
     const uint8_t * const pData,
     const uint32_t pFlags)
 {
-    if(OSCO_MAX_CAN_DRIVERS <= pID) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverSend> ID out of bounds !\n");
-        return OSCO_ERROR_ARG;
-    }
-
-    if(!canDrivers[pID].initialized) {
+    if(!gCANDriver.initialized) {
         eprintf("[ERROR] OSCO <OSCOCANDriverSend> Driver is not initialized !\n");
         return OSCO_ERROR_NOT_INIT;
     }
 
-    if(!canDrivers[pID].enabled) {
+    if(!gCANDriver.enabled) {
         eprintf("[ERROR] OSCO <OSCOCANDriverSend> Driver is not enabled !\n");
         return OSCO_ERROR_STOPPED;
     }
@@ -241,7 +192,7 @@ oscoErrorCode_t OSCOCANDriverSend(const uint8_t pID,
 
     cipErrorCode_t lCIPError = CAN_IP_ERROR_UNKNOWN;
 
-    lCIPError = CIP_send(pID, pMsgID, pSize, pData, pFlags);
+    lCIPError = CIP_send(0U, pMsgID, pSize, pData, pFlags);
     if(CAN_IP_ERROR_NONE != lCIPError) {
         eprintf("[ERROR] OSCO <OSCOCANDriverSend> CIP_send failed with error code %u !\n", lCIPError);
         return OSCO_ERROR_DRIVER;
