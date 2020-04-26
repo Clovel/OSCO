@@ -1,0 +1,514 @@
+[FileInfo]
+FileName=slave1.eds
+FileVersion=1.0
+FileRevision=1.0
+EDSVersion=4.0
+Description=EDS
+CreationTime=15:55PM
+CreationDate=08-30-19
+ModificationTime=15:55PM
+ModificationDate=08-30-19
+CreatedBy=example
+ModifiedBy=example
+
+[Comments]
+Lines=0
+
+[DeviceInfo]
+VendorNumber=0x319
+ProductName=slave1
+ProductNumber=1234
+RevisionNumber=0x1
+OrderCode=slave1
+BaudRate_10=0
+BaudRate_20=0
+BaudRate_50=0
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=0
+BaudRate_800=0
+BaudRate_1000=0
+NrOfRxPDO=2
+NrOfTxPDO=1
+SimpleBootupSlave=1
+SimpleBootupMaster=0
+LSS_Supported=0
+Granularity=8
+DynamicChannelsSupported=0
+GroupMessaging=0
+
+[DummyUsage]
+Dummy0001=0
+Dummy0002=0
+Dummy0003=0
+Dummy0004=0
+Dummy0005=0
+Dummy0006=0
+Dummy0007=0
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[ManufacturerObjects]
+SupportedObjects=2
+1=0x2001
+2=0x3000
+
+[OptionalObjects]
+SupportedObjects=14
+1=0x1003
+2=0x1008
+3=0x1014
+4=0x1015
+5=0x1016
+6=0x1017
+7=0x1029
+8=0x1200
+9=0x1400
+10=0x1401
+11=0x1600
+12=0x1601
+13=0x1800
+14=0x1a00
+
+[1000]
+ParameterName=Device Type
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0
+
+[1001]
+ParameterName=Error Register
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+
+[1003]
+ParameterName=Predefined Error Field
+ObjectType=8
+SubNumber=2
+
+[1003sub0]
+ParameterName=Number of Errors
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=0
+
+[1003sub1]
+ParameterName=Standard Error Field
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0
+
+[1008]
+ParameterName=Manufacturer device name
+ObjectType=7
+DataType=9
+AccessType=const
+PDOMapping=0
+DefaultValue=emotas Slave 1
+
+[1014]
+ParameterName=COB ID EMCY
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=$NODEID+0x80
+
+[1015]
+ParameterName=Inhibit Time Emergency
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0
+
+[1016]
+ParameterName=Consumer Heartbeat Time
+ObjectType=8
+SubNumber=2
+
+[1016sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=1
+
+[1016sub1]
+ParameterName=Consumer Heartbeat Time
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x10800
+
+[1017]
+ParameterName=Producer Heartbeat Time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1018]
+ParameterName=Identity Object
+ObjectType=9
+SubNumber=5
+
+[1018sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=4
+
+[1018sub1]
+ParameterName=Vendor Id
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x319
+
+[1018sub2]
+ParameterName=Product Code
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=1234
+
+[1018sub3]
+ParameterName=Revision number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x1
+
+[1018sub4]
+ParameterName=Serial number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+
+[1029]
+ParameterName=Error behaviour
+ObjectType=8
+SubNumber=3
+
+[1029sub0]
+ParameterName=Nr of Error Classes
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1029sub1]
+ParameterName=Communication Error
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=1
+
+[1029sub2]
+ParameterName=Specific Error Class 
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1200]
+ParameterName=Server SDO Parameter
+ObjectType=9
+SubNumber=3
+
+[1200sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1200sub1]
+ParameterName=COB ID Client to Server
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=$NODEID+0x600
+
+[1200sub2]
+ParameterName=COB ID Server to Client
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=$NODEID+0x580
+
+[1400]
+ParameterName=Receive PDO Communication Parameter
+ObjectType=9
+SubNumber=6
+
+[1400sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=5
+
+[1400sub1]
+ParameterName=COB ID
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=$NODEID+0x200
+
+[1400sub2]
+ParameterName=Transmission Type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1400sub3]
+ParameterName=Inhibit Time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0000
+
+[1400sub4]
+ParameterName=Compatibility Entry
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1400sub5]
+ParameterName=Event Timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=3000
+
+[1401]
+ParameterName=Receive PDO Communication Parameter
+ObjectType=9
+SubNumber=3
+;;This object contains the communication parameters for the PDO the CANopen device is able to receive.
+;;
+
+[1401sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1401sub1]
+ParameterName=COB ID
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=$NODEID+0x300
+
+[1401sub2]
+ParameterName=Transmission Type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=254
+
+[1600]
+ParameterName=Receive PDO Mapping Parameter
+ObjectType=9
+SubNumber=3
+
+[1600sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[1600sub1]
+ParameterName=PDO Mapping Entry
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x30000210
+
+[1600sub2]
+ParameterName=PDO Mapping Entry
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x20010020
+
+[1601]
+ParameterName=Receive PDO Mapping Parameter
+ObjectType=9
+SubNumber=2
+;;This object contains the mapping parameters for the PDO the CANopen device is able to receive.
+;;
+
+[1601sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=0
+
+[1601sub1]
+ParameterName=Mapping Entry 1
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0000
+
+[1800]
+ParameterName=Transmit PDO Communication Parameter
+ObjectType=9
+SubNumber=6
+
+[1800sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=5
+
+[1800sub1]
+ParameterName=COB ID
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=$NODEID+0x180
+
+[1800sub2]
+ParameterName=Transmission Type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=254
+
+[1800sub3]
+ParameterName=Inhibit Time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0000
+
+[1800sub4]
+ParameterName=Compatibility Entry
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1800sub5]
+ParameterName=Event Timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=1000
+
+[1a00]
+ParameterName=Transmit PDO Mapping Parameter
+ObjectType=9
+SubNumber=3
+
+[1a00sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=2
+
+[1a00sub1]
+ParameterName=PDO Mapping Entry
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x20010020
+
+[1a00sub2]
+ParameterName=PDO Mapping Entry
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x30000110
+
+[2001]
+ParameterName=Manufacturer Object
+ObjectType=7
+DataType=4
+AccessType=rw
+PDOMapping=1
+
+[3000]
+ParameterName=Managed Array
+ObjectType=8
+SubNumber=3
+
+[3000sub0]
+ParameterName=NUmber of Entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[3000sub1]
+ParameterName=Sub 1
+ObjectType=7
+DataType=3
+AccessType=ro
+PDOMapping=1
+
+[3000sub2]
+ParameterName=sub 2
+ObjectType=7
+DataType=3
+AccessType=rw
+PDOMapping=1
+

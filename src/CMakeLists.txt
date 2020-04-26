@@ -8,6 +8,7 @@ add_subdirectory(rxmgr)
 add_subdirectory(driver)
 add_subdirectory(clock)
 add_subdirectory(sync)
+add_subdirectory(od)
 
 # Header files --------------------------------------------
 file(GLOB PUBLIC_HEADERS
@@ -31,6 +32,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/clock/inc
     ${CMAKE_SOURCE_DIR}/src/sync/inc
     ${CMAKE_SOURCE_DIR}/src/rxmgr/inc
+    ${CMAKE_SOURCE_DIR}/src/od/inc
 )
 
 # Source files --------------------------------------------
@@ -44,7 +46,7 @@ message("MAIN SOURCES : ${SOURCES}")
 # Link directories ----------------------------------------
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME} SHARED
+add_library(${CMAKE_PROJECT_NAME}
     ${SOURCES}
 )
 add_dependencies(${CMAKE_PROJECT_NAME}
@@ -52,12 +54,14 @@ add_dependencies(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
+    ${CMAKE_PROJECT_NAME}OD
 )
 target_link_libraries(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
+    ${CMAKE_PROJECT_NAME}OD
 )
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
     PUBLIC_HEADER "${PUBLIC_HEADERS}"

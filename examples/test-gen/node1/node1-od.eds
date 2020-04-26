@@ -1,0 +1,818 @@
+[FileInfo]
+FileName=node1-od.eds
+FileVersion=1
+FileRevision=1
+EDSVersion=4.0
+Description=EDS
+CreationTime=19:13PM
+CreationDate=04-19-20
+ModificationTime=19:13PM
+ModificationDate=04-19-20
+CreatedBy=Clovel
+ModifiedBy=Clovel
+
+[Comments]
+Lines=1
+Line1=This is the EDS file describing the Master's OD for the first OSCO test.
+
+[DeviceInfo]
+VendorName=OSCO
+VendorNumber=0x319
+ProductName=OSCO-test-node1
+ProductNumber=0x0815
+RevisionNumber=0x00010001
+OrderCode=https://github.com/Clovel/OSCO
+BaudRate_10=0
+BaudRate_20=0
+BaudRate_50=0
+BaudRate_125=0
+BaudRate_250=1
+BaudRate_500=1
+BaudRate_800=0
+BaudRate_1000=1
+NrOfRxPDO=3
+NrOfTxPDO=2
+SimpleBootupSlave=1
+SimpleBootupMaster=0
+LSS_Supported=0
+Granularity=0
+DynamicChannelsSupported=0
+GroupMessaging=0
+
+[DummyUsage]
+Dummy0001=1
+Dummy0002=1
+Dummy0003=1
+Dummy0004=1
+Dummy0005=1
+Dummy0006=1
+Dummy0007=1
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[ManufacturerObjects]
+SupportedObjects=5
+1=0x2000
+2=0x2010
+3=0x2020
+4=0x2021
+5=0x2100
+
+[OptionalObjects]
+SupportedObjects=16
+1=0x1005
+2=0x1006
+3=0x1016
+4=0x1017
+5=0x1200
+6=0x1280
+7=0x1400
+8=0x1401
+9=0x1402
+10=0x1600
+11=0x1601
+12=0x1602
+13=0x1800
+14=0x1801
+15=0x1a00
+16=0x1a01
+
+[1000]
+ParameterName=Device Type
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0
+;;This objects contains the CANopen device type of the device.
+
+[1001]
+ParameterName=Error Register
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=1
+DefaultValue=0
+;;This object contains a register of 8 error information bits.
+
+[1005]
+ParameterName=COB ID SYNC
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x40000080
+;;This object shall indicate the configured COB-ID of the synchronization object (SYNC). Further, it defines whether the CANopen device generates the SYNC.
+
+[1006]
+ParameterName=Communication Cycle Period
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=100000
+;;This object shall provide the communication cycle period. This period defines the SYNC interval.
+;;
+;;The value shall be given in multiple of μs. If the value is set to 0x00000000  the transmission of SYNC messages shall be disabled. By changing the value from 0x00000000 and the synchronous counter overflow value is greater than 0 the first SYNC mess
+;;
+;;The transmission of SYNC messages shall start within one communication cycle period as given by the value after it is set to the new value.
+;;
+
+[1016]
+ParameterName=Consumer Heartbeat Time
+ObjectType=8
+SubNumber=2
+
+[1016sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=1
+
+[1016sub1]
+ParameterName=Consumer Heartbeat Time 1
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x103e8
+
+[1017]
+ParameterName=Producer Heartbeat Time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+DefaultValue=800
+;;The producer heartbeat time shall indicate the configured cycle time of the heartbeat produced by the device.
+;;
+;;The value shall be given in multiples of 1 ms. The value 0 shall disable the producer heartbeat.
+;;
+
+[1018]
+ParameterName=Identity Object
+ObjectType=9
+SubNumber=5
+;;This objects contains the identity information of the device.
+;;
+
+[1018sub0]
+ParameterName=Number of entries
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=4
+;;This objects contains the identity information of the device.
+;;
+;;
+
+[1018sub1]
+ParameterName=Vendor Id
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x319
+
+[1018sub2]
+ParameterName=Product Code
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x0815
+
+[1018sub3]
+ParameterName=Revision number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x00010001
+
+[1018sub4]
+ParameterName=Serial number
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+
+[1200]
+ParameterName=SDO server parameter
+ObjectType=9
+SubNumber=3
+
+[1200sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=2
+
+[1200sub1]
+ParameterName=COB-ID client to server
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+DefaultValue=0x605
+
+[1200sub2]
+ParameterName=COB-ID server to client
+ObjectType=7
+DataType=7
+AccessType=ro
+PDOMapping=0
+DefaultValue=0x585
+
+[1280]
+ParameterName=SDO client parameter
+ObjectType=9
+SubNumber=4
+
+[1280sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=3
+
+[1280sub1]
+ParameterName=COB-ID client -> server
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0000060F
+
+[1280sub2]
+ParameterName=COB-ID server -> client
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x0000058F
+
+[1280sub3]
+ParameterName=Node-ID of the SDO server
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1400]
+ParameterName=RPDO 1 communication parameter
+ObjectType=9
+SubNumber=6
+
+[1400sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=5
+
+[1400sub1]
+ParameterName=COB-ID used by RPDO
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x18F
+
+[1400sub2]
+ParameterName=Transmission type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=255
+
+[1400sub3]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1400sub4]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1400sub5]
+ParameterName=Event timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1401]
+ParameterName=RPDO 2 communication parameter
+ObjectType=9
+SubNumber=6
+
+[1401sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=5
+
+[1401sub1]
+ParameterName=COB-ID used by RPDO
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x19F
+
+[1401sub2]
+ParameterName=Transmission type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=255
+
+[1401sub3]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1401sub4]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1401sub5]
+ParameterName=Event timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1402]
+ParameterName=RPDO 3 communication parameter
+ObjectType=9
+SubNumber=6
+
+[1402sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=5
+
+[1402sub1]
+ParameterName=COB-ID used by RPDO
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x1AF
+
+[1402sub2]
+ParameterName=Transmission type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=255
+
+[1402sub3]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1402sub4]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1402sub5]
+ParameterName=Event timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1600]
+ParameterName=RPDO 1 mapping parameter
+ObjectType=9
+SubNumber=4
+
+[1600sub0]
+ParameterName=Number of mapped application objects in PDO
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=3
+
+[1600sub1]
+ParameterName=Mapping Entry 1
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+DefaultValue=0x20000120
+
+[1600sub2]
+ParameterName=Mapping Entry 2
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+DefaultValue=0x20000210
+
+[1600sub3]
+ParameterName=Mapping Entry 3
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+DefaultValue=0x20000310
+
+[1601]
+ParameterName=RPDO 2 mapping parameter
+ObjectType=9
+SubNumber=2
+
+[1601sub0]
+ParameterName=Number of mapped application objects in PDO
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=1
+
+[1601sub1]
+ParameterName=Application object 1
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1602]
+ParameterName=RPDO 3 mapping parameter
+ObjectType=9
+SubNumber=4
+
+[1602sub0]
+ParameterName=Number of mapped application objects in PDO
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=3
+
+[1602sub1]
+ParameterName=Application object 1
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1602sub2]
+ParameterName=Application object 2
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1602sub3]
+ParameterName=Application object 3
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1800]
+ParameterName=TPDO 1 communication parameter
+ObjectType=9
+SubNumber=7
+
+[1800sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=6
+
+[1800sub1]
+ParameterName=COB-ID used by TPDO
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x185
+
+[1800sub2]
+ParameterName=Transmission type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=1
+
+[1800sub3]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1800sub4]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1800sub5]
+ParameterName=Event timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1800sub6]
+ParameterName=SYNC start value
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1801]
+ParameterName=TPDO 2 communication parameter
+ObjectType=9
+SubNumber=7
+
+[1801sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=6
+
+[1801sub1]
+ParameterName=COB-ID used by TPDO
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=0
+DefaultValue=0x195
+
+[1801sub2]
+ParameterName=Transmission type
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+DefaultValue=1
+
+[1801sub3]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1801sub4]
+ParameterName=Inhibit time
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1801sub5]
+ParameterName=Event timer
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=0
+
+[1801sub6]
+ParameterName=SYNC start value
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=0
+
+[1a00]
+ParameterName=TPDO 1 mapping parameter
+ObjectType=9
+SubNumber=2
+
+[1a00sub0]
+ParameterName=Number of mapped application objects in TPDO
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=1
+
+[1a00sub1]
+ParameterName=Application object
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+DefaultValue=0x0000
+
+[1a01]
+ParameterName=TPDO 2 mapping parameter
+ObjectType=9
+SubNumber=4
+
+[1a01sub0]
+ParameterName=Number of mapped application objects in TPDO
+ObjectType=7
+DataType=5
+AccessType=const
+PDOMapping=0
+DefaultValue=3
+
+[1a01sub1]
+ParameterName=Application object
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1a01sub2]
+ParameterName=Application object 2
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[1a01sub3]
+ParameterName=Application object 3
+ObjectType=7
+DataType=7
+AccessType=const
+PDOMapping=0
+
+[2000]
+ParameterName=Slave status
+ObjectType=9
+SubNumber=4
+
+[2000sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=3
+
+[2000sub1]
+ParameterName=CPU load
+ObjectType=7
+DataType=8
+AccessType=rw
+PDOMapping=1
+
+[2000sub2]
+ParameterName=Available Memory
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=1
+
+[2000sub3]
+ParameterName=Used Memory
+ObjectType=7
+DataType=6
+AccessType=rw
+PDOMapping=1
+
+[2010]
+ParameterName=Counters
+ObjectType=8
+SubNumber=3
+
+[2010sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=2
+
+[2010sub1]
+ParameterName=Slave counter
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=1
+
+[2010sub2]
+ParameterName=Master counter
+ObjectType=7
+DataType=7
+AccessType=rw
+PDOMapping=1
+
+[2020]
+ParameterName=LED control
+ObjectType=8
+SubNumber=4
+
+[2020sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=3
+
+[2020sub1]
+ParameterName=LED 1 control
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2020sub2]
+ParameterName=LED 2 control
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2020sub3]
+ParameterName=LED 3 control
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2021]
+ParameterName=LED status
+ObjectType=8
+SubNumber=4
+
+[2021sub0]
+ParameterName=Highest sub-index supported
+ObjectType=7
+DataType=5
+AccessType=ro
+PDOMapping=0
+DefaultValue=3
+
+[2021sub1]
+ParameterName=LED 1 status
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2021sub2]
+ParameterName=LED 2 status
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2021sub3]
+ParameterName=LED 3 status
+ObjectType=7
+DataType=5
+AccessType=rw
+PDOMapping=1
+
+[2100]
+ParameterName=OSCO-test
+ObjectType=7
+DataType=9
+AccessType=const
+PDOMapping=0
+DefaultValue=OSCO-test
+
