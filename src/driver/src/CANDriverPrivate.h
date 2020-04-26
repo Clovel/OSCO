@@ -20,6 +20,9 @@ typedef struct _canDriverPrivateVars {
     bool enabled;
 
     uint32_t bitRate;
+
+    /* Driver API pointer functions */
+    OSCOCANDriverCallbacks_t driverFunctions;
 } oscoCANDriverInstance_t;
 
 #endif /* OSCO_CANDRIVERPRIVATE_H */

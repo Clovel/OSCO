@@ -20,6 +20,20 @@ extern "C" {
 
 /* Type definitions ------------------------------------ */
 
+/* Stack setup functions ------------------------------- */
+/**
+ * @brief Sets the functions for the CAN Driver layer of the
+ * OSCO stack.
+ * 
+ * @details This allows the user to build his own functions
+ * with the driver of his choosing.
+ *
+ * @param[in]   pFunctionSet    Set of CAN driver functions
+ * 
+ * @return Error code
+ */
+oscoErrorCode_t OSCOSetCANDriverFunctionSet(const OSCOCANDriverCallbacks_t pFunctionSet);
+
 /* Initialization functions ---------------------------- */
 /**
  * @brief Initialized the OSCO stack.

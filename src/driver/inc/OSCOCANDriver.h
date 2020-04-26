@@ -19,7 +19,7 @@
 oscoErrorCode_t OSCOCANDriverInit(void);
 
 /* Re-initialization */
-oscoErrorCode_t OSCOCANDriverReinit(void);
+oscoErrorCode_t OSCOCANDriverReset(void);
 
 /* Getters */
 oscoErrorCode_t OSCOCANDriverID(uint8_t * const pOut);

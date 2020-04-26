@@ -34,9 +34,15 @@
 oscoCANDriverInstance_t gCANDriver;
 
 /* OSCO CAN Driver functions --------------------------- */
+/* Setup */
+oscoErrorCode_t OSCOSetCANDriverFunctionSet(const OSCOCANDriverCallbacks_t pFunctionSet) {
+    gCANDriver.driverFunctions = pFunctionSet;
+
+    return OSCO_ERROR_NONE;
+}
+
 /* Initialization */
 oscoErrorCode_t OSCOCANDriverInit(void) {
-
     cipErrorCode_t lResult = CIP_createModule(0U);
     if(CAN_IP_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> CIP_createModule failed !\n");
@@ -61,7 +67,7 @@ oscoErrorCode_t OSCOCANDriverInit(void) {
 
 #ifdef DEBUG
     /* Set up test CAN message */
-    const cipMessage_t lMsg = {
+    const OSCOCANMessage_t lMsg = {
         0x987U,
         8U,
         {
@@ -88,8 +94,16 @@ oscoErrorCode_t OSCOCANDriverInit(void) {
 }
 
 /* Re-initialization */
-oscoErrorCode_t OSCOCANDriverReinit(void) {
+oscoErrorCode_t OSCOCANDriverReset(void) {
     /* TODO */
+
+    gCANDriver.driverFunctions.driverInit          = NULL;
+    gCANDriver.driverFunctions.driverReset         = NULL;
+    gCANDriver.driverFunctions.driverDisable       = NULL;
+    gCANDriver.driverFunctions.driverSetPutClbk    = NULL;
+    gCANDriver.driverFunctions.driverSend          = NULL;
+    gCANDriver.driverFunctions.driverRecv          = NULL;
+    gCANDriver.driverFunctions.driverRxThreadStart = NULL;
 
     return OSCO_ERROR_NONE;
 }
