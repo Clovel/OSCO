@@ -12,33 +12,24 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 # Header files --------------------------------------------
-file(GLOB_RECURSE PUBLIC_HEADERS 
-    ${CMAKE_SOURCE_DIR}/dest/include/*.h
-    ${CMAKE_SOURCE_DIR}/dest/include/*.hpp
-)
-
-set(HEADERS
-    ${PUBLIC_HEADERS}
-)
-
 include_directories(
-    ${CMAKE_SOURCE_DIR}/dest/include
-    ${CMAKE_SOURCE_DIR}/examples/deps/TimerThread/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../deps/TimerThread/inc
 )
 
 # Source files --------------------------------------------
 set(SOURCES
-    ${CMAKE_SOURCE_DIR}/examples/deps/TimerThread/src/TimerThread.cxx
-    ${CMAKE_SOURCE_DIR}/examples/basic/OSCOMutex.c
-    ${CMAKE_SOURCE_DIR}/examples/basic/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../deps/TimerThread/src/TimerThread.cxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/OSCOMutex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 # Target definition ---------------------------------------
 add_executable(${CMAKE_PROJECT_NAME}-basic
     ${SOURCES}
 )
-add_dependencies(${CMAKE_PROJECT_NAME}-basic ${CMAKE_PROJECT_NAME})
-link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
+add_dependencies(${CMAKE_PROJECT_NAME}-basic
+    ${CMAKE_PROJECT_NAME}
+)
 target_link_libraries(${CMAKE_PROJECT_NAME}-basic
     ${CMAKE_PROJECT_NAME}
     Threads::Threads

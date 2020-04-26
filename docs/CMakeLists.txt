@@ -7,12 +7,12 @@
 find_package(Doxygen)
 option(BUILD_DOC "Build ${CMAKE_PROJECT_NAME} documentation" ${DOXYGEN_FOUND})
 
-set(doxy_main_page ${CMAKE_SOURCE_DIR}/README.md)
+set(doxy_main_page ${CMAKE_CURRENT_SOURCE_DIR}/../README.md)
 
 if(DOXYGEN_FOUND)
     # set input and output files
-    set(DOXYGEN_IN  ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in)
-    set(DOXYGEN_OUT ${CMAKE_SOURCE_DIR}/docs/Doxyfile)
+    set(DOXYGEN_IN  ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
 
     # request to configure the file
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
@@ -21,7 +21,7 @@ if(DOXYGEN_FOUND)
     # note the option ALL which allows to build the docs together with the application
     add_custom_target(doc_doxygen ALL
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Generating ${CMAKE_PROJECT_NAME} documentation with Doxygen"
         VERBATIM)
 else(DOXYGEN_FOUND)
@@ -29,13 +29,13 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 set(HTML_DOCS_DIR
-    ${CMAKE_SOURCE_DIR}/docs/html
+    ${CMAKE_CURRENT_SOURCE_DIR}/html
 )
 
 set(LATEX_DOCS_DIR
-    ${CMAKE_SOURCE_DIR}/docs/latex
+    ${CMAKE_CURRENT_SOURCE_DIR}/latex
 )
 
 set(MAN_DOCS_DIR
-    ${CMAKE_SOURCE_DIR}/docs/man
+    ${CMAKE_CURRENT_SOURCE_DIR}/man
 )

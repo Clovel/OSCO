@@ -3,6 +3,15 @@
 # 
 # -----------------------------------------------------------------------------
 
+# Include directories -------------------------------------
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/driver/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/clock/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/sync/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/rxmgr/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/od/inc
+)
+
 # Subdirectories (OSCO modules) ---------------------------
 add_subdirectory(rxmgr)
 add_subdirectory(driver)
@@ -12,13 +21,13 @@ add_subdirectory(od)
 
 # Header files --------------------------------------------
 file(GLOB PUBLIC_HEADERS
-    ${CMAKE_SOURCE_DIR}/inc/*.h
-    ${CMAKE_SOURCE_DIR}/inc/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/*.hpp
 )
 
 file(GLOB_RECURSE MODULE_HEADERS
-    ${CMAKE_SOURCE_DIR}/src/*.h
-    ${CMAKE_SOURCE_DIR}/src/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
 )
 
 set(HEADERS
@@ -26,19 +35,10 @@ set(HEADERS
     ${MODULE_HEADERS}
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/inc
-    ${CMAKE_SOURCE_DIR}/src/driver/inc
-    ${CMAKE_SOURCE_DIR}/src/clock/inc
-    ${CMAKE_SOURCE_DIR}/src/sync/inc
-    ${CMAKE_SOURCE_DIR}/src/rxmgr/inc
-    ${CMAKE_SOURCE_DIR}/src/od/inc
-)
-
 # Source files --------------------------------------------
 file(GLOB SOURCES
-    ${CMAKE_SOURCE_DIR}/src/*.c
-    ${CMAKE_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
 message("MAIN SOURCES : ${SOURCES}")

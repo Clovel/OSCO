@@ -5,8 +5,8 @@
 
 # Header files --------------------------------------------
 file(GLOB_RECURSE PUBLIC_HEADERS
-    ${CMAKE_SOURCE_DIR}/src/clock/inc/*.h
-    ${CMAKE_SOURCE_DIR}/src/clock/inc/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp
 )
 
 set(HEADERS
@@ -14,16 +14,16 @@ set(HEADERS
 )
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/src/clock/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
 # Source files --------------------------------------------
 file(GLOB SOURCES
-    ${CMAKE_SOURCE_DIR}/src/clock/src/*.c
-    ${CMAKE_SOURCE_DIR}/src/clock/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-message("DRIVER SOURCES : ${SOURCES}")
+message("CLOCK SOURCES : ${SOURCES}")
 
 # Link directories ----------------------------------------
 
@@ -41,6 +41,5 @@ add_library(${CMAKE_PROJECT_NAME}Clock
 install(TARGETS ${CMAKE_PROJECT_NAME}Clock
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )

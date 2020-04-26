@@ -5,27 +5,21 @@
 
 # Header files --------------------------------------------
 file(GLOB_RECURSE PUBLIC_HEADERS
-    ${CMAKE_SOURCE_DIR}/src/sync/inc/*.h
-    ${CMAKE_SOURCE_DIR}/src/sync/inc/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp
 )
 
 set(HEADERS
     ${PUBLIC_HEADERS}
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/src/sync/inc
-    ${CMAKE_SOURCE_DIR}/src/clock/inc
-    ${CMAKE_SOURCE_DIR}/src/driver/inc
-)
-
 # Source files --------------------------------------------
 file(GLOB SOURCES
-    ${CMAKE_SOURCE_DIR}/src/sync/src/*.c
-    ${CMAKE_SOURCE_DIR}/src/sync/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-message("DRIVER SOURCES : ${SOURCES}")
+message("SYNC SOURCES : ${SOURCES}")
 
 # Link directories ----------------------------------------
 
@@ -37,11 +31,11 @@ add_dependencies(${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Driver
 )
-link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
 target_link_libraries(${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Driver
 )
+
 #------------------------------------------------------------------------------
 # pkgconfig
 #------------------------------------------------------------------------------
@@ -51,6 +45,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME}Sync
 install(TARGETS ${CMAKE_PROJECT_NAME}Sync
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )

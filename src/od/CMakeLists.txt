@@ -5,22 +5,18 @@
 
 # Header files --------------------------------------------
 file(GLOB_RECURSE PUBLIC_HEADERS
-    ${CMAKE_SOURCE_DIR}/src/od/inc/*.h
-    ${CMAKE_SOURCE_DIR}/src/od/inc/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp
 )
 
 set(HEADERS
     ${PUBLIC_HEADERS}
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/src/od/inc
-)
-
 # Source files --------------------------------------------
 file(GLOB SOURCES
-    ${CMAKE_SOURCE_DIR}/src/od/src/*.c
-    ${CMAKE_SOURCE_DIR}/src/od/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
 message("OD SOURCES : ${SOURCES}")
@@ -31,11 +27,6 @@ message("OD SOURCES : ${SOURCES}")
 add_library(${CMAKE_PROJECT_NAME}OD
     ${SOURCES}
 )
-# add_dependencies(${CMAKE_PROJECT_NAME}OD
-# )
-link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
-# target_link_libraries(${CMAKE_PROJECT_NAME}OD
-# )
 
 #------------------------------------------------------------------------------
 # pkgconfig
@@ -46,6 +37,5 @@ link_directories(${CMAKE_SOURCE_DIR}/dest/lib)
 install(TARGETS ${CMAKE_PROJECT_NAME}OD
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )
