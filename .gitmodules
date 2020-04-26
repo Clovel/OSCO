@@ -1,3 +1,6 @@
 [submodule "examples/deps/TimerThread"]
 	path = examples/deps/TimerThread
 	url = https://github.com/Clovel/TimerThread.git
+[submodule "examples/deps/can-ip"]
+	path = examples/deps/can-ip
+	url = https://github.com/Clovel/can-ip
