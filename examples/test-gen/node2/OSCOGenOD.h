@@ -56,7 +56,7 @@
 #define OD_DUMMY_0007_SUPPORTED 1
 
 /* OD Content defines */
-#define OD_OBJECT_COUNT 22
+#define OD_OBJECT_COUNT 82
 #define OD_RPDO_COUNT 2
 #define OD_TPDO_COUNT 3
 

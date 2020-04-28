@@ -12,17 +12,17 @@
 #include "OSCOTypes.h"
 
 /* Min value declarations -------------------------- */
-bool minValBool[0U] = {
+bool objValBool[0U] = {
 };
-int8_t minValI8[0U] = {
+int8_t objValI8[0U] = {
 };
-int16_t minValI16[0U] = {
+int16_t objValI16[0U] = {
 };
-int32_t minValI32[0U] = {
+int32_t objValI32[0U] = {
 };
-int64_t minValI64[0U] = {
+int64_t objValI64[0U] = {
 };
-uint8_t minValU8[38U] = {
+uint8_t objValU8[38U] = {
     0, /* 0x1001:0x00 */
     1, /* 0x1016:0x00 */
     4, /* 0x1018:0x00 */
@@ -62,7 +62,7 @@ uint8_t minValU8[38U] = {
     0x00U, /* 0x2021:0x02 */
     0x00U, /* 0x2021:0x03 */
 };
-uint16_t minValU16[13U] = {
+uint16_t objValU16[13U] = {
     800, /* 0x1017:0x00 */
     0x0000U, /* 0x1400:0x03 */
     0x0000U, /* 0x1400:0x05 */
@@ -77,7 +77,7 @@ uint16_t minValU16[13U] = {
     0x0000U, /* 0x2000:0x02 */
     0x0000U, /* 0x2000:0x03 */
 };
-uint32_t minValU32[30U] = {
+uint32_t objValU32[30U] = {
     0, /* 0x1000:0x00 */
     0x40000080, /* 0x1005:0x00 */
     100000, /* 0x1006:0x00 */
@@ -109,19 +109,19 @@ uint32_t minValU32[30U] = {
     0x00000000U, /* 0x2010:0x01 */
     0x00000000U, /* 0x2010:0x02 */
 };
-uint64_t minValU64[0U] = {
+uint64_t objValU64[0U] = {
 };
-float minValReal32[1U] = {
+float objValReal32[1U] = {
     .0f, /* 0x2000:0x01 */
 };
-double minValReal64[0U] = {
+double objValReal64[0U] = {
 };
-uint8_t * minValVisStr[1U] = {
+uint8_t * objValVisStr[1U] = {
     "OSCO-test", /* 0x2100:0x00 */
 };
-uint8_t * minValOctStr[0U] = {
+uint8_t * objValOctStr[0U] = {
 };
-uint8_t * minValUniStr[0U] = {
+uint8_t * objValUniStr[0U] = {
 };
-uint8_t * minValDomain[0U] = {
+uint8_t * objValDomain[0U] = {
 };

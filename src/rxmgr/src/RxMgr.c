@@ -155,15 +155,17 @@ oscoErrorCode_t OSCORxMgrProcess(void) {
 
     /* Get a message from the FIFO */
     OSCOCANMessage_t lMsg;
+    memset(&lMsg, 0U, sizeof(OSCOCANMessage_t));
     if(OSCO_ERROR_NONE != getMsgFromFifo(&lMsg)) {
         eprintf("[ERROR] OSCO <OSCORxMgrProcess> OSCORxMgrGetMsgFromFifo failed !\n");
         return OSCO_ERROR_MODULE;
     }
 
-    /* TODO : Switch case on the COB-ID */
 #ifdef CAN_PRINT_SHORT
     CAN_PRINT_SHORT(&lMsg);
 #endif /* CAN_PRINT_SHORT */
+
+    /* TODO : Switch case on the COB-ID */
 
     return OSCO_ERROR_NONE;
 }
