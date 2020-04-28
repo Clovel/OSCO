@@ -5,6 +5,9 @@
  */
 
 /* Includes -------------------------------------------- */
+/* OSCO CAN Driver */
+#include "OSCOCANDriver.h"
+
 /* OSCO Sync */
 #include "OSCOSync.h"
 
@@ -38,6 +41,13 @@ oscoErrorCode_t OSCOProcess(void) {
     }
 
     oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
+
+    /* CAN driver process */
+    lErrorCode = OSCOCANDriverProcess();
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCOCANDriverProcess failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
 
     /* Process services */
     lErrorCode = OSCOSyncProcess();

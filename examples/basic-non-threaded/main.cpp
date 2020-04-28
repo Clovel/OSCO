@@ -64,7 +64,7 @@ int main(const int argc, const char * const * const argv) {
     }
 
     /* Initialize the CAN over IP module */
-    if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit(true))) {
+    if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit(false))) {
         std::cerr << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
         exit(EXIT_FAILURE);
     }

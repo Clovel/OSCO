@@ -71,10 +71,6 @@ option(ENABLE_DOCS "Build API documentation" ${DOXYGEN_FOUND})
 set(ENV{PKG_CONFIG_PATH} "ENV{PKG_CONFIG_PATH}:${PKG_CONFIG_PATH}")
 message(STATUS "Pkgconfig extra path are: $ENV{PKG_CONFIG_PATH}")
 
-# TODO Set correct pkg-config setup
-include_directories(${CMAKE_SOURCE_DIR}/../can-ip/dest/include/)
-link_directories(${CMAKE_SOURCE_DIR}/../can-ip/dest/lib/)
-
 #------------------------------------------------------------------------------
 # Project version
 #------------------------------------------------------------------------------
@@ -82,7 +78,7 @@ link_directories(${CMAKE_SOURCE_DIR}/../can-ip/dest/lib/)
 # Get the latest abbreviated commit hash of the working branch
 execute_process(
     COMMAND git log -1 --format=%h
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -123,12 +119,12 @@ find_package(PkgConfig REQUIRED)
 if(PKG_CONFIG_FOUND)
     # Produce a pkg-config file
     configure_file (
-        ${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc.in
-        ${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc
+        ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc.in
+        ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc
         @ONLY
     )
     install (
-        FILES ${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc
+        FILES ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc
         DESTINATION lib/pkgconfig
     )
 endif(PKG_CONFIG_FOUND)
@@ -137,9 +133,9 @@ endif(PKG_CONFIG_FOUND)
 # Project configuration 
 #------------------------------------------------------------------------------
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/inc)
-include_directories(${CMAKE_SOURCE_DIR}/gen)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gen)
 
 #------------------------------------------------------------------------------
 # Sub-directories 

@@ -20,6 +20,24 @@ extern "C" {
 
 /* Type definitions ------------------------------------ */
 
+/* CAN driver functions -------------------------------- */
+/**
+ * @brief Sets the functions for the CAN Driver layer of the
+ * OSCO stack.
+ * 
+ * @details This allows the user to build his own functions
+ * with the driver of his choosing.
+ *
+ * @param[in]   pFunctionSet    Set of CAN driver functions
+ * 
+ * @return Error code
+ */
+oscoErrorCode_t OSCOSetCANDriverFunctionSet(const OSCOCANDriverCallbacks_t pFunctionSet);
+oscoErrorCode_t OSCOCANDriverIsInitialized(bool * const pOut);
+oscoErrorCode_t OSCOCANDriverIsEnabled(bool * const pOut);
+oscoErrorCode_t OSCOCANDriverEnable(void);
+oscoErrorCode_t OSCOCANDriverDisable(void);
+
 /* Initialization functions ---------------------------- */
 /**
  * @brief Initialized the OSCO stack.
@@ -27,10 +45,13 @@ extern "C" {
  * @details Initialized the following modules : 
  *  - OSCOClock
  *  - OSCOCANDriver
+ * 
+ * @param[in]   pThreadedRx     Indicates if a threaded reception process
+ *      is to be used by the OSCO stack.
  *
  * @return Error code
  */
-oscoErrorCode_t OSCOInit(void);
+oscoErrorCode_t OSCOInit(const bool pThreadedRx);
 
 /* Process functions ----------------------------------- */
 /**
@@ -72,6 +93,25 @@ oscoErrorCode_t OSCOODGetU16(const uint16_t pIdx,
 oscoErrorCode_t OSCOODGetU32(const uint16_t pIdx,
     const uint8_t pSubIdx,
     uint32_t * const pOut);
+
+/* Reception manager functions ------------------------- */
+/**
+ * @brief Inserts a new message into the RxFifo.
+ * 
+ * @details This function can be given to a CAN Driver
+ * stack for example.
+ * 
+ * @param[in]   pCOBID  COB-ID of the incoming message
+ * @param[in]   pSize   DLC of the incoming message
+ * @param[in]   pData   Payload of the incoming message
+ * @param[in]   pFlags  Flags of the incoming message
+ * 
+ * @return Error code (Int for the user code can undestant the return type)
+ */
+oscoErrorCode_t OSCORxMgrInputMessage(const uint32_t pCOBID,
+    const uint8_t pSize,
+    const uint8_t * const pData,
+    const uint32_t pFlags);
 
 #ifdef __cplusplus
 }
