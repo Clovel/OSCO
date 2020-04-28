@@ -39,6 +39,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz pkg-config
 
+      - name: Copy a generated OD's code
+        run: |
+          ./copy_od_gen_code.sh examples/test-gen/node1/
+
       - name: Build OSCO project
         if: matrix.os != 'windows-latest'
         run: |
