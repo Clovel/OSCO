@@ -34,7 +34,7 @@
 oscoInstance_t gOSCOStack;
 
 /* OSCO Init functions --------------------------------- */
-oscoErrorCode_t OSCOInit(void) {
+oscoErrorCode_t OSCOInit(const bool pThreadedRx) {
     if(true == gOSCOStack.initialized) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCO stack is already initialized !\n");
         return OSCO_ERROR_ALREADY_INIT;
@@ -43,7 +43,7 @@ oscoErrorCode_t OSCOInit(void) {
     oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
 
     /* Initialize the CAN Driver */
-    lErrorCode = OSCOCANDriverInit();
+    lErrorCode = OSCOCANDriverInit(pThreadedRx);
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverInit failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_DRIVER;

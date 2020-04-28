@@ -18,6 +18,7 @@ typedef struct _canDriverPrivateVars {
     uint8_t driverID;
     bool initialized;
     bool enabled;
+    bool isThreadedRx;
 
     uint32_t bitRate;
 

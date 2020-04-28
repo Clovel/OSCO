@@ -16,8 +16,9 @@
 #include "CANDriverPrivate.h"
 
 /* OSCO public includes */
-#include "OSCOTypes.h"
+#include "OSCO.h"
 #include "OSCOPrint.h"
+#include "OSCOTypes.h"
 #include "OSCOConfigDefines.h"
 
 /* C system */
@@ -39,7 +40,7 @@ oscoErrorCode_t OSCOSetCANDriverFunctionSet(const OSCOCANDriverCallbacks_t pFunc
 }
 
 /* Initialization */
-oscoErrorCode_t OSCOCANDriverInit(void) {
+oscoErrorCode_t OSCOCANDriverInit(const bool pThreadedRx) {
     oscoErrorCode_t lResult = gCANDriver.driverFunctions.init();
     if(OSCO_ERROR_NONE != lResult) {
         eprintf("[ERROR] OSCO <OSCOCANDriverInit> driverInit failed !\n");
@@ -72,6 +73,8 @@ oscoErrorCode_t OSCOCANDriverInit(void) {
         return OSCO_ERROR_DRIVER;
     }
 #endif /* DEBUG */
+
+    gCANDriver.isThreadedRx = pThreadedRx;
 
     return OSCO_ERROR_NONE;
 }
@@ -137,13 +140,26 @@ oscoErrorCode_t OSCOCANDriverBitRate(uint32_t * const pOut) {
     return OSCO_ERROR_NONE;
 }
 
+oscoErrorCode_t OSCOCANDriverIsThreadedRx(bool * const pOut) {
+    if(NULL == pOut) {
+        eprintf("[ERROR] OSCO <OSCOCANDriverIsThreadedRx> Output ptr is NULL !\n");
+        return OSCO_ERROR_ARG;
+    }
+
+    *pOut = gCANDriver.isThreadedRx;
+
+    return OSCO_ERROR_NONE;
+}
+
 /* Setters */
 oscoErrorCode_t OSCOCANDriverEnable() {
-    oscoErrorCode_t lResult = gCANDriver.driverFunctions.rxThreadStart();
-    if(OSCO_ERROR_NONE != lResult) {
-        eprintf("[ERROR] OSCO <OSCOCANDriverEnable> driverRxThreadStart failed !\n");
-        return OSCO_ERROR_DRIVER;
-    }
+    if(gCANDriver.isThreadedRx) {
+        oscoErrorCode_t lResult = gCANDriver.driverFunctions.rxThreadStart();
+        if(OSCO_ERROR_NONE != lResult) {
+            eprintf("[ERROR] OSCO <OSCOCANDriverEnable> driverRxThreadStart failed !\n");
+            return OSCO_ERROR_DRIVER;
+        }
+    } /* TODO : else */
 
     gCANDriver.enabled = true;
 
@@ -169,6 +185,55 @@ oscoErrorCode_t OSCOCANDriverSetBitRate(const uint32_t pBitRate) {
     gCANDriver.bitRate = pBitRate;
 
     return OSCO_ERROR_NONE;
+}
+
+/* Process */
+oscoErrorCode_t OSCOCANDriverProcess(void) {
+    oscoErrorCode_t lErrorCode = OSCO_ERROR_NONE;
+
+    /* Check the recv function pointer */
+    if(NULL != gCANDriver.driverFunctions.msgAvail) {
+        printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver msgAvail function ptr is NULL\n");
+        return OSCO_ERROR_CONFIG;
+    }
+    if(NULL != gCANDriver.driverFunctions.recv) {
+        printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver recv function ptr is NULL\n");
+        return OSCO_ERROR_CONFIG;
+    }
+
+    /* Check if message is available */
+    bool lMsgAvail = true;
+    while(lMsgAvail) {
+        lErrorCode = gCANDriver.driverFunctions.msgAvail(&lMsgAvail);
+        if(OSCO_ERROR_NONE != lErrorCode) {
+            printf("[ERROR] OSCO <OSCOCANDriverProcess> msgAvail failed\n");
+            return lErrorCode;
+        }
+
+        if(lMsgAvail) {
+            /* Message available */
+
+            /* Create message structure */
+            OSCOCANMessage_t lMsg;
+            memset(&lMsg, 0U, sizeof(OSCOCANMessage_t));
+
+            /* Read message */
+            lErrorCode = gCANDriver.driverFunctions.recv(&lMsg.id, &lMsg.size, lMsg.data, &lMsg.flags);
+            if(OSCO_ERROR_NONE != lErrorCode) {
+                printf("[ERROR] OSCO <OSCOCANDriverProcess> recv failed\n");
+                return lErrorCode;
+            }
+
+            /* Insert the message in the Rx queue */
+            int lResult = OSCORxMgrInputMessage(lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
+            if(0 != lResult) {
+                printf("[ERROR] OSCO <OSCOCANDriverProcess> OSCORxMgrInputMessage failed\n");
+                return OSCO_ERROR_MODULE;
+            }
+        } else break;
+    }
+
+    return lErrorCode;
 }
 
 /* Send CAN message */

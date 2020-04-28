@@ -45,10 +45,13 @@ oscoErrorCode_t OSCOCANDriverDisable(void);
  * @details Initialized the following modules : 
  *  - OSCOClock
  *  - OSCOCANDriver
+ * 
+ * @param[in]   pThreadedRx     Indicates if a threaded reception process
+ *      is to be used by the OSCO stack.
  *
  * @return Error code
  */
-oscoErrorCode_t OSCOInit(void);
+oscoErrorCode_t OSCOInit(const bool pThreadedRx);
 
 /* Process functions ----------------------------------- */
 /**
@@ -105,7 +108,7 @@ oscoErrorCode_t OSCOODGetU32(const uint16_t pIdx,
  * 
  * @return Error code (Int for the user code can undestant the return type)
  */
-int OSCORxMgrInputMessage(const uint32_t pCOBID,
+oscoErrorCode_t OSCORxMgrInputMessage(const uint32_t pCOBID,
     const uint8_t pSize,
     const uint8_t * const pData,
     const uint32_t pFlags);
