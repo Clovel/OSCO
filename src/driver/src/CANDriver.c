@@ -192,11 +192,11 @@ oscoErrorCode_t OSCOCANDriverProcess(void) {
     oscoErrorCode_t lErrorCode = OSCO_ERROR_NONE;
 
     /* Check the recv function pointer */
-    if(NULL != gCANDriver.driverFunctions.msgAvail) {
+    if(NULL == gCANDriver.driverFunctions.msgAvail) {
         printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver msgAvail function ptr is NULL\n");
         return OSCO_ERROR_CONFIG;
     }
-    if(NULL != gCANDriver.driverFunctions.recv) {
+    if(NULL == gCANDriver.driverFunctions.recv) {
         printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver recv function ptr is NULL\n");
         return OSCO_ERROR_CONFIG;
     }
@@ -205,6 +205,16 @@ oscoErrorCode_t OSCOCANDriverProcess(void) {
      * If not, attempt to bring it back up.
      */
     if(gCANDriver.isThreadedRx) {
+        /* Check thread related driver functions */
+        if(NULL == gCANDriver.driverFunctions.isRxThreadOn) {
+            printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver isRxThreadOn function ptr is NULL\n");
+            return OSCO_ERROR_CONFIG;
+        }
+        if(NULL == gCANDriver.driverFunctions.rxThreadStart) {
+            printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver rxThreadStart function ptr is NULL\n");
+            return OSCO_ERROR_CONFIG;
+        }
+
         bool lIsThreadOn = true;
         if(OSCO_ERROR_NONE != gCANDriver.driverFunctions.isRxThreadOn(&lIsThreadOn)) {
             printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver isRxThreadOn failed\n");
