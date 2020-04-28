@@ -50,7 +50,7 @@ oscoErrorCode_t initCANDriver(void) {
 }
 
 oscoErrorCode_t resetCANDriver(void) {
-    return errorCodeTranslator(CIP_reset(CIP_ID, CIP_MODE));
+    return errorCodeTranslator(CIP_reset(CIP_ID, CIP_MODE, false));
 }
 
 oscoErrorCode_t disableCANDriver(void) {
