@@ -37,20 +37,20 @@ if [[ ! -f "$SRC_DIR/OSCOGenOD.c" ]]; then
     echo "[ERROR] Missing generated file : OSCOGenOD.c"
     MISSING_FILES="YES"
 fi
-if [[ ! -f "$SRC_DIR/OSCOGenOD_Values.h" ]]; then
-    echo "[ERROR] Missing generated file : OSCOGenOD_Values.h"
+if [[ ! -f "$SRC_DIR/OSCOGenOD_Values.c" ]]; then
+    echo "[ERROR] Missing generated file : OSCOGenOD_Values.c"
     MISSING_FILES="YES"
 fi
 if [[ ! -f "$SRC_DIR/OSCOGenOD_DefaultValues.c" ]]; then
     echo "[ERROR] Missing generated file : OSCOGenOD_DefaultValues.c"
     MISSING_FILES="YES"
 fi
-if [[ ! -f "$SRC_DIR/OSCOGenOD_MaxValues.h" ]]; then
-    echo "[ERROR] Missing generated file : OSCOGenOD_MaxValues.h"
+if [[ ! -f "$SRC_DIR/OSCOGenOD_MaxValues.c" ]]; then
+    echo "[ERROR] Missing generated file : OSCOGenOD_MaxValues.c"
     MISSING_FILES="YES"
 fi
-if [[ ! -f "$SRC_DIR/OSCOGenOD_MinValues.h" ]]; then
-    echo "[ERROR] Missing generated file : OSCOGenOD_MinValues.h"
+if [[ ! -f "$SRC_DIR/OSCOGenOD_MinValues.c" ]]; then
+    echo "[ERROR] Missing generated file : OSCOGenOD_MinValues.c"
     MISSING_FILES="YES"
 fi
 
@@ -58,8 +58,14 @@ if [[ "YES" -eq "$MISSING_FILES" ]]; then
     exit 1
 fi
 
+# Backup the CMakeLists.txt ---------------------
+mv $DEST_DIR/CMakeLists.txt $MY_DIR/CMakeLists.txt.bak
+
 # Clear the destination directory ---------------
 rm -rf $DEST_DIR/*
 
 # Copy files to the destination directory -------
 cp -rv $SRC_DIR/* $DEST_DIR/
+
+# Restore CMakeLists.txt ------------------------
+mv $MY_DIR/CMakeLists.txt.bak $DEST_DIR/CMakeLists.txt

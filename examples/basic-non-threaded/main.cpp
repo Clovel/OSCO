@@ -48,14 +48,14 @@ int main(const int argc, const char * const * const argv) {
 
     /* Link the OSCO stack w/ the CAN Driver */
     const OSCOCANDriverCallbacks_t lDriverFcts = {
-        .init          = initCANDriver,
-        .reset         = resetCANDriver,
-        .disable       = disableCANDriver,
-        .send          = sendCANMsg,
-        .msgAvail      = CANMsgAvail,
-        .recv          = recvCANMsg,
-        .rxThreadStart = startCANDriverRxThread,
-        .isRxThreadOn  = startCANDriverIsRxThreadOn,
+        init          : initCANDriver,
+        reset         : resetCANDriver,
+        disable       : disableCANDriver,
+        send          : sendCANMsg,
+        recv          : recvCANMsg,
+        rxThreadStart : startCANDriverRxThread,
+        msgAvail      : CANMsgAvail,
+        isRxThreadOn  : startCANDriverIsRxThreadOn,
     };
 
     if(OSCO_ERROR_NONE != OSCOSetCANDriverFunctionSet(lDriverFcts)) {

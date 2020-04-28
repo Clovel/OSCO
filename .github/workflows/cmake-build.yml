@@ -1,0 +1,65 @@
+name: CMake
+#author: Clovis Durand
+#description: GitHub action to build the OSCO project
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # TODO : Make this work for Windows
+        # os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
+        package_manager: [npm]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Checkout submodules
+        run: | 
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - name: Installing dependencies (macOS)
+        if: matrix.os == 'macOS-latest'
+        run: |
+          set -x
+          brew update
+          brew install doxygen graphviz coreutils pkg-config
+          brew install cpprestsdk
+          ln -s /usr/local/bin/greadlink /usr/local/bin/readlink
+      
+      - name: Installing dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          set -x
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz pkg-config
+
+      - name: Copy a generated OD's code
+        run: |
+          ./copy_od_gen_code.sh examples/test-gen/node1/
+
+      - name: Build OSCO project
+        if: matrix.os != 'windows-latest'
+        run: |
+          mkdir build/
+          cd build/
+          cmake ../
+          cmake --build .
+
+      - name: Build OSCO project (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir build
+          cd build/
+          cmake ../ -DCMAKE_C_FLAGS=/w34716 -DCMAKE_CXX_FLAGS=/w34716
+          cmake --build .
+
+      - name: Test project (CTest)
+        run: |
+          cd build/
+          ctest -VV
