@@ -28,14 +28,14 @@ set(SOURCES
 message(STATUS "EXAMPLE BASIC SOURCES : ${SOURCES}")
 
 # Target definition ---------------------------------------
-add_executable(${CMAKE_PROJECT_NAME}-basic
+add_executable(${CMAKE_PROJECT_NAME}-basic-non-threaded
     ${SOURCES}
 )
-add_dependencies(${CMAKE_PROJECT_NAME}-basic
+add_dependencies(${CMAKE_PROJECT_NAME}-basic-non-threaded
     ${CMAKE_PROJECT_NAME}
     can-ip
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}-basic
+target_link_libraries(${CMAKE_PROJECT_NAME}-basic-non-threaded
     ${CMAKE_PROJECT_NAME}
     Threads::Threads
     can-ip

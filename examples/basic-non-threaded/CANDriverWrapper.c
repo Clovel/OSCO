@@ -46,7 +46,7 @@ oscoErrorCode_t errorCodeTranslator(const cipErrorCode_t pErrorCode) {
 }
 
 oscoErrorCode_t initCANDriver(void) {
-    return errorCodeTranslator(CIP_init(CIP_ID, CIP_MODE, CIP_PORT, true));
+    return errorCodeTranslator(CIP_init(CIP_ID, CIP_MODE, CIP_PORT, false));
 }
 
 oscoErrorCode_t resetCANDriver(void) {

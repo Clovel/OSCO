@@ -201,36 +201,58 @@ oscoErrorCode_t OSCOCANDriverProcess(void) {
         return OSCO_ERROR_CONFIG;
     }
 
-    /* Check if message is available */
-    bool lMsgAvail = true;
-    while(lMsgAvail) {
-        lErrorCode = gCANDriver.driverFunctions.msgAvail(&lMsgAvail);
-        if(OSCO_ERROR_NONE != lErrorCode) {
-            printf("[ERROR] OSCO <OSCOCANDriverProcess> msgAvail failed\n");
-            return lErrorCode;
+    /* If threaded, check if the thread is up.
+     * If not, attempt to bring it back up.
+     */
+    if(gCANDriver.isThreadedRx) {
+        bool lIsThreadOn = true;
+        if(OSCO_ERROR_NONE != gCANDriver.driverFunctions.isRxThreadOn(&lIsThreadOn)) {
+            printf("[ERROR] OSCO <OSCOCANDriverProcess> Driver isRxThreadOn failed\n");
+            return OSCO_ERROR_DRIVER;
         }
 
-        if(lMsgAvail) {
-            /* Message available */
+        if(!lIsThreadOn) {
+            if(OSCO_ERROR_NONE != gCANDriver.driverFunctions.rxThreadStart()) {
+                printf("[ERROR] OSCO <OSCOCANDriverProcess> Failed to start driver reception thread\n");
+                return OSCO_ERROR_DRIVER;
+            }
+        } else {
+            /* Driver reception thread is running, nothing to do */
+        }
+    } else {
+        /* Non-threaded reception process required */
 
-            /* Create message structure */
-            OSCOCANMessage_t lMsg;
-            memset(&lMsg, 0U, sizeof(OSCOCANMessage_t));
-
-            /* Read message */
-            lErrorCode = gCANDriver.driverFunctions.recv(&lMsg.id, &lMsg.size, lMsg.data, &lMsg.flags);
+        /* Check if message is available */
+        bool lMsgAvail = true;
+        while(lMsgAvail) {
+            lErrorCode = gCANDriver.driverFunctions.msgAvail(&lMsgAvail);
             if(OSCO_ERROR_NONE != lErrorCode) {
-                printf("[ERROR] OSCO <OSCOCANDriverProcess> recv failed\n");
-                return lErrorCode;
+                printf("[ERROR] OSCO <OSCOCANDriverProcess> msgAvail failed\n");
+                return OSCO_ERROR_DRIVER;
             }
 
-            /* Insert the message in the Rx queue */
-            int lResult = OSCORxMgrInputMessage(lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
-            if(0 != lResult) {
-                printf("[ERROR] OSCO <OSCOCANDriverProcess> OSCORxMgrInputMessage failed\n");
-                return OSCO_ERROR_MODULE;
-            }
-        } else break;
+            if(lMsgAvail) {
+                /* Message available */
+
+                /* Create message structure */
+                OSCOCANMessage_t lMsg;
+                memset(&lMsg, 0U, sizeof(OSCOCANMessage_t));
+
+                /* Read message */
+                lErrorCode = gCANDriver.driverFunctions.recv(&lMsg.id, &lMsg.size, lMsg.data, &lMsg.flags);
+                if(OSCO_ERROR_NONE != lErrorCode) {
+                    printf("[ERROR] OSCO <OSCOCANDriverProcess> recv failed\n");
+                    return OSCO_ERROR_DRIVER;
+                }
+
+                /* Insert the message in the Rx queue */
+                int lResult = OSCORxMgrInputMessage(lMsg.id, lMsg.size, lMsg.data, lMsg.flags);
+                if(0 != lResult) {
+                    printf("[ERROR] OSCO <OSCOCANDriverProcess> OSCORxMgrInputMessage failed\n");
+                    return OSCO_ERROR_MODULE;
+                }
+            } else break;
+        }
     }
 
     return lErrorCode;
