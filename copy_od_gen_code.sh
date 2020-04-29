@@ -24,7 +24,7 @@ if [[ ! -d $SRC_DIR ]]; then
 fi
 
 # Check that all expected files are present -----
-MISSING_FILES=
+MISSING_FILES="NO"
 if [[ ! -f "$SRC_DIR/OSCOGenNodeID.h" ]]; then
     echo "[ERROR] Missing generated file : OSCOGenNodeID.h"
     MISSING_FILES="YES"
@@ -54,7 +54,8 @@ if [[ ! -f "$SRC_DIR/OSCOGenOD_MinValues.c" ]]; then
     MISSING_FILES="YES"
 fi
 
-if [[ "YES" -eq "$MISSING_FILES" ]]; then
+if [[ "YES" == "$MISSING_FILES" ]]; then
+    echo "[ERROR] Missing files, aborting..."
     exit 1
 fi
 
