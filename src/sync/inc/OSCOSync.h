@@ -8,6 +8,10 @@
 #define OSCO_SYNC_H
 
 /* Includes -------------------------------------------- */
+/* API */
+#include "OSCOInd.h"
+
+/* Types */
 #include "OSCOTypes.h"
 
 /* Defines --------------------------------------------- */
@@ -24,6 +28,10 @@
 oscoErrorCode_t OSCOSyncInit(void);
 
 /* Getters */
+bool OSCOSyncIsProducer(void);
+uint32_t OSCOSyncGetCOBID(void);
+uint32_t OSCOSyncGetPeriod(void);
+void OSCOSyncRecvInd(const uint8_t pSyncCounter);
 
 /* Setters/Modifiers */
 /**
