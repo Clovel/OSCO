@@ -94,6 +94,26 @@ oscoErrorCode_t OSCOODGetU32(const uint16_t pIdx,
     const uint8_t pSubIdx,
     uint32_t * const pOut);
 
+oscoErrorCode_t OSCOODGetU64(const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    uint64_t * const pOut);
+
+oscoErrorCode_t OSCOODGetI8(const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    int8_t * const pOut);
+
+oscoErrorCode_t OSCOODGetI16(const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    int16_t * const pOut);
+
+oscoErrorCode_t OSCOODGetI32(const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    int32_t * const pOut);
+
+oscoErrorCode_t OSCOODGetI64(const uint16_t pIdx,
+    const uint8_t pSubIdx,
+    int64_t * const pOut);
+
 /* Reception manager functions ------------------------- */
 /**
  * @brief Inserts a new message into the RxFifo.
