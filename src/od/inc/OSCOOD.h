@@ -60,6 +60,12 @@ extern "C" {
 #define OD_COMPLEX_TYPE_DEBUGGERPARAM_IDX   0x0024U
 #define OD_COMPLEX_TYPE_CMDPARAM_IDX        0x0025U
 
+/* Special object defines */
+#define SYNC_COB_ID_IDX                 0x1005U
+#define SYNC_COB_ID_SUBIDX              0x00U
+#define SYNC_COMM_CYCLE_PERIOD_IDX      0x1006U
+#define SYNC_COMM_CYCLE_PERIOD_SUBIDX   0x00U
+
 /* Type definitions ------------------------------------ */
 typedef enum _odDataTypes {
     OD_UNKNOWN_TYPE                 = 0U,
