@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 
 # Definitions ---------------------------------------------
-add_definitions(-DEXAMPLE_BASIC)
+add_definitions(-DEXAMPLE_BASIC_CAN_IP_NON_THREADED)
 
 # Requirements --------------------------------------------
 
@@ -25,17 +25,17 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-message(STATUS "EXAMPLE BASIC SOURCES : ${SOURCES}")
+message(STATUS "EXAMPLE BASIC_CAN_IP_NON_THREADED SOURCES : ${SOURCES}")
 
 # Target definition ---------------------------------------
-add_executable(${CMAKE_PROJECT_NAME}-basic-non-threaded
+add_executable(${CMAKE_PROJECT_NAME}-basic-can-ip-non-threaded
     ${SOURCES}
 )
-add_dependencies(${CMAKE_PROJECT_NAME}-basic-non-threaded
+add_dependencies(${CMAKE_PROJECT_NAME}-basic-can-ip-non-threaded
     ${CMAKE_PROJECT_NAME}
     can-ip
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}-basic-non-threaded
+target_link_libraries(${CMAKE_PROJECT_NAME}-basic-can-ip-non-threaded
     ${CMAKE_PROJECT_NAME}
     Threads::Threads
     can-ip

@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 
 # Definitions ---------------------------------------------
-add_definitions(-DEXAMPLE_BASIC)
+add_definitions(-DEXAMPLE_BASIC_CAN_IP)
 
 # Requirements --------------------------------------------
 
@@ -25,17 +25,17 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-message(STATUS "EXAMPLE BASIC SOURCES : ${SOURCES}")
+message(STATUS "EXAMPLE BASIC_CAN_IP SOURCES : ${SOURCES}")
 
 # Target definition ---------------------------------------
-add_executable(${CMAKE_PROJECT_NAME}-basic
+add_executable(${CMAKE_PROJECT_NAME}-basic-can-ip
     ${SOURCES}
 )
-add_dependencies(${CMAKE_PROJECT_NAME}-basic
+add_dependencies(${CMAKE_PROJECT_NAME}-basic-can-ip
     ${CMAKE_PROJECT_NAME}
     can-ip
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}-basic
+target_link_libraries(${CMAKE_PROJECT_NAME}-basic-can-ip
     ${CMAKE_PROJECT_NAME}
     Threads::Threads
     can-ip
