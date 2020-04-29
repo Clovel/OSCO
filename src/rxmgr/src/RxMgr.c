@@ -7,8 +7,12 @@
 /* Includes -------------------------------------------- */
 /* OSCO Module includes */
 #include "OSCORxMgr.h"
+
 /* OSCO Module private includes */
 #include "RxMgrPrivate.h"
+
+/* OSCO modules */
+#include "OSCOSync.h"
 
 /* OSCO public includes */
 #include "OSCOPrint.h"
@@ -165,7 +169,16 @@ oscoErrorCode_t OSCORxMgrProcess(void) {
     CAN_PRINT_SHORT(&lMsg);
 #endif /* CAN_PRINT_SHORT */
 
-    /* TODO : Switch case on the COB-ID */
+    if(OSCOSyncGetCOBID() == lMsg.id) {
+        /* Call SYNC recv indication function */
+        if(1U == lMsg.size){
+            OSCOSyncRecvInd(lMsg.data[0U]);
+        } else {
+            OSCOSyncRecvInd(0xFFU); /* TODO : Find default value */
+        }
+
+        /* TODO : Trigger PDOs depending on their transmission types */
+    }
 
     return OSCO_ERROR_NONE;
 }

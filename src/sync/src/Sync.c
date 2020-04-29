@@ -103,6 +103,26 @@ oscoErrorCode_t OSCOSyncInit(void) {
     return lErrorCode;
 }
 
+/* Getters */
+bool OSCOSyncIsProducer(void) {
+    return syncModule.producer;
+}
+
+uint32_t OSCOSyncGetCOBID(void) {
+    return syncModule.cobID;
+}
+
+uint32_t OSCOSyncGetPeriod(void) {
+    return syncModule.producer ? syncModule.period : 0U;
+}
+
+/* Indication function callers */
+void OSCOSyncRecvInd(const uint8_t pSyncCounter) {
+    if(NULL != syncModule.recvInd) {
+        syncModule.recvInd(pSyncCounter);
+    }
+}
+
 /* Setters */
 oscoErrorCode_t OSCOSyncSetPeriod(const uint32_t pPeriodMs) {
     syncModule.period = pPeriodMs;
