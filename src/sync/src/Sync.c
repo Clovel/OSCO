@@ -27,8 +27,8 @@
 #include "OSCO.h"
 
 /* Defines --------------------------------------------- */
-#define DEFAULT_SYNC_COB_ID 0x080U
-#define SYNC_COB_ID_PRODUCER_MASK 0x40000000U
+#define DEFAULT_SYNC_COB_ID         0x080U
+#define SYNC_COB_ID_PRODUCER_MASK   0x40000000U
 
 /* Type definitions ------------------------------------ */
 
