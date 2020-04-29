@@ -9,12 +9,19 @@
 #define OSCO_SYNCPRIVATE_H
 
 /* Includes -------------------------------------------- */
-#include "OSCOTypes.h"
+/* OSCO API */
+#include "OSCOInd.h"
+
+/* Configuration */
 #include "OSCOConfigDefines.h"
+
+/* Types */
+#include "OSCOTypes.h"
 
 /* Defines --------------------------------------------- */
 
 /* Type definitions ------------------------------------ */
+
 /**
  * @brief OSCO Sync module internal variables
  */
@@ -28,6 +35,11 @@ typedef struct _syncPrivateVars {
 #ifdef OSCO_SYNC_COUNTER_ENABLED
     uint8_t counter;        /**< SYNC Counter */
 #endif /* OSCO_SYNC_COUNTER_ENABLED */
+
+    /* Indication functions */
+    OSCOSyncRecvInd_t       recvInd;
+    OSCOSyncPreSendInd_t    preSendInd;
+    OSCOSyncPostSendInd_t   postSendInd;
 } oscoSyncInstance_t;
 
 #endif /* OSCO_SYNCPRIVATE_H */

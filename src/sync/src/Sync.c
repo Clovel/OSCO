@@ -84,6 +84,10 @@ oscoErrorCode_t OSCOSyncInit(void) {
     syncModule.producer = false;
     syncModule.cobID    = DEFAULT_SYNC_COB_ID;
 
+    syncModule.recvInd      = NULL;
+    syncModule.preSendInd   = NULL;
+    syncModule.postSendInd  = NULL;
+
     oscoErrorCode_t lErrorCode = OSCO_ERROR_NONE;
 
     /* Set/Check the SYNC settings */
@@ -99,12 +103,32 @@ oscoErrorCode_t OSCOSyncInit(void) {
     return lErrorCode;
 }
 
+/* Setters */
 oscoErrorCode_t OSCOSyncSetPeriod(const uint32_t pPeriodMs) {
     syncModule.period = pPeriodMs;
 
     return OSCO_ERROR_NONE;
 }
 
+oscoErrorCode_t OSCOSyncSetRecvIndFunction(OSCOSyncRecvInd_t pIndFct) {
+    /* NULL is possible to unregister an indication function */
+    syncModule.recvInd = pIndFct;
+    return OSCO_ERROR_NONE;
+}
+
+oscoErrorCode_t OSCOSyncSetPreSendIndFunction(OSCOSyncPreSendInd_t pIndFct) {
+    /* NULL is possible to unregister an indication function */
+    syncModule.preSendInd = pIndFct;
+    return OSCO_ERROR_NONE;
+}
+
+oscoErrorCode_t OSCOSyncSetPostSendIndFunction(OSCOSyncPostSendInd_t pIndFct) {
+    /* NULL is possible to unregister an indication function */
+    syncModule.postSendInd = pIndFct;
+    return OSCO_ERROR_NONE;
+}
+
+/* Process */
 oscoErrorCode_t OSCOSyncProcess(void) {
     oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
     static uint64_t lNewTicks = 0UL, lOldTicks = 0UL;
@@ -138,6 +162,15 @@ oscoErrorCode_t OSCOSyncProcess(void) {
 
         if(syncModule.period <= lNewTicks - lOldTicks) {
             /* Period passed, we must send the SYNC message */
+
+            /* Pre-send indication function call */
+            if(NULL != syncModule.preSendInd) {
+#ifdef OSCO_SYNC_COUNTER_ENABLED
+                syncModule.preSendInd(&syncModule.counter);
+#else /* OSCO_SYNC_COUNTER_ENABLED */
+                syncModule.preSendInd(NULL);
+#endif /* OSCO_SYNC_COUNTER_ENABLED */
+            }
 #ifdef OSCO_SYNC_COUNTER_ENABLED
             lErrorCode = OSCOCANDriverSend(syncModule.cobID, 1U, &syncModule.counter, 0x00000000U);
             syncModule.counter = 0xFFU <= syncModule.counter ? 0U : syncModule.counter + 1U;
@@ -147,6 +180,15 @@ oscoErrorCode_t OSCOSyncProcess(void) {
             if(OSCO_ERROR_NONE != lErrorCode) {
                 eprintf("[ERROR] OSCO <OSCOSyncProcess> OSCOCANDriverSend failed !\n");
                 return OSCO_ERROR_DRIVER;
+            }
+
+            /* Post-send indication function call */
+            if(NULL != syncModule.postSendInd) {
+#ifdef OSCO_SYNC_COUNTER_ENABLED
+                syncModule.postSendInd(&syncModule.counter);
+#else /* OSCO_SYNC_COUNTER_ENABLED */
+                syncModule.postSendInd(NULL);
+#endif /* OSCO_SYNC_COUNTER_ENABLED */
             }
 
             /* Save the new time of SYNC emission */
