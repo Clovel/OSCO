@@ -12,8 +12,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes -------------------------------------------- */
+/* API headers */
+#include "OSCOInd.h"
+
+/* Configuration */
 #include "OSCOConfigDefines.h"
-#include "OSCOErrorCodes.h"
+
+/* Types */
 #include "OSCOTypes.h"
 
 /* Defines --------------------------------------------- */
