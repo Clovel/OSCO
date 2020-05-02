@@ -6,6 +6,7 @@
 # Include directories -------------------------------------
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/driver/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/statemachine/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/clock/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/sync/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/rxmgr/inc
@@ -13,10 +14,11 @@ include_directories(
 )
 
 # Subdirectories (OSCO modules) ---------------------------
-add_subdirectory(rxmgr)
 add_subdirectory(driver)
+add_subdirectory(statemachine)
 add_subdirectory(clock)
 add_subdirectory(sync)
+add_subdirectory(rxmgr)
 add_subdirectory(od)
 
 # Header files --------------------------------------------
@@ -49,16 +51,20 @@ message("MAIN SOURCES : ${SOURCES}")
 add_library(${CMAKE_PROJECT_NAME}
     ${SOURCES}
 )
+
 add_dependencies(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
+    ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
     ${CMAKE_PROJECT_NAME}OD
     ${CMAKE_PROJECT_NAME}GenOD
-    )
-    target_link_libraries(${CMAKE_PROJECT_NAME}
+)
+
+target_link_libraries(${CMAKE_PROJECT_NAME}
     ${CMAKE_PROJECT_NAME}Driver
+    ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
     ${CMAKE_PROJECT_NAME}Sync
     ${CMAKE_PROJECT_NAME}RxMgr
