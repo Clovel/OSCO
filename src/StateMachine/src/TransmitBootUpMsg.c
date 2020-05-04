@@ -1,7 +1,7 @@
 /**
  * @brief OSCO boot-up message transmission
  * 
- * @file TransmitBootUp.c
+ * @file TransmitBootUpMsg.c
  */
 
 /* Includes -------------------------------------------- */
