@@ -1,7 +1,7 @@
 /*
- * @brief Main OSCO implementation file
+ * @brief OSCO process implementation file
  * 
- * @file OSCOMain.c
+ * @file OSCOProcess.c
  */
 
 /* Includes -------------------------------------------- */
