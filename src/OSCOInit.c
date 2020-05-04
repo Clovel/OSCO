@@ -14,6 +14,9 @@
 /* OSCO Clock */
 #include "OSCORxMgr.h"
 
+/* OSCO State Machine */
+#include "OSCOStateMachine.h"
+
 /* OSCO CAN Driver */
 #include "OSCOCANDriver.h"
 
@@ -46,6 +49,13 @@ oscoErrorCode_t OSCOInit(const bool pThreadedRx) {
     lErrorCode = OSCOCANDriverInit(pThreadedRx);
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOCANDriverInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_DRIVER;
+    }
+
+    /* Initialize the State Machine */
+    lErrorCode = OSCOStateMachineInit();
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOStateMachineInit failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_DRIVER;
     }
 

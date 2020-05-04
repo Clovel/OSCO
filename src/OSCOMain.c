@@ -1,7 +1,7 @@
 /*
  * @brief Main OSCO implementation file
  * 
- * @file CANDriver.c
+ * @file OSCOMain.c
  */
 
 /* Includes -------------------------------------------- */
@@ -16,6 +16,9 @@
 
 /* OSCO RxMgr */
 #include "OSCORxMgr.h"
+
+/* State machine */
+#include "OSCOStateMachine.h"
 
 /* OSCO private includes */
 #include "OSCOPrivate.h"
@@ -41,6 +44,13 @@ oscoErrorCode_t OSCOProcess(void) {
     }
 
     oscoErrorCode_t lErrorCode = OSCO_ERROR_UNKNOWN;
+
+    /* State machine process */
+    lErrorCode = OSCOStateMachineProcess();
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCOStateMachineProcess failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
 
     /* CAN driver process */
     lErrorCode = OSCOCANDriverProcess();
