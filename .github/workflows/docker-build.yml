@@ -1,0 +1,28 @@
+name: Docker build
+#author: Clovis Durand
+#description: GitHub action to build the OSCO project
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # TODO : Make this work for Windows
+        # os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Checkout submodules
+        run: | 
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - name: Build Docker image
+        run: |
+          cd docker
+          docker-compose build

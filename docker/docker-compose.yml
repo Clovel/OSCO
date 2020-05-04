@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  osco-image:
+    image: osco-image
+    container_name: osco-image
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - '../:/repository'
+    privileged: true
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
