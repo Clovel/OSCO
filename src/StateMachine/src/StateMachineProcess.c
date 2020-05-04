@@ -365,7 +365,7 @@ oscoErrorCode_t OSCOStateMachineProcess(void) {
             break;
         case OSCO_STATE_UNKNOWN:
         default:
-            eprintf("[ERROR] OSCO <OSCOStateMachineProcess> Unknown state\n");
+            eprintf("[ERROR] OSCO <OSCOStateMachineProcess> Unknown state (%u) \n", stateMachine.currentState);
             lErrorCode = OSCO_ERROR_SYS;
     }
 
