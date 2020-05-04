@@ -6,7 +6,7 @@
 # Include directories -------------------------------------
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/driver/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/statemachine/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/StateMachine/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/clock/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/sync/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/rxmgr/inc
@@ -15,7 +15,7 @@ include_directories(
 
 # Subdirectories (OSCO modules) ---------------------------
 add_subdirectory(driver)
-add_subdirectory(statemachine)
+add_subdirectory(StateMachine)
 add_subdirectory(clock)
 add_subdirectory(sync)
 add_subdirectory(rxmgr)
