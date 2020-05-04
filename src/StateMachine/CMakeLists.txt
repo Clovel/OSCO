@@ -39,5 +39,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}StateMachine
 install(TARGETS ${CMAKE_PROJECT_NAME}StateMachine
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )
