@@ -20,7 +20,9 @@
 /* Type definitions ------------------------------------ */
 
 /* Variable declarations ------------------------------- */
-oscoStateMachineInstance_t stateMachine;
+oscoStateMachineInstance_t stateMachine = {
+    false
+};
 
 /* OSCO State Machine private functions ---------------- */
 oscoErrorCode_t OSCOStateMachineInit(void) {
