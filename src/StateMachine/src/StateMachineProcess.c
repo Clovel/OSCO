@@ -19,22 +19,38 @@
 /* Variable declarations ------------------------------- */
 extern oscoStateMachineInstance_t stateMachine;
 
+/* Helper functions ------------------------------------ */
+static void changeState(const oscoState_t pNewState) {
+    stateMachine.previousState = stateMachine.currentState;
+    stateMachine.currentState  = pNewState;
+}
+
 /* OSCO State Machine process functions ---------------- */
 static oscoErrorCode_t powerOnResetProcess(void) {
+    static bool lFirstCall = true;
+
     /* Check the current state */
     if(OSCO_STATE_POWER_ON_RESET != stateMachine.currentState) {
         eprintf("[ERROR] OSCO <powerOnResetProcess> Not currently in POWER ON RESET state\n");
         return OSCO_ERROR_MODULE;
     }
 
-    /* Check if we got here after a Node reset */
-    if(OSCO_STATE_RESET_NODE != stateMachine.previousState) {
-        /* TODO : Reset node (OSCO stack AND app) */
+    if(lFirstCall) {
+        /* Specific action to do when entering this state */
+
+        lFirstCall = false;
     }
 
+    /*
+     * State change causes :
+     * - Automatic
+     */
+
     /* Switch to Initializing state */
-    stateMachine.previousState = stateMachine.currentState;
-    stateMachine.currentState  = OSCO_STATE_INIT;
+    changeState(OSCO_STATE_INIT);
+
+    /* Reset the "first call" flag for next time */
+    lFirstCall = true;
 
     /* TODO : State change conditions */
 
@@ -42,15 +58,24 @@ static oscoErrorCode_t powerOnResetProcess(void) {
 }
 
 static oscoErrorCode_t initProcess(void) {
+    static bool lFirstCall = true;
+
     /* Check the current state */
     if(OSCO_STATE_INIT != stateMachine.currentState) {
         eprintf("[ERROR] OSCO <powerOnResetProcess> Not currently in INITIALIZING state\n");
         return OSCO_ERROR_MODULE;
     }
 
-    /* Check if we got here after a Comm reset */
-    if(OSCO_STATE_RESET_COMM != stateMachine.previousState) {
-        /* TODO : Reset OSCO stack */
+    /* TODO : Initialize stack */
+    
+    if(lFirstCall) {
+        /* Transmit Boot-Up message (once) */
+        if(OSCO_ERROR_NONE != transmitBootUpMsg()) {
+            eprintf("[ERROR] OSCO <initProcess> Failed to send out the Boot-Up message\n");
+            return OSCO_ERROR_DRIVER;
+        }
+
+        lFirstCall = false;
     }
 
     /*
@@ -59,26 +84,36 @@ static oscoErrorCode_t initProcess(void) {
      * - User triggered change via function call
      */
     /* TODO : Check if auto-startup is enabled */
-    /* TODO : Check if state change requested */
+    if((OSCO_STATE_PREOP == stateMachine.requestedState) 
+        || (false /* TODO : Auto-startup */))
+    {
+        /* State change requested (PRE OPERATIONNAL) */
 
-    /* Transmit Boot-Up message */
-    if(OSCO_ERROR_NONE != transmitBootUpMsg()) {
-        eprintf("[ERROR] OSCO <initProcess> Failed to send out the Boot-Up message\n");
-        return OSCO_ERROR_DRIVER;
+        /* Switch to pre-operationnal state */
+        changeState(OSCO_STATE_PREOP);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+
+        /* Reset the "first call" flag for next time */
+        lFirstCall = true;
     }
 
-    /* Switch to pre-operationnal state */
-    stateMachine.previousState = stateMachine.currentState;
-    stateMachine.currentState  = OSCO_STATE_PREOP;
 
     return OSCO_ERROR_NONE;
 }
 
 static oscoErrorCode_t preOperationnalProcess(void) {
+    static bool lFirstCall = true;
+
     /* Check the current state */
     if(OSCO_STATE_PREOP != stateMachine.currentState) {
         eprintf("[ERROR] OSCO <powerOnResetProcess> Not currently in PRE OPERATIONNAL state\n");
         return OSCO_ERROR_MODULE;
+    }
+
+    if(lFirstCall) {
+        /* Specific action to do when entering this state */
+
+        lFirstCall = false;
     }
     
     /* Switches to Operationnal :
@@ -86,27 +121,63 @@ static oscoErrorCode_t preOperationnalProcess(void) {
      * - User triggered change via function call
      * - Reception of the "Start remote node" command
      */
-    /* TODO */
+    if((OSCO_STATE_OP == stateMachine.requestedState)
+        || (false /* TODO : Auto operationnal state change */))
+    {
+        /* State change requested (OPERATIONNAL) */
+
+        /* Switch to operationnal state */
+        changeState(OSCO_STATE_OP);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Stopped :
      * - Reception of "Stop remote node" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_STOPPED == stateMachine.requestedState)
+    {
+        /* State change requested (STOPPED) */
+
+        /* Switch to stopped state */
+        changeState(OSCO_STATE_STOPPED);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Comm :
      * - Reception of the "Reset communication" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_COMM == stateMachine.requestedState)
+    {
+        /* State change requested (RESET COMM) */
+
+        /* Switch to reset comm state */
+        changeState(OSCO_STATE_RESET_COMM);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Node :
      * - Reception of the "Reset node" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_NODE == stateMachine.requestedState)
+    {
+        /* State change requested (RESET NODE) */
+
+        /* Switch to reset node state */
+        changeState(OSCO_STATE_RESET_NODE);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
+
+    if(OSCO_STATE_PREOP != stateMachine.currentState) {
+        /* Changing state, reset first call flag for next time */
+        lFirstCall = true;
+    }
 
     return OSCO_ERROR_NONE;
 }
 
 static oscoErrorCode_t operationnalProcess(void) {
+    static bool lFirstCall = true;
+
     /* Check the current state */
     if(OSCO_STATE_OP != stateMachine.currentState) {
         eprintf("[ERROR] OSCO <powerOnResetProcess> Not currently in OPERATIONNAL state\n");
@@ -117,26 +188,61 @@ static oscoErrorCode_t operationnalProcess(void) {
      * - User triggered change via function call
      * - Reception of the "Enter pre-operational state" command
      */
+    if(OSCO_STATE_PREOP == stateMachine.requestedState)
+    {
+        /* State change requested (PRE OPERATIONNAL) */
+
+        /* Switch to pre-operationnal state */
+        changeState(OSCO_STATE_PREOP);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Stopped :
      * - Reception of "Stop remote node" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_STOPPED == stateMachine.requestedState)
+    {
+        /* State change requested (STOPPED) */
+
+        /* Switch to stopped state */
+        changeState(OSCO_STATE_STOPPED);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Comm :
      * - Reception of the "Reset communication" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_COMM == stateMachine.requestedState)
+    {
+        /* State change requested (RESET COMM) */
+
+        /* Switch to reset comm state */
+        changeState(OSCO_STATE_RESET_COMM);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Node :
      * - Reception of the "Reset node" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_NODE == stateMachine.requestedState)
+    {
+        /* State change requested (RESET NODE) */
+
+        /* Switch to reset node state */
+        changeState(OSCO_STATE_RESET_NODE);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
+
+    if(OSCO_STATE_OP != stateMachine.currentState) {
+        /* Changing state, reset first call flag for next time */
+        lFirstCall = true;
+    }
 
     return OSCO_ERROR_NONE;
 }
 
 static oscoErrorCode_t stoppedProcess(void) {
+    static bool lFirstCall = true;
     /* Check the current state */
     if(OSCO_STATE_STOPPED != stateMachine.currentState) {
         eprintf("[ERROR] OSCO <powerOnResetProcess> Not currently in STOPPED state\n");
@@ -147,23 +253,57 @@ static oscoErrorCode_t stoppedProcess(void) {
      * - User triggered change via function call
      * - Reception of the "Enter pre-operational state" command
      */
-    /* TODO */
+    if(OSCO_STATE_PREOP == stateMachine.requestedState)
+    {
+        /* State change requested (PRE OPERATIONNAL) */
+
+        /* Switch to pre-operationnal state */
+        changeState(OSCO_STATE_PREOP);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Operationnal :
      * - Auto operationnal
      * - User triggered change via function call
      * - Reception of the "Start remote node" command
      */
-    /* TODO */
+    else if((OSCO_STATE_OP == stateMachine.requestedState)
+        || (false /* TODO : Auto operationnal state change */))
+    {
+        /* State change requested (OPERATIONNAL) */
+
+        /* Switch to operationnal state */
+        changeState(OSCO_STATE_OP);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Comm :
      * - Reception of the "Reset communication" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_COMM == stateMachine.requestedState)
+    {
+        /* State change requested (RESET COMM) */
+
+        /* Switch to reset comm state */
+        changeState(OSCO_STATE_RESET_COMM);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
     /* Switches to Reset Node :
      * - Reception of the "Reset node" command
      * - User triggered change via function call
      */
-    /* TODO */
+    else if(OSCO_STATE_RESET_NODE == stateMachine.requestedState)
+    {
+        /* State change requested (RESET NODE) */
+
+        /* Switch to reset node state */
+        changeState(OSCO_STATE_RESET_NODE);
+        stateMachine.requestedState = OSCO_STATE_UNKNOWN;
+    }
+
+    if(OSCO_STATE_OP != stateMachine.currentState) {
+        /* Changing state, reset first call flag for next time */
+        lFirstCall = true;
+    }
 
     return OSCO_ERROR_NONE;
 }
@@ -178,8 +318,7 @@ static oscoErrorCode_t resetCommProcess(void) {
     /* TODO : Reset OSCO stack */
 
     /* Switch to initializing state */
-    stateMachine.previousState = stateMachine.currentState;
-    stateMachine.currentState  = OSCO_STATE_INIT;
+    changeState(OSCO_STATE_INIT);
 
     return OSCO_ERROR_NONE;
 }
@@ -194,8 +333,7 @@ static oscoErrorCode_t resetNodeProcess(void) {
     /* TODO : Reset OSCO stack AND application */
 
     /* Switch to initializing state */
-    stateMachine.previousState = stateMachine.currentState;
-    stateMachine.currentState  = OSCO_STATE_POWER_ON_RESET;
+    changeState(OSCO_STATE_POWER_ON_RESET);
 
     return OSCO_ERROR_NONE;
 }
@@ -227,7 +365,7 @@ oscoErrorCode_t OSCOStateMachineProcess(void) {
             break;
         case OSCO_STATE_UNKNOWN:
         default:
-            eprintf("[ERROR] OSCO <OSCOStateMachineProcess> Unknown state");
+            eprintf("[ERROR] OSCO <OSCOStateMachineProcess> Unknown state\n");
             lErrorCode = OSCO_ERROR_SYS;
     }
 

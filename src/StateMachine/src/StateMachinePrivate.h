@@ -18,6 +18,7 @@ typedef struct _stateMachinePrivateVars {
 
     oscoState_t currentState;
     oscoState_t previousState;
+    oscoState_t requestedState;
 } oscoStateMachineInstance_t;
 
 /* Variable declarations ------------------------------- */
