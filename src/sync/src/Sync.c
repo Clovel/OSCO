@@ -167,7 +167,6 @@ oscoErrorCode_t OSCOSyncProcess(void) {
     lErrorCode = syncCheckODSettings();
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOSyncProcess> Failed to set/check SYNC settings\n");
-        syncModule.initialized = false;
         return lErrorCode;
     }
 
