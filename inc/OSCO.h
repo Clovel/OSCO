@@ -86,6 +86,13 @@ oscoErrorCode_t OSCOProcess(void);
  */
 oscoErrorCode_t OSCOClockTick(void);
 
+/* Stack data access functions ------------------------- */
+/* Getters */
+uint8_t OSCOGetNodeID(void);
+
+/* Setters */
+oscoErrorCode_t OSCOSetNodeID(const uint8_t pNodeID);
+
 /* OD Access functions --------------------------------- */
 oscoErrorCode_t OSCOODGetU8(const uint16_t pIdx,
     const uint8_t pSubIdx,

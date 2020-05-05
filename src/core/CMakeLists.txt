@@ -32,6 +32,7 @@ add_library(${CMAKE_PROJECT_NAME}
 )
 
 add_dependencies(${CMAKE_PROJECT_NAME}
+    ${CMAKE_PROJECT_NAME}Data
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
@@ -42,6 +43,7 @@ add_dependencies(${CMAKE_PROJECT_NAME}
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
+    ${CMAKE_PROJECT_NAME}Data
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
