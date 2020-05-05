@@ -25,6 +25,7 @@ oscoDataInstance_t data = {
     OSCO_NODE_ID
 };
 
+/* Data module functions ------------------------------- */
 /* Getters */
 uint8_t OSCOGetNodeID(void) {
     return data.nodeID;
