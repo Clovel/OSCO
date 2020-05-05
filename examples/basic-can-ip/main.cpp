@@ -97,6 +97,7 @@ int main(const int argc, const char * const * const argv) {
         }
     });
 
+    uint8_t i = 0U;
     while(true) {
         /* Call the CANOpen stack main process routine */
         lErrorCode = OSCOProcess();
@@ -104,6 +105,28 @@ int main(const int argc, const char * const * const argv) {
             std::cerr << "[DEBUG] OSCOProcess failed !" << std::endl;
             return EXIT_FAILURE;
         }
+
+        if(0U == i) {
+            lErrorCode = OSCORequestState(OSCO_STATE_PREOP);
+            if(OSCO_ERROR_NONE != lErrorCode) {
+                std::cerr << "[DEBUG] OSCORequestState PREOP failed !" << std::endl;
+                return EXIT_FAILURE;
+            }
+
+            ++i;
+        }
+
+        if(2U == i) {
+            lErrorCode = OSCORequestState(OSCO_STATE_OP);
+            if(OSCO_ERROR_NONE != lErrorCode) {
+                std::cerr << "[DEBUG] OSCORequestState OP failed !" << std::endl;
+                return EXIT_FAILURE;
+            }
+
+            ++i;
+        }
+
+        if(1U == i) ++i;
 
         usleep(250U);
     }
