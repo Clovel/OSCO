@@ -166,12 +166,12 @@ oscoErrorCode_t OSCOSyncProcess(void) {
      */
     lErrorCode = syncCheckODSettings();
     if(OSCO_ERROR_NONE != lErrorCode) {
-        eprintf("[ERROR] OSCO <OSCOSyncInit> Failed to set/check SYNC settings\n");
+        eprintf("[ERROR] OSCO <OSCOSyncProcess> Failed to set/check SYNC settings\n");
         syncModule.initialized = false;
         return lErrorCode;
     }
 
-    /* Send SYNC if this node is a producer and hte period isn't 0 */
+    /* Send SYNC if this node is a producer and the period isn't 0 */
     if((syncModule.producer) && (0U != syncModule.period)) {
         /* Get ticks to see if it is time to send a SYNC message */
         lErrorCode = OSCOClockGetTicks(&lNewTicks);
