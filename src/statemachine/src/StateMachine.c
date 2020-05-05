@@ -82,16 +82,22 @@ oscoErrorCode_t OSCORequestState(const oscoState_t pRequestedState) {
         case OSCO_STATE_PREOP:
         case OSCO_STATE_OP:
         case OSCO_STATE_STOPPED:
+            stateMachine.requestedState = pRequestedState;
+            break;
         case OSCO_STATE_RESET_COMM:
             if(OSCO_STATE_RESET_NODE == stateMachine.currentState) {
                 eprintf("[ERROR] OSCO <OSCORequestState> Cannot request RESET_COMM state while in RESET_NODE state\n");
                 return OSCO_ERROR_ARG;
             }
+            stateMachine.requestedState = pRequestedState;
+            break;
         case OSCO_STATE_RESET_NODE:
             if(OSCO_STATE_RESET_COMM == stateMachine.currentState) {
                 eprintf("[ERROR] OSCO <OSCORequestState> Cannot request RESET_NODE state while in RESET_COMM state\n");
                 return OSCO_ERROR_ARG;
             }
+            stateMachine.requestedState = pRequestedState;
+            break;
         case OSCO_STATE_POWER_ON_RESET:
         case OSCO_STATE_INIT:
             eprintf("[ERROR] OSCO <OSCORequestState> Cannot request this state (%u)\n", pRequestedState);
