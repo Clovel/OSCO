@@ -107,4 +107,6 @@ oscoErrorCode_t OSCORequestState(const oscoState_t pRequestedState) {
             eprintf("[ERROR] OSCO <OSCORequestState> Unknown state (%u)\n", pRequestedState);
             return OSCO_ERROR_ARG;
     }
+
+    return OSCO_ERROR_NONE;
 }
