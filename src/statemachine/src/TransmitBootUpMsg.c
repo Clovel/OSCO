@@ -11,10 +11,8 @@
 /* CAN driver */
 #include "OSCOCANDriver.h"
 
-/* OSCO Node ID */
-#include "OSCOGenNodeID.h"
-
 /* OSCO public headers */
+#include "OSCO.h"
 #include "OSCOPrint.h"
 #include "OSCOTypes.h"
 
@@ -32,7 +30,7 @@ static OSCOCANMessage_t sBootUpMsg = {
 
 /* TransmitBootUpMsg function -------------------------- */
 oscoErrorCode_t transmitBootUpMsg(void) {
-    sBootUpMsg.id = 0x700 + OSCO_NODE_ID; /* TODO : Use variable */
+    sBootUpMsg.id = 0x700 + OSCOGetNodeID(); /* TODO : Use variable */
 
     oscoErrorCode_t lErrorCode = OSCOCANDriverSend(sBootUpMsg.id, sBootUpMsg.size, sBootUpMsg.data, sBootUpMsg.flags);
     if(OSCO_ERROR_NONE != lErrorCode) {

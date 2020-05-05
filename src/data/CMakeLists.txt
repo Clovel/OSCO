@@ -19,26 +19,16 @@ file(GLOB SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-message("STATE_MACHINE SOURCES : ${SOURCES}")
+message("DATA SOURCES : ${SOURCES}")
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}StateMachine
+add_library(${CMAKE_PROJECT_NAME}Data
     ${SOURCES}
-)
-
-add_dependencies(${CMAKE_PROJECT_NAME}StateMachine
-    ${CMAKE_PROJECT_NAME}Data
-    ${CMAKE_PROJECT_NAME}Driver
-)
-
-target_link_libraries(${CMAKE_PROJECT_NAME}StateMachine
-    ${CMAKE_PROJECT_NAME}Data
-    ${CMAKE_PROJECT_NAME}Driver
 )
 
 #----------------------------------------------------------------------------
 # The installation is prepended by the CMAKE_INSTALL_PREFIX variable
-install(TARGETS ${CMAKE_PROJECT_NAME}StateMachine
+install(TARGETS ${CMAKE_PROJECT_NAME}Data
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

@@ -21,6 +21,7 @@
 #include <unistd.h>
 
 /* Defines --------------------------------------------- */
+#define NODE_ID 0x05U
 
 /* Notes ----------------------------------------------- */
 
@@ -63,9 +64,14 @@ int main(const int argc, const char * const * const argv) {
         exit(EXIT_FAILURE);
     }
 
-    /* Initialize the CAN over IP module */
+    /* Initialize the OSCO stack */
     if(OSCO_ERROR_NONE != (lErrorCode = OSCOInit(true))) {
         std::cerr << "[ERROR] OSCOInit failed w/ error code " << lErrorCode << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if(OSCO_ERROR_NONE != OSCOSetNodeID(NODE_ID)) {
+        std::cerr << "[ERROR] OSCOSetNodeID failed w/ error code " << lErrorCode << std::endl;
         exit(EXIT_FAILURE);
     }
 
