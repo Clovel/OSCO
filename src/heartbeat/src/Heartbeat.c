@@ -60,6 +60,8 @@ static oscoErrorCode_t hbCheckODSettings(void) {
         return lErrorCode;
     }
 
+    hbModule.period *= 1000U; /* Convert ms into us */
+
     hbModule.producer = 0 < hbModule.period ? true : false;
 
     /* TODO : Check consumer settings */
