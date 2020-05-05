@@ -107,7 +107,7 @@ oscoErrorCode_t OSCOHBInit(void) {
 
     oscoErrorCode_t lErrorCode = OSCO_ERROR_NONE;
 
-    /* Set/Check the SYNC settings */
+    /* Set/Check the HB settings */
     lErrorCode = hbCheckODSettings();
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOHBInit> Failed to set/check HB settings\n");
@@ -162,16 +162,15 @@ oscoErrorCode_t OSCOHBProcess(void) {
         return OSCO_ERROR_NOT_INIT;
     }
 
-    /* Set/Check the SYNC settings in case they changed 
+    /* Set/Check the HB settings in case they changed 
      * TODO : Check if they changed before changing.
      * 
      * This is useful in the case where a SDO write occured
-     * on this node's SYNC entries, thus changing the settings.
+     * on this node's HB entries, thus changing the settings.
      */
     lErrorCode = hbCheckODSettings();
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOHBProcess> Failed to set/check SYNC settings\n");
-        hbModule.initialized = false;
         return lErrorCode;
     }
 
