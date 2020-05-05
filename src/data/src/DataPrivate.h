@@ -16,9 +16,9 @@
 /* Defines --------------------------------------------- */
 
 /* Type definitions ------------------------------------ */
-typedef struct _stateMachinePrivateVars {
+typedef struct _dataPrivateVars {
     uint8_t nodeID;
-} oscoStateMachineInstance_t;
+} oscoDataInstance_t;
 
 /* Variable declarations ------------------------------- */
 

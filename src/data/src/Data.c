@@ -21,7 +21,7 @@
 
 /* Variable declarations ------------------------------- */
 /* Need to init this statically to use as "extern" in other files */
-oscoStateMachineInstance_t data = {
+oscoDataInstance_t data = {
     OSCO_NODE_ID
 };
 
