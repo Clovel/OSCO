@@ -3,15 +3,10 @@
 # 
 # -----------------------------------------------------------------------------
 
-# The Core module is in fact the whole OSCO stack 
-# once the other modules are linked.
-
 # Header files --------------------------------------------
-file(GLOB PUBLIC_HEADERS
+file(GLOB_RECURSE PUBLIC_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/*.hpp
 )
 
 set(HEADERS
@@ -24,43 +19,30 @@ file(GLOB SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-message("CORE SOURCES : ${SOURCES}")
+message("HEARTBEAT SOURCES : ${SOURCES}")
 
 # Target definition ---------------------------------------
-add_library(${CMAKE_PROJECT_NAME}
+add_library(${CMAKE_PROJECT_NAME}Heartbeat
     ${SOURCES}
 )
 
-add_dependencies(${CMAKE_PROJECT_NAME}
+add_dependencies(${CMAKE_PROJECT_NAME}Heartbeat
     ${CMAKE_PROJECT_NAME}Data
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
-    ${CMAKE_PROJECT_NAME}Sync
-    ${CMAKE_PROJECT_NAME}Heartbeat
-    ${CMAKE_PROJECT_NAME}RxMgr
-    ${CMAKE_PROJECT_NAME}OD
-    ${CMAKE_PROJECT_NAME}GenOD
 )
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
+target_link_libraries(${CMAKE_PROJECT_NAME}Heartbeat
     ${CMAKE_PROJECT_NAME}Data
     ${CMAKE_PROJECT_NAME}Driver
     ${CMAKE_PROJECT_NAME}StateMachine
     ${CMAKE_PROJECT_NAME}Clock
-    ${CMAKE_PROJECT_NAME}Sync
-    ${CMAKE_PROJECT_NAME}Heartbeat
-    ${CMAKE_PROJECT_NAME}RxMgr
-    ${CMAKE_PROJECT_NAME}OD
-    ${CMAKE_PROJECT_NAME}GenOD
-)
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES 
-    PUBLIC_HEADER "${PUBLIC_HEADERS}"
 )
 
 #----------------------------------------------------------------------------
 # The installation is prepended by the CMAKE_INSTALL_PREFIX variable
-install(TARGETS ${CMAKE_PROJECT_NAME}
+install(TARGETS ${CMAKE_PROJECT_NAME}Heartbeat
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
