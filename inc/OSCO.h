@@ -90,6 +90,9 @@ oscoErrorCode_t OSCOClockTick(void);
 /* Getters */
 uint8_t OSCOGetNodeID(void);
 
+/* Stack state machine functions ----------------------- */
+oscoErrorCode_t OSCORequestState(const oscoState_t pRequestedState);
+
 /* Setters */
 oscoErrorCode_t OSCOSetNodeID(const uint8_t pNodeID);
 

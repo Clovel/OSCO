@@ -65,6 +65,12 @@ oscoErrorCode_t OSCOProcess(void) {
         eprintf("[ERROR] OSCO <OSCOProcess> OSCOSyncProcess failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_MODULE;
     }
+
+    lErrorCode = OSCOHBProcess();
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOProcess> OSCOHBProcess failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
     
     /* Process incoming CAN messages */
     lErrorCode = OSCORxMgrProcess();

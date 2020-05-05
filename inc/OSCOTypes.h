@@ -62,6 +62,17 @@ typedef struct _CanDriverCallbacks {
     OSCOCANDriverIsRxThreadOn_t     isRxThreadOn;
 } OSCOCANDriverCallbacks_t;
 
+typedef enum _canopenStates {
+    OSCO_STATE_UNKNOWN = 0U,
+    OSCO_STATE_POWER_ON_RESET,
+    OSCO_STATE_INIT,
+    OSCO_STATE_PREOP,
+    OSCO_STATE_OP,
+    OSCO_STATE_STOPPED,
+    OSCO_STATE_RESET_COMM,
+    OSCO_STATE_RESET_NODE
+} oscoState_t;
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

@@ -5,6 +5,9 @@
  */
 
 /* Includes -------------------------------------------- */
+/* OSCO HB Module */
+#include "OSCOHeartbeat.h"
+
 /* OSCO SYNC Module */
 #include "OSCOSync.h"
 
@@ -76,6 +79,12 @@ oscoErrorCode_t OSCOInit(const bool pThreadedRx) {
     lErrorCode = OSCOSyncInit();
     if(OSCO_ERROR_NONE != lErrorCode) {
         eprintf("[ERROR] OSCO <OSCOInit> OSCOSyncInit failed with error code %u !\n", lErrorCode);
+        return OSCO_ERROR_MODULE;
+    }
+
+    lErrorCode = OSCOHBInit();
+    if(OSCO_ERROR_NONE != lErrorCode) {
+        eprintf("[ERROR] OSCO <OSCOInit> OSCOHBInit failed with error code %u !\n", lErrorCode);
         return OSCO_ERROR_MODULE;
     }
 
