@@ -148,6 +148,9 @@ oscoErrorCode_t OSCORxMgrInputMessage(const uint32_t pCOBID,
     const uint8_t * const pData,
     const uint32_t pFlags);
 
+/* PDO functions --------------------------------------- */
+oscoErrorCode_t OSCOTriggerTPDOs(void);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
